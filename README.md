@@ -1,2 +1,9 @@
-# dnd-companion-tool
+# D&D Companion Tool
 A companion tool for GMs and Players
+
+## Product Overview
+When COVID forced everyone into a lockdown many turned to the internet to facilitate meetings with friends and family members to give us back some of the valuable social interaction we were all sorely missing. This was equally true of those of us who enjoyed table top role playing games. Gone were weekly dungeons & dragons games around a large table. In their place were simulators and virtual tables using systems such as roll20 and foundry. This allowed us to keep the games going however with a few limitations. 
+
+For one, those of us who had only the one device available to run these systems found that switching between tabs to access character sheets and handouts broke up the immersive gameplay experience especially if trying to use a video call service to see each other while playing. Another issue we faced was tracking players' turns. Now systems like roll20 have an ‘Initiative Tracker’ that displays in a floating menu. This floating menu however covers a portion of the map which depending on your screen size may be frustrating. In short, while these systems are great, they could do with a little help. That's where this dungeons and dragons companion tool comes in. By allowing Game masters and players to hold some of their character information in a separate device we cut down on the clutter of an online game and help maintain the immersive experience. These tools have clear limitations especially for Game Master who run the games. Game Masters need to track a lot of information at one time, oftentimes this means switching between many tabs in a single browser.
+
+We need to have a clear way of recording and tracking details (character statistics, initiative orders, combat rounds etc) in a user friendly manner and a way to share parts of these details (as some should only be seen by the GM) between players and GMs in a synchronised manner so that no party is out of sync with the others. This companion tool aims to tackle these issues. 
