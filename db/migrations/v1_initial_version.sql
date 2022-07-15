@@ -1,0 +1,57 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    forename VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    date_created DATE NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS user_characters (
+    id INT NOT NULL PRIMARY KEY,
+    user_id INT NOT NULL FOREIGN KEY REFERENCES users(id),
+    character_id INT NOT NULL FOREIGN KEY REFERENCES characters(id),
+);
+
+CREATE TABLE IF NOT EXISTS characters (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR|(100) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS party_characters (
+    id INT NOT NULL PRIMARY KEY,
+    party_id INT NOT NULL FOREIGN KEY REFERENCES parties(id),
+    character_id INT NOT NULL FOREIGN KEY REFERENCES characters(id)
+);
+
+CREATE TABLE IF NOT EXISTS parties (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+    party_characters_id INT NOT NULL FOREIGN KEY REFERENCES party_characters(id)
+);
+
+CREATE TABLE IF NOT EXISTS campaigns (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS campaign_parties (
+    id INT NOT NULL PRIMARY KEY,
+    campaign_id INT NOT NULL FOREIGN KEY REFERENCES campaign(id) 
+    party_id INT NOT NULL FOREIGN KEY REFERENCES parties(id),
+);
+
+CREATE TABLE IF NOT EXISTS games (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS game_monsters (
+    id INT NOT NULL PRIMARY KEY,
+    game_id INT NOT NULL FOREIGN KEY REFERENCES game(id),
+    monster_id INT NOT NULL FOREIGN KEY REFERENCES monsters(id),
+);
+
+CREATE TABLE IF NOT EXISTS monsters (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+);
