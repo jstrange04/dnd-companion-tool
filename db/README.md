@@ -1,4 +1,4 @@
-#D&D Companion Tool Migrations
+# D&D Companion Tool Migrations
 This ER diagram was prepared using Mermaid
 
 ```mermaid
