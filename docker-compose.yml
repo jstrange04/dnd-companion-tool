@@ -15,4 +15,4 @@ services:
     environment:
     - POSTGRES_USER=jstrange
     - POSTGRES_PASSWORD=pass123
-    - POSTGRES_DB=db-name
+    - POSTGRES_DB=dct_db

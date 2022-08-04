@@ -1,0 +1,19 @@
+{
+  "name": "dnd-companion-tool",
+  "version": "1.0.0",
+  "description": "A companion tool for GMs and Players",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jstrange04/dnd-companion-tool.git"
+  },
+  "author": "jamie strange",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jstrange04/dnd-companion-tool/issues"
+  },
+  "homepage": "https://github.com/jstrange04/dnd-companion-tool#readme"
+}
