@@ -27,7 +27,33 @@ model users {
   email                String?
   forename             String?
   surname              String?
-  date_created         DateTime?              @db.Timestamp(6)
+  date_created         DateTime?              @default(now())
 }
 
+model characters {
+  id                   Int                    @id(map: "characters_pk") @default(autoincrement())
+  name                 String
+  race                 String
+  class                String
+  subclass             String?
+  level                Int
+  strength             Int
+  dexterity            Int
+  constitution         Int
+  intelligence         Int
+  wisdom               Int
+  charisma             Int
+  hit_points           Int
+  armour_class         Int 
+  movement_speed       Int
+}
 
+model parties {
+  id                   Int                    @id(map: "parties_pk") @default(autoincrement())
+  date_created         DateTime?              @default(now())
+}
+
+model campaigns {
+  id                   Int                    @id(map: "campaigns_pk") @default(autoincrement())
+  date_created         DateTime?              @default(now())
+}

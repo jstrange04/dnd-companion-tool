@@ -13,7 +13,7 @@ async function getUsers() {
 }
 
 async function getUserById(id) {
-  return await prisma.user.findUnique({
+  return await prisma.users.findUnique({
     where: {
       id: parseInt(id),
     },
@@ -28,7 +28,7 @@ async function getUserById(id) {
 }
 
 async function getUserByEmail(email) {
-  const users = await prisma.user.findMany({
+  const users = await prisma.users.findMany({
     where: {
       email: email,
     },
@@ -41,7 +41,7 @@ async function getUserByEmail(email) {
     },
   });
 
-  return users && users.length > 0 && members[0];
+  return users && users.length > 0 && users[0];
 }
 
 async function createUser(
@@ -49,7 +49,7 @@ async function createUser(
     forename,
     surname,
   ) {
-  await prisma.user.create({
+  await prisma.users.create({
     data: {
       forename: forename,
       surname: surname,
@@ -59,22 +59,28 @@ async function createUser(
   });
 }
 
-async function updateUser(id, email, forename, surname, date_created) {
-  return await prisma.user.update({
-    where: {
-      id: parseInt(id),
+async function updateUser(
+    id, 
+    email, 
+    forename, 
+    surname, 
+    date_created
+    ) {
+    return await prisma.users.update({
+      where: {
+        id: parseInt(id),
     },
-    data: {
-      email: email,
-      forename: forename,
-      surname: surname,
-      date_created: date_created
+      data: {
+        email: email,
+        forename: forename,
+        surname: surname,
+        date_created: date_created
     },
   });
 }
 
 async function deleteUser(id) {
-  return await prisma.user.delete({
+  return await prisma.users.delete({
     where: {
       id: parseInt(id),
     },

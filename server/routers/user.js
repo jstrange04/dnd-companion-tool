@@ -3,15 +3,18 @@ const router = Router();
 const { check, validationResult } = require("express-validator");
 
 const {
-    getUser, 
+    getUser,
+    getUserByEmail, 
     getUsers, 
     createUser, 
     updateUser, 
     removeUser
 } = require("../controllers/user");
+const {  } = require("../services/users");
 
 router.route("/").get(getUsers);
 router.route("/:user_id(\\d+)").get(getUser);
+router.route("/email/").get(getUserByEmail);
 router.route("/").post(
   [
     check("email")

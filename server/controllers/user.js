@@ -43,6 +43,15 @@ async function getUser(req, res) {
   }
 }
 
+async function getUserByEmail(req, res) {
+    const getUserByEmail = await userService.getUserByEmail(req.body.email);
+    if (getUserByEmail) {
+        res.status(200).json(getUserByEmail)
+    } else {
+        res.sendStatus(404);
+    }
+}
+
 async function removeUser(req, res) {
   const { id } = req.params;
   const removeUser = await userService.deleteUser(id);
@@ -52,6 +61,7 @@ async function removeUser(req, res) {
 module.exports = {
     getUser,
     getUsers,
+    getUserByEmail,
     createUser,
     updateUser,
     removeUser

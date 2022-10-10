@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jstrange04/dnd-companion-tool/issues"
   },
-  "homepage": "https://github.com/jstrange04/dnd-companion-tool#readme"
+  "homepage": "https://github.com/jstrange04/dnd-companion-tool#readme",
+  "devDependencies": {
+    "cypress": "^10.9.0"
+  }
 }
