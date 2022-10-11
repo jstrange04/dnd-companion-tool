@@ -63,7 +63,7 @@ router.route("/:party_id(\\d+)").put(
   },
   updateParty
 );
-//router.route("/character/:character_id").get(getCharacters);
 router.route("/:id").delete(removeParty);
 
 module.exports = router;
+ 
