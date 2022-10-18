@@ -1,9 +1,9 @@
 const routers = {
-    userRouter: require("./user"),
-    characterRouter: require("./character"),
-    partyRouter: require("./party"),
-    campaignRouter: require("./campaign"),
+    userRouter: require("./users"),
+    characterRouter: require("./characters"),
+    partyRouter: require("./parties"),
+    campaignRouter: require("./campaigns")
   };
   
-  export default routers;
+  module.exports = routers;
   

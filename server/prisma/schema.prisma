@@ -7,6 +7,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model campaign_parties {
+  id        Int       @id
+  campaigns campaigns @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parties   parties   @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "campaign_parties_id_fkey1")
+}
+
+model campaigns {
+  id               Int               @id @default(autoincrement())
+  name             String            @db.VarChar(250)
+  description      String?           @db.VarChar(500)
+  date_created     DateTime          @db.Timestamp(6)
+  campaign_parties campaign_parties?
+}
+
+model characters {
+  id               Int               @id @default(autoincrement())
+  name             String            @db.VarChar(100)
+  race             String            @db.VarChar(50)
+  character_class  String            @db.VarChar(50)
+  subclass         String?           @db.VarChar(100)
+  level            Int
+  strength         Int
+  dexterity        Int
+  constitution     Int
+  intelligence     Int
+  wisdom           Int
+  charisma         Int
+  hit_points       Int
+  armour_class     Int
+  movement_speed   Int
+  party_characters party_characters?
+  user_characters  user_characters?
+}
+
 model flyway_schema_history {
   installed_rank Int      @id(map: "flyway_schema_history_pk")
   version        String?  @db.VarChar(50)
@@ -22,38 +56,51 @@ model flyway_schema_history {
   @@index([success], map: "flyway_schema_history_s_idx")
 }
 
-model users {
-  id                   Int                    @id(map: "users_pk") @default(autoincrement())
-  email                String?
-  forename             String?
-  surname              String?
-  date_created         DateTime?              @default(now())
+model game_monsters {
+  id       Int      @id
+  games    games    @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  monsters monsters @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "game_monsters_id_fkey1")
 }
 
-model characters {
-  id                   Int                    @id(map: "characters_pk") @default(autoincrement())
-  name                 String
-  race                 String
-  class                String
-  subclass             String?
-  level                Int
-  strength             Int
-  dexterity            Int
-  constitution         Int
-  intelligence         Int
-  wisdom               Int
-  charisma             Int
-  hit_points           Int
-  armour_class         Int 
-  movement_speed       Int
+model games {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.VarChar(250)
+  game_monsters game_monsters?
+}
+
+model monsters {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.VarChar(50)
+  description   String?        @db.VarChar(250)
+  game_monsters game_monsters?
 }
 
 model parties {
-  id                   Int                    @id(map: "parties_pk") @default(autoincrement())
-  date_created         DateTime?              @default(now())
+  id               Int               @id @default(autoincrement())
+  party_name       String            @db.VarChar(250)
+  party_level      Int?
+  date_created     DateTime          @db.Timestamp(6)
+  campaign_parties campaign_parties?
+  party_characters party_characters?
 }
 
-model campaigns {
-  id                   Int                    @id(map: "campaigns_pk") @default(autoincrement())
-  date_created         DateTime?              @default(now())
+model party_characters {
+  id         Int        @id @default(autoincrement())
+  parties    parties    @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  characters characters @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "party_characters_id_fkey1")
+}
+
+model user_characters {
+  id         Int        @id @default(autoincrement())
+  users      users      @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  characters characters @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_characters_id_fkey1")
+}
+
+model users {
+  id              Int              @id @default(autoincrement())
+  email           String           @db.VarChar(100)
+  forename        String           @db.VarChar(50)
+  surname         String           @db.VarChar(50)
+  date_created    DateTime         @db.Timestamp(6)
+  user_characters user_characters?
 }

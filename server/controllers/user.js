@@ -1,7 +1,7 @@
 const { userService } = require("../services");
 
-async function getUsers(req, res) {
-  const users = await userService.getUsers();
+async function getAllUsers(req, res) {
+  const users = await userService.getAllUsers();
   if (users && users.length > 0) {
     res.status(200).json(users);
   } else {
@@ -60,7 +60,7 @@ async function removeUser(req, res) {
 
 module.exports = {
     getUser,
-    getUsers,
+    getAllUsers,
     getUserByEmail,
     createUser,
     updateUser,

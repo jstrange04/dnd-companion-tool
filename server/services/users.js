@@ -1,6 +1,6 @@
 const prisma = require("../utils/prisma.js");
 
-async function getUsers() {
+async function getAllUsers() {
   return await prisma.users.findMany({
     select: {
         id: true,
@@ -12,7 +12,7 @@ async function getUsers() {
   });
 }
 
-async function getUserById(id) {
+async function getUser(id) {
   return await prisma.users.findUnique({
     where: {
       id: parseInt(id),
@@ -88,8 +88,8 @@ async function deleteUser(id) {
 }
 
 module.exports = {
-  getUsers,
-  getUserById,
+  getAllUsers,
+  getUser,
   getUserByEmail,
   createUser,
   updateUser,

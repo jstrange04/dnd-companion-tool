@@ -20,6 +20,6 @@ INSERT INTO parties (name, party_level) VALUES ('The Smiling Company', 3);
 INSERT INTO parties (name, party_level) VALUES ('The New Guys', 1);
 INSERT INTO parties (name, party_level) VALUES ('The Companions', 15);
 
-INSERT INTO campaigns (name) VALUES ('Storm Kings Thunder');
+INSERT INTO campaigns (name, description) VALUES ('Storm Kings Thunder', 'Battle the Giants');
 INSERT INTO campaigns (name) VALUES ('Menzoberranzan');
 

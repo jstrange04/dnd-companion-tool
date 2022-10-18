@@ -1,25 +1,7 @@
 const prisma = require("../utils/prisma.js");
 
-async function getCharacters() {
-  return await prisma.characters.findMany({
-    select: {
-      id: true,
-      name: true,
-      race: true,
-      class: true,
-      subclass: true,
-      level: true,
-      strength: true,
-      dexterity: true,
-      constitution: true,
-      intelligence: true,
-      wisdom: true,
-      charisma: true,
-      hit_points: true,
-      armour_class: true,
-      movement_speed: true
-      },
-  });
+async function getAllCharacters() {
+  return await prisma.characters.findMany();
 }
 
 async function getCharacter(id) {
@@ -31,7 +13,7 @@ async function getCharacter(id) {
       id: true,
       name: true,
       race: true,
-      class: true,
+      character_class: true,
       subclass: true,
       level: true,
       strength: true,
@@ -56,7 +38,7 @@ async function getCharacterByName(name) {
       id: true,
       name: true,
       race: true,
-      class: true,
+      character_class: true,
       subclass: true,
       level: true,
       strength: true,
@@ -77,7 +59,7 @@ async function getCharacterByName(name) {
 async function createCharacter(
     name,
     race,
-    charClass,
+    character_class,
     subclass,
     level,
     strength,
@@ -87,14 +69,14 @@ async function createCharacter(
     wisdom,
     charisma,
     hit_points,
-    movement_speed,
-    armor_class
+    armor_class,
+    movement_speed
   ) {
   await prisma.characters.create({
     data: {
       name: name,
       race: race,
-      class: charClass,
+      character_class: character_class,
       subclass: subclass,
       level: level,
       strength: strength,
@@ -104,8 +86,8 @@ async function createCharacter(
       wisdom: wisdom,
       charisma: charisma,
       hit_points: hit_points,
+      armor_class: armor_class,
       movement_speed: movement_speed,
-      armor_class: armor_class
     },
   });
 }
@@ -114,7 +96,7 @@ async function updateCharacter(
   id,
   name,
   race,
-  charClass,
+  character_class,
   subclass,
   level,
   strength,
@@ -124,8 +106,8 @@ async function updateCharacter(
   wisdom,
   charisma,
   hit_points,
-  movement_speed,
-  armor_class
+  armor_class,
+  movement_speed
 ) {
   return await prisma.characters.update({
     where: {
@@ -134,7 +116,7 @@ async function updateCharacter(
     data: {
       name: name,
       race: race,
-      class: charClass,
+      character_class: character_class,
       subclass: subclass,
       level: level,
       strength: strength,
@@ -144,8 +126,8 @@ async function updateCharacter(
       wisdom: wisdom,
       charisma: charisma,
       hit_points: hit_points,
-      movement_speed: movement_speed,
-      armor_class: armor_class
+      armor_class: armor_class,
+      movement_speed: movement_speed
     },
   });
 }
@@ -159,7 +141,7 @@ async function deleteCharacter(id) {
 }
 
 module.exports = {
-  getCharacters,
+  getAllCharacters,
   getCharacter,
   getCharacterByName,
   createCharacter,

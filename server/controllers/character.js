@@ -1,6 +1,6 @@
 const { characterService } = require("../services");
 
-async function getCharacters(req, res) {
+async function getAllCharacters(req, res) {
   const characters = await characterService.getCharacters();
   if (characters && characters.length > 0) {
     res.status(200).json(characters);
@@ -10,25 +10,80 @@ async function getCharacters(req, res) {
 }
 
 async function createCharacter(req, res) {
-  const {  } = req.body;
+  const {          
+    name,
+    race,
+    character_class,
+    subclass,
+    level,
+    strength,
+    dexterity,
+    constitution,
+    intelligence,
+    wisdom,
+    charisma,
+    hit_points,
+    armour_class,
+    movement_speed } = req.body;
   await characterService.createCharacter(
-
+    name,
+    race,
+    character_class,
+    subclass,
+    level,
+    strength,
+    dexterity,
+    constitution,
+    intelligence,
+    wisdom,
+    charisma,
+    hit_points,
+    armour_class,
+    movement_speed
   );
   res.sendStatus(201);
 }
 
 async function updateCharacter(req, res) {
   const { character_id } = req.params;
-  const {  } = req.body;
+  const {     
+    name,
+    race,
+    character_class,
+    subclass,
+    level,
+    strength,
+    dexterity,
+    constitution,
+    intelligence,
+    wisdom,
+    charisma,
+    hit_points,
+    armour_class,
+    movement_speed } = req.body;
   const updatedCharacter = await characterService.updateCharacter(
-
+    character_id,
+    name,
+    race,
+    character_class,
+    subclass,
+    level,
+    strength,
+    dexterity,
+    constitution,
+    intelligence,
+    wisdom,
+    charisma,
+    hit_points,
+    armour_class,
+    movement_speed
   );
   res.status(200).json(updatedCharacter);
 }
 
 async function getCharacter(req, res) {
   const { character_id } = req.params;
-  const getCharacter = await characterService.geCharacterById(character_id);
+  const getCharacter = await characterService.getCharacterById(character_id);
   if (getCharacter) {
     res.status(200).json(getCharacter);
   } else {
@@ -52,7 +107,7 @@ async function removeCharacter(req, res) {
 }
 
 module.exports = {
-    getCharacters,
+    getAllCharacters,
     createCharacter,
     updateCharacter,
     getCharacter,

@@ -1,7 +1,7 @@
 const { partyService } = require("../services");
 
-async function getParty(req, res) {
-  const parties = await partyService.getParty();
+async function getAllParties(req, res) {
+  const parties = await partyService.getAllParties();
   if (parties && parties.length > 0) {
     res.status(200).json(parties);
   } else {
@@ -9,9 +9,19 @@ async function getParty(req, res) {
   }
 }
 
+async function getParty(req, res) {
+  const { party_id } = req.params;
+  const getParty = await partyService.getParty(party_id);
+  if (getParty) {
+    res.status(200).json(getParty);
+  } else {
+    res.sendStatus(404);
+  }
+}
+
 async function createParty(req, res) {
   const { name, party_level, date_created } = req.body;
-  await partyService.createParty(
+  await campaignService.createCampaign(
     name,
     party_level, 
     date_created
@@ -31,25 +41,6 @@ async function updateParty(req, res) {
   res.status(200).json(updatedParty);
 }
 
-async function getParty(req, res) {
-  const { party_id } = req.params;
-  const getParty = await partyService.getPartyById(party_id);
-  if (getParty) {
-    res.status(200).json(getParty);
-  } else {
-    res.sendStatus(404);
-  }
-}
-
-async function getPartyByName(req, res) {
-    const getPartyByName = await partyService.getPartyByName(req.body.email);
-    if (getPartyByName) {
-        res.status(200).json(getPartyByName)
-    } else {
-        res.sendStatus(404);
-    }
-}
-
 async function removeParty(req, res) {
   const { id } = req.params;
   const removeParty = await partyService.deleteParty(id);
@@ -57,9 +48,9 @@ async function removeParty(req, res) {
 }
 
 module.exports = {
+    getAllParties,
     getParty,
-    getPartyByName,
     createParty,
     updateParty,
-    removeParty,
+    removeParty
 };

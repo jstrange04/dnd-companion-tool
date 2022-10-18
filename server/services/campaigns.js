@@ -1,17 +1,10 @@
 const prisma = require("../utils/prisma.js");
 
-async function getCampaigns() {
-  return await prisma.campaigns.findMany({
-    select: {
-        id: true,
-        name: true,
-        party_level: true,
-        date_created: true
-      }
-  });
+async function getAllCampaigns() {
+  return await prisma.campaigns.findMany();
 }
 
-async function getCampaignById(id) {
+async function getCampaign(id) {
   return await prisma.campaigns.findUnique({
     where: {
       id: parseInt(id),
@@ -19,7 +12,7 @@ async function getCampaignById(id) {
     select: {
       id: true,
       name: true,
-      party_level: true,
+      description: true,
       date_created: true
     },
   });
@@ -32,7 +25,8 @@ async function getCampaignByName(name) {
     },
     select: {
       id: true,
-      name: true,e,
+      name: true,
+      description: true,
       date_created: true
     },
   });
@@ -41,20 +35,22 @@ async function getCampaignByName(name) {
 }
 
 async function createCampaign(
-    id,
     name,
+    description
   ) {
   await prisma.campaigns.create({
     data: {
       name: name,
+      description: description,
       date_created: CURRENT_TIMESTAMP()
     },
   });
 }
 
 async function updateCampaign(
-    id, 
+    id,
     name, 
+    description
     ) {
     return await prisma.campaigns.update({
       where: {
@@ -62,6 +58,7 @@ async function updateCampaign(
     },
       data: {
         name: name,
+        description: description
     },
   });
 }
@@ -75,8 +72,8 @@ async function deleteCampaign(id) {
 }
 
 module.exports = {
-  getCampaigns,
-  getCampaignById,
+  getAllCampaigns,
+  getCampaign,
   getCampaignByName,
   createCampaign,
   updateCampaign,
