@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS public.users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
     forename VARCHAR(50) NOT NULL,
@@ -6,11 +6,18 @@ CREATE TABLE IF NOT EXISTS public.users (
     date_created TIMESTAMP NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS parties (
+    id SERIAL PRIMARY KEY,
+    party_name VARCHAR(250) NOT NULL,
+    party_level INT,
+    date_created TIMESTAMP NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS characters (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     race VARCHAR(50) NOT NULL,
-    class VARCHAR(50) NOT NULL,
+    character_class VARCHAR(50) NOT NULL,
     subclass VARCHAR(100),
     level INT NOT NULL,
     strength INT NOT NULL,
@@ -28,7 +35,8 @@ CREATE TABLE IF NOT EXISTS characters (
 CREATE TABLE IF NOT EXISTS campaigns (
     id SERIAL PRIMARY KEY,
     name VARCHAR(250) NOT NULL, 
-    description VARCHAR(500)
+    description VARCHAR(500),
+    date_created TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS games (
@@ -46,12 +54,6 @@ CREATE TABLE IF NOT EXISTS user_characters (
     id SERIAL PRIMARY KEY,
     FOREIGN KEY (id) REFERENCES users(id),
     FOREIGN KEY (id) REFERENCES characters(id)
-);
-
-CREATE TABLE IF NOT EXISTS parties (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(250) NOT NULL,
-    party_level INT
 );
 
 CREATE TABLE IF NOT EXISTS party_characters (

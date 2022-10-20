@@ -1,14 +1,14 @@
 services:
   flyway:
-    image: flyway/flyway:9.0.1-alpine
+    image: flyway/flyway
     command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
     volumes:
-      - ${PWD}/db/migrations:/flyway/sql
+      - ${PWD}/db:/flyway/sql
       - ${PWD}/flyway.config:/flyway/conf/flyway.config
     depends_on:
-      - postgres
-  postgres:
-    image: postgres:14.4-alpine
+      - db
+  db:
+    image: postgres:latest
     restart: always
     ports:
     - "5432:5432"
@@ -16,3 +16,7 @@ services:
     - POSTGRES_USER=jstrange
     - POSTGRES_PASSWORD=pass123
     - POSTGRES_DB=dct_db
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
