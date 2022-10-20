@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
-const { check, validationResult } = require("express-validator");
+const { validation } = require("../utils");
+const { check } = require("express-validator");
 
 const {
   getAllCharacters,
@@ -18,7 +19,7 @@ const {
  *     tags: [
  *       characters
  *     ]
- *     summary: Returns an array of characters items
+ *     summary: Returns an array of character items
  *     responses:
  *       200:
  *         description: OK
@@ -27,7 +28,8 @@ const {
  *             examples:
  *               jsonObject:
  *                 summary: An example JSON response
- *                 value: '[{ "id": 1, "name": "Character One",
+ *                 value: '[{ "id": 1,
+ *                            "name": "Character One",
  *                            "race": "Elf"
  *                            "class": "Fighter",
  *                            "subclass": "Champion",
@@ -42,7 +44,8 @@ const {
  *                            "hit_points": "25",
  *                            "armor_class": "13",
  *                            "movement_speed": "30" },
- *                           {"id": 2, "name": "Character Two",
+ *                           {"id": 2,
+ *                            "name": "Character Two",
  *                            "race": "Human"
  *                            "class":"Rogue",
  *                            "subclass": "Assassin",
@@ -69,7 +72,7 @@ router.route("/").get(getAllCharacters);
  *     tags: [
  *       characters
  *     ]
- *     summary: Returns an single character
+ *     summary: Returns a single character
  *     parameters:
  *       - name: characterId
  *         in: path
@@ -111,7 +114,7 @@ router.route("/:character_id(\\d+)").get(getCharacter);
  *     tags: [
  *       characters
  *     ]
- *     summary: Returns an single character
+ *     summary: Returns a single character
  *     parameters:
  *       - name: name
  *         in: path
@@ -222,68 +225,60 @@ router.route("/name/").get(getCharacterByName);
  *       201:
  *         description: Character Created
  */
-router.route("/").post(
-  [
-    check("name")
-      .isLength({ min: 3 })
-      .withMessage("the character name must have minimum length of 3")
-      .trim(),
-    check("race")
-      .isLength({ min: 3 })
-      .withMessage("the character race must have minimum length of 3")
-      .trim(),
-    check("character_class")
-      .isLength({ min: 3 })
-      .withMessage("the character class must have minimum length of 3")
-      .trim(),
-    check("subclass")
-      .isLength({ min: 3 })
-      .withMessage("the character class must have minimum length of 3")
-      .trim(),
-    check("level")
-      .isNumeric()
-      .withMessage("the character's level must be entered"),
-    check("strength")
-      .isNumeric()
-      .withMessage("the character's strength must be entered"),
-    check("dexterity")
-      .isNumeric()
-      .withMessage("the character's dexterity must be entered"),
-    check("constitution")
-      .isNumeric()
-      .withMessage("the character's constitution must be entered"),
-    check("intelligence")
-      .isNumeric()
-      .withMessage("the character's intelligence must be entered"),
-    check("wisdom")
-      .isNumeric()
-      .withMessage("the character's wisdom must be entered"),
-    check("charisma")
-      .isNumeric()
-      .withMessage("the character's charisma must be entered"),
-    check("hit_points")
-      .isNumeric()
-      .withMessage("the character's hit point total must be entered"),
-    check("armor_class")
-      .isNumeric()
-      .withMessage("the character's armor class must be entered"),
-    check("movement_speed")
-      .isNumeric()
-      .withMessage("the character's movement speed must be entered"),
-  ],
-  (req, res, next) => {
-    const error = validationResult(req);
-
-    const hasError = !error.isEmpty();
-
-    if (hasError) {
-      res.status(400).json({ error: error.array() });
-    } else {
-      next();
-    }
-  },
-  createCharacter
-);
+router
+  .route("/")
+  .post(
+    [
+      check("name")
+        .isLength({ min: 3 })
+        .withMessage("the character name must have minimum length of 3")
+        .trim(),
+      check("race")
+        .isLength({ min: 3 })
+        .withMessage("the character race must have minimum length of 3")
+        .trim(),
+      check("character_class")
+        .isLength({ min: 3 })
+        .withMessage("the character class must have minimum length of 3")
+        .trim(),
+      check("subclass")
+        .isLength({ min: 3 })
+        .withMessage("the character class must have minimum length of 3")
+        .trim(),
+      check("level")
+        .isNumeric()
+        .withMessage("the character's level must be entered"),
+      check("strength")
+        .isNumeric()
+        .withMessage("the character's strength must be entered"),
+      check("dexterity")
+        .isNumeric()
+        .withMessage("the character's dexterity must be entered"),
+      check("constitution")
+        .isNumeric()
+        .withMessage("the character's constitution must be entered"),
+      check("intelligence")
+        .isNumeric()
+        .withMessage("the character's intelligence must be entered"),
+      check("wisdom")
+        .isNumeric()
+        .withMessage("the character's wisdom must be entered"),
+      check("charisma")
+        .isNumeric()
+        .withMessage("the character's charisma must be entered"),
+      check("hit_points")
+        .isNumeric()
+        .withMessage("the character's hit point total must be entered"),
+      check("armor_class")
+        .isNumeric()
+        .withMessage("the character's armor class must be entered"),
+      check("movement_speed")
+        .isNumeric()
+        .withMessage("the character's movement speed must be entered"),
+    ],
+    validation.validate,
+    createCharacter
+  );
 
 /**
  * @swagger
@@ -361,68 +356,60 @@ router.route("/").post(
  *       201:
  *         description: Character Updated
  */
-router.route("/:character_id(\\d+)").put(
-  [
-    check("name")
-      .isLength({ min: 3 })
-      .withMessage("the character name must have minimum length of 3")
-      .trim(),
-    check("race")
-      .isLength({ min: 3 })
-      .withMessage("the character race must have minimum length of 3")
-      .trim(),
-    check("character_class")
-      .isLength({ min: 3 })
-      .withMessage("the character class must have minimum length of 3")
-      .trim(),
-    check("subclass")
-      .isLength({ min: 3 })
-      .withMessage("the character class must have minimum length of 3")
-      .trim(),
-    check("level")
-      .isNumeric()
-      .withMessage("the character's level must be entered"),
-    check("strength")
-      .isNumeric()
-      .withMessage("the character's strength must be entered"),
-    check("dexterity")
-      .isNumeric()
-      .withMessage("the character's dexterity must be entered"),
-    check("constitution")
-      .isNumeric()
-      .withMessage("the character's constitution must be entered"),
-    check("intelligence")
-      .isNumeric()
-      .withMessage("the character's intelligence must be entered"),
-    check("wisdom")
-      .isNumeric()
-      .withMessage("the character's wisdom must be entered"),
-    check("charisma")
-      .isNumeric()
-      .withMessage("the character's charisma must be entered"),
-    check("hit_points")
-      .isNumeric()
-      .withMessage("the character's hit point total must be entered"),
-    check("armor_class")
-      .isNumeric()
-      .withMessage("the character's armor class must be entered"),
-    check("movement_speed")
-      .isNumeric()
-      .withMessage("the character's movement speed must be entered"),
-  ],
-  (req, res, next) => {
-    const error = validationResult(req);
-
-    const hasError = !error.isEmpty();
-
-    if (hasError) {
-      res.status(400).json({ error: error.array() });
-    } else {
-      next();
-    }
-  },
-  updateCharacter
-);
+router
+  .route("/:character_id(\\d+)")
+  .put(
+    [
+      check("name")
+        .isLength({ min: 3 })
+        .withMessage("the character name must have minimum length of 3")
+        .trim(),
+      check("race")
+        .isLength({ min: 3 })
+        .withMessage("the character race must have minimum length of 3")
+        .trim(),
+      check("character_class")
+        .isLength({ min: 3 })
+        .withMessage("the character class must have minimum length of 3")
+        .trim(),
+      check("subclass")
+        .isLength({ min: 3 })
+        .withMessage("the character class must have minimum length of 3")
+        .trim(),
+      check("level")
+        .isNumeric()
+        .withMessage("the character's level must be entered"),
+      check("strength")
+        .isNumeric()
+        .withMessage("the character's strength must be entered"),
+      check("dexterity")
+        .isNumeric()
+        .withMessage("the character's dexterity must be entered"),
+      check("constitution")
+        .isNumeric()
+        .withMessage("the character's constitution must be entered"),
+      check("intelligence")
+        .isNumeric()
+        .withMessage("the character's intelligence must be entered"),
+      check("wisdom")
+        .isNumeric()
+        .withMessage("the character's wisdom must be entered"),
+      check("charisma")
+        .isNumeric()
+        .withMessage("the character's charisma must be entered"),
+      check("hit_points")
+        .isNumeric()
+        .withMessage("the character's hit point total must be entered"),
+      check("armor_class")
+        .isNumeric()
+        .withMessage("the character's armor class must be entered"),
+      check("movement_speed")
+        .isNumeric()
+        .withMessage("the character's movement speed must be entered"),
+    ],
+    validation.validate,
+    updateCharacter
+  );
 
 /**
  * @swagger

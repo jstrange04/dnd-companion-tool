@@ -35,7 +35,7 @@ async function updateUser(req, res) {
 
 async function getUser(req, res) {
   const { user_id } = req.params;
-  const getUser = await userService.getUserById(user_id);
+  const getUser = await userService.getUser(user_id);
   if (getUser) {
     res.status(200).json(getUser);
   } else {

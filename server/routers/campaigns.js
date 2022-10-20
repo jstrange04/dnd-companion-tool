@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
-const { check, validationResult } = require("express-validator");
+const { validation } = require("../utils")
+const { check } = require("express-validator");
 
 const {
     getAllCampaigns,
@@ -41,7 +42,7 @@ router.route("/").get(getAllCampaigns);
  *     tags: [
  *       campaigns
  *     ]
- *     summary: Returns an single campaign
+ *     summary: Returns a single campaign
  *     parameters:
  *       - name: campaignId
  *         in: path
@@ -68,7 +69,7 @@ router.route("/:campaign_id(\\d+)").get(getCampaign);
  *     tags: [
  *       campaigns
  *     ]
- *     summary: Returns an single campaign
+ *     summary: Returns a single campaign
  *     parameters:
  *       - name: name
  *         in: path
@@ -127,17 +128,7 @@ router.route("/").post(
       .toDate()
       .withMessage("the value is not a valid ISO8601 date"),
   ],
-  (req, res, next) => {
-    const error = validationResult(req);
-
-    const hasError = !error.isEmpty();
-
-    if (hasError) {
-      res.status(400).json({ error: error.array() });
-    } else {
-      next();
-    }
-  },
+  validation.validate,
   createCampaign
 );
 
@@ -185,17 +176,7 @@ router.route("/:campaign_id(\\d+)").put(
       .toDate()
       .withMessage("the value is not a valid ISO8601 date"),
   ],
-  (req, res, next) => {
-    const error = validationResult(req);
-
-    const hasError = !error.isEmpty();
-
-    if (hasError) {
-      res.status(400).json({ error: error.array() });
-    } else {
-      next();
-    }
-  },
+  validation.validate,
   updateCampaign
 );
 

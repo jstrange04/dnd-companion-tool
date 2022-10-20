@@ -1,4 +1,4 @@
-const prisma = require("../utils/prisma.js");
+const { prisma } = require("../utils")
 
 async function getAllParties() {
   return await prisma.parties.findMany();

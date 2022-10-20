@@ -1,14 +1,15 @@
 const { Router } = require("express");
 const router = Router();
-const { check, validationResult } = require("express-validator");
+const { validation } = require("../utils");
+const { check } = require("express-validator");
 
 const {
-    getAllUsers,
-    getUser, 
-    getUserByEmail, 
-    createUser, 
-    updateUser, 
-    removeUser
+  getAllUsers,
+  getUser,
+  getUserByEmail,
+  createUser,
+  updateUser,
+  removeUser,
 } = require("../controllers/user");
 
 /**
@@ -41,7 +42,7 @@ router.route("/").get(getAllUsers);
  *     tags: [
  *       users
  *     ]
- *     summary: Returns an single user
+ *     summary: Returns a single user
  *     parameters:
  *       - name: userId
  *         in: path
@@ -68,7 +69,7 @@ router.route("/:user_id(\\d+)").get(getUser);
  *     tags: [
  *       users
  *     ]
- *     summary: Returns an single user
+ *     summary: Returns a single user
  *     parameters:
  *       - name: email
  *         in: path
@@ -124,8 +125,9 @@ router.route("/").post(
   [
     check("email")
       .isLength({ min: 3 })
-      .isEmail()
       .withMessage("the email must have minimum length of 3")
+      .isEmail()
+      .withMessage("the email must be in a valid email format")
       .trim(),
     check("forename")
       .isLength({ min: 3 })
@@ -139,19 +141,8 @@ router.route("/").post(
       .isISO8601()
       .toDate()
       .withMessage("the value is not a valid ISO8601 date"),
-  ], //extract to utils
-  (req, res, next) => {
-    
-    const error = validationResult(req);
-
-    const hasError = !error.isEmpty();
-
-    if (hasError) {
-      res.status(400).json({ error: error.useFirstErrorOnly().array() });
-    } else {
-      next();
-    }
-  },
+  ],
+  validation.validate,
   createUser
 );
 
@@ -192,39 +183,30 @@ router.route("/").post(
  *       204:
  *         description: User Updated
  */
-router.route("/:user_id(\\d+)").put(
-  [
-    check("email")
-      .isLength({ min: 3 })
-      .isEmail()
-      .withMessage("the email must have minimum length of 3")
-      .trim(),
-    check("forename")
-      .isLength({ min: 3 })
-      .withMessage("the first name must have minimum length of 3")
-      .trim(),
-    check("surname")
-      .isLength({ min: 3 })
-      .withMessage("the last name must have minimum length of 3")
-      .trim(),
-    check("date_created")
-      .isISO8601()
-      .toDate()
-      .withMessage("the value is not a valid ISO8601 date"),
-  ],
-  (req, res, next) => {
-    const error = validationResult(req);
-
-    const hasError = !error.isEmpty();
-
-    if (hasError) {
-      res.status(400).json({ error: error.array() });
-    } else {
-      next();
-    }
-  },
-  updateUser
-);
+router.route("/:user_id(\\d+)")
+  .put(
+    [
+      check("email")
+        .isLength({ min: 3 })
+        .isEmail()
+        .withMessage("the email must have minimum length of 3")
+        .trim(),
+      check("forename")
+        .isLength({ min: 3 })
+        .withMessage("the first name must have minimum length of 3")
+        .trim(),
+      check("surname")
+        .isLength({ min: 3 })
+        .withMessage("the last name must have minimum length of 3")
+        .trim(),
+      check("date_created")
+        .isISO8601()
+        .toDate()
+        .withMessage("the value is not a valid ISO8601 date"),
+    ],
+    validation.validate,
+    updateUser
+  );
 
 /**
  * @swagger

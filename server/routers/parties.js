@@ -1,13 +1,14 @@
 const { Router } = require("express");
 const router = Router();
-const { check, validationResult } = require("express-validator");
+const { validation } = require("../utils");
+const { check } = require("express-validator");
 
 const {
-    getAllParties,
-    getParty,
-    createParty,
-    updateParty,
-    removeParty
+  getAllParties,
+  getParty,
+  createParty,
+  updateParty,
+  removeParty,
 } = require("../controllers/party");
 
 /**
@@ -40,7 +41,7 @@ router.route("/").get(getAllParties);
  *     tags: [
  *       parties
  *     ]
- *     summary: Returns an single party
+ *     summary: Returns a single party
  *     parameters:
  *       - name: partyId
  *         in: path
@@ -58,9 +59,9 @@ router.route("/").get(getAllParties);
  *       204:
  *         description: No content
  */
- router.route("/:party_id(\\d+)").get(getParty);
+router.route("/:party_id(\\d+)").get(getParty);
 
- /**
+/**
  * @swagger
  * /parties:
  *   post:
@@ -88,7 +89,9 @@ router.route("/").get(getAllParties);
  *       201:
  *         description: Party Created
  */
-router.route("/").post(
+router
+  .route("/")
+  .post(
     [
       check("name")
         .isLength({ min: 3 })
@@ -102,21 +105,11 @@ router.route("/").post(
         .toDate()
         .withMessage("the value is not a valid ISO8601 date"),
     ],
-    (req, res, next) => {
-      const error = validationResult(req);
-  
-      const hasError = !error.isEmpty();
-  
-      if (hasError) {
-        res.status(400).json({ error: error.array() });
-      } else {
-        next();
-      }
-    },
+    validation.validate,
     createParty
   );
 
-  /**
+/**
  * @swagger
  * /parties/{partyId}:
  *   put:
@@ -149,7 +142,9 @@ router.route("/").post(
  *       204:
  *         description: Party Updated
  */
-router.route("/:party_id(\\d+)").put(
+router
+  .route("/:party_id(\\d+)")
+  .put(
     [
       check("name")
         .isLength({ min: 3 })
@@ -163,41 +158,29 @@ router.route("/:party_id(\\d+)").put(
         .toDate()
         .withMessage("the value is not a valid ISO8601 date"),
     ],
-    (req, res, next) => {
-      const error = validationResult(req);
-  
-      const hasError = !error.isEmpty();
-  
-      if (hasError) {
-        res.status(400).json({ error: error.array() });
-      } else {
-        next();
-      }
-    },
+    validation.validate,
     updateParty
   );
-  
-  /**
-   * @swagger
-   * /parties/{partyId}:
-   *   delete:
-   *     tags: [
-   *       parties
-   *     ]
-   *     summary: Deletes an existing party
-   *     parameters:
-   *       - name: partyId
-   *         in: path
-   *         type: integer
-   *         description: The ID of the requested party.
-   *     responses:
-   *       400:
-   *         description: Bad Request - required values are missing.
-   *       201:
-   *         description: Party Deleted
-   */
-  router.route("/:id").delete(removeParty);
-  
+
+/**
+ * @swagger
+ * /parties/{partyId}:
+ *   delete:
+ *     tags: [
+ *       parties
+ *     ]
+ *     summary: Deletes an existing party
+ *     parameters:
+ *       - name: partyId
+ *         in: path
+ *         type: integer
+ *         description: The ID of the requested party.
+ *     responses:
+ *       400:
+ *         description: Bad Request - required values are missing.
+ *       201:
+ *         description: Party Deleted
+ */
+router.route("/:id").delete(removeParty);
 
 module.exports = router;
- 
