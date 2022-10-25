@@ -20,11 +20,11 @@ async function getParty(req, res) {
 }
 
 async function createParty(req, res) {
-  const { name, party_level, date_created } = req.body;
-  await campaignService.createCampaign(
+  const { name, party_level } = req.body;
+  console.log(name);
+  await partyService.createParty(
     name,
-    party_level, 
-    date_created
+    party_level
   );
   res.sendStatus(201);
 }
@@ -35,8 +35,7 @@ async function updateParty(req, res) {
   const updatedParty = await partyService.updateParty(
     party_id,
     name, 
-    party_level, 
-    date_created
+    party_level
   );
   res.status(200).json(updatedParty);
 }

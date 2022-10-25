@@ -3,14 +3,14 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL,
     forename VARCHAR(50) NOT NULL,
     surname VARCHAR(50) NOT NULL,
-    date_created TIMESTAMP NOT NULL
+    date_created TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS parties (
     id SERIAL PRIMARY KEY,
     party_name VARCHAR(250) NOT NULL,
     party_level INT,
-    date_created TIMESTAMP NOT NULL
+    date_created TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS characters (
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS campaigns (
     id SERIAL PRIMARY KEY,
     name VARCHAR(250) NOT NULL, 
     description VARCHAR(500),
-    date_created TIMESTAMP NOT NULL
+    date_created TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS games (

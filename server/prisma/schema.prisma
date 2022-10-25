@@ -17,7 +17,7 @@ model campaigns {
   id               Int               @id @default(autoincrement())
   name             String            @db.VarChar(250)
   description      String?           @db.VarChar(500)
-  date_created     DateTime          @db.Timestamp(6)
+  date_created     DateTime          @default(now()) @db.Timestamp(6)
   campaign_parties campaign_parties?
 }
 
@@ -79,7 +79,7 @@ model parties {
   id               Int               @id @default(autoincrement())
   party_name       String            @db.VarChar(250)
   party_level      Int?
-  date_created     DateTime          @db.Timestamp(6)
+  date_created     DateTime          @default(now()) @db.Timestamp(6)
   campaign_parties campaign_parties?
   party_characters party_characters?
 }
@@ -101,6 +101,6 @@ model users {
   email           String           @db.VarChar(100)
   forename        String           @db.VarChar(50)
   surname         String           @db.VarChar(50)
-  date_created    DateTime         @db.Timestamp(6)
+  date_created    DateTime         @default(now()) @db.Timestamp(6)
   user_characters user_characters?
 }

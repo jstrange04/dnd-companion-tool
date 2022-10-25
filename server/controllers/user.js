@@ -10,25 +10,23 @@ async function getAllUsers(req, res) {
 }
 
 async function createUser(req, res) {
-  const { email, forename, surname, date_created } = req.body;
+  const { email, forename, surname } = req.body;
   await userService.createUser(
     email,
     forename, 
-    surname,  
-    date_created
+    surname
   );
   res.sendStatus(201);
 }
 
 async function updateUser(req, res) {
   const { user_id } = req.params;
-  const { forename, surname, email, date_created } = req.body;
+  const { forename, surname, email } = req.body;
   const updatedUser = await userService.updateUser(
     user_id,
     forename, 
     surname, 
-    email, 
-    date_created
+    email
   );
   res.status(200).json(updatedUser);
 }

@@ -99,11 +99,7 @@ router
         .trim(),
       check("party_level")
         .isNumeric()
-        .withMessage("the parties level must be a number"),
-      check("date_created")
-        .isISO8601()
-        .toDate()
-        .withMessage("the value is not a valid ISO8601 date"),
+        .withMessage("the parties level must be a number")
     ],
     validation.validate,
     createParty
@@ -146,17 +142,13 @@ router
   .route("/:party_id(\\d+)")
   .put(
     [
-      check("name")
+      check("party_name")
         .isLength({ min: 3 })
         .withMessage("the party name must have minimum length of 3")
         .trim(),
       check("party_level")
         .isNumeric()
         .withMessage("the parties level must be a number"),
-      check("date_created")
-        .isISO8601()
-        .toDate()
-        .withMessage("the value is not a valid ISO8601 date"),
     ],
     validation.validate,
     updateParty

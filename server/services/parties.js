@@ -11,29 +11,37 @@ async function getParty(id) {
     },
     select: {
       id: true,
-      name: true,
+      party_name: true,
       party_level: true,
-      date_created: true
+      date_created: true,
+      party_characters: {
+        select: {
+          characters: {
+            select: {
+              name: true,
+            }
+          }
+        }
+      }
     },
   });
 }
 
 async function createParty(
-  name,
+  party_name,
   party_level
 ) {
 await prisma.parties.create({
   data: {
-    name: name,
+    party_name: party_name,
     party_level: party_level,
-    date_created: CURRENT_TIMESTAMP()
   },
 });
 }
 
 async function updateParty(
   id,
-  name, 
+  party_name, 
   party_level
   ) {
   return await prisma.parties.update({
@@ -41,7 +49,7 @@ async function updateParty(
       id: parseInt(id),
   },
     data: {
-      name: name,
+      party_name: party_name,
       party_level: party_level
   },
 });

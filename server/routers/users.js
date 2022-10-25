@@ -137,10 +137,6 @@ router.route("/").post(
       .isLength({ min: 3 })
       .withMessage("the last name must have minimum length of 3")
       .trim(),
-    check("date_created")
-      .isISO8601()
-      .toDate()
-      .withMessage("the value is not a valid ISO8601 date"),
   ],
   validation.validate,
   createUser

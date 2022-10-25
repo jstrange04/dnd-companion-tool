@@ -45,16 +45,15 @@ async function getUserByEmail(email) {
 }
 
 async function createUser(
-    email,
     forename,
     surname,
+    email
   ) {
   await prisma.users.create({
     data: {
       forename: forename,
       surname: surname,
       email: email,
-      date_created: CURRENT_TIMESTAMP()
     },
   });
 }
@@ -64,7 +63,6 @@ async function updateUser(
     email, 
     forename, 
     surname, 
-    date_created
     ) {
     return await prisma.users.update({
       where: {
@@ -74,7 +72,6 @@ async function updateUser(
         email: email,
         forename: forename,
         surname: surname,
-        date_created: date_created
     },
   });
 }

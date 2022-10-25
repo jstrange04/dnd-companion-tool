@@ -23,3 +23,6 @@ VALUES ('Rookie', 'Kenku', 'Rogue', '', 1, 10,10,10,10,10,10, 8, 12, 30);
 INSERT INTO campaigns (name, description, date_created) VALUES ('Storm Kings Thunder', 'Battle the Giants', '02/07/2022 13:43:00');
 INSERT INTO campaigns (name, date_created) VALUES ('Menzoberranzan', '02/07/2022 13:43:00');
 
+INSERT INTO user_characters (id) VALUES ((select min(id) from users));
+INSERT INTO user_characters (id) VALUES ((select max(id) from users));
+

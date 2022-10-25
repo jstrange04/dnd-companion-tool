@@ -42,7 +42,6 @@ async function createCampaign(
     data: {
       name: name,
       description: description,
-      date_created: CURRENT_TIMESTAMP()
     },
   });
 }

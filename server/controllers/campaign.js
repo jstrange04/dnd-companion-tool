@@ -29,11 +29,10 @@ async function getCampaignByName(req, res) {
 }
 
 async function createCampaign(req, res) {
-  const { name, description, date_created } = req.body;
+  const { name, description } = req.body;
   await campaignService.createCampaign(
     name,
     description, 
-    date_created
   );
   res.sendStatus(201);
 }
@@ -44,8 +43,7 @@ async function updateCampaign(req, res) {
   const updatedCampaign = await campaignService.updateCampaign(
     campaign_id,
     name, 
-    description, 
-    date_created
+    description
   );
   res.status(200).json(updatedCampaign);
 }
