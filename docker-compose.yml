@@ -13,8 +13,8 @@ services:
     ports:
     - "5432:5432"
     environment:
-    - POSTGRES_USER=jstrange
-    - POSTGRES_PASSWORD=pass123
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=password
     - POSTGRES_DB=dct_db
     volumes:
       - db:/var/lib/postgresql/data
