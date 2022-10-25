@@ -1,0 +1,16 @@
+name: Verify Migrations
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "db/**"
+
+jobs:
+  test-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: execute flyway in docker 🐳
+        run: docker-compose up --abort-on-container-exit

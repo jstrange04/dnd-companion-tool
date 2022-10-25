@@ -13,7 +13,7 @@ const {
 const swaggerDefinition = {
   openapi: "3.0.0",
   info: {
-    title: "D&D Companion App API",
+    title: "D&D Companion Tool API",
     version: "1.0.0",
   },
   servers: [
