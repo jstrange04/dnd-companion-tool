@@ -28,15 +28,15 @@ describe("/users", () => {
                 expect.objectContaining({
                     error: expect.arrayContaining([
                         expect.objectContaining({
-                            param: "forename",
-                            msg: "the first name must have minimum length of 3"
-                        }),
-                        expect.objectContaining({
-                            param: "surname",
+                            param: "email",
                             msg: "the last name must have minimum length of 3"
                         }),
                         expect.objectContaining({
-                            param: "email",
+                            param: "username",
+                            msg: "the username must have minimum length of 3"
+                        }),
+                        expect.objectContaining({
+                            param: "password",
                             msg: "the last name must have minimum length of 3"
                         }),
                     ]),
@@ -54,9 +54,9 @@ describe("/users", () => {
 
         it("respond with 201 with user created successfully", async () => {
             const newUser = {
-                forename: "first",
-                surname: "last",
-                email: "email@test.com"
+                email: "email@test.com",
+                username: "testuser",
+                password: "testpassword"
             }
             await request(app)
             .post("/users")
@@ -73,15 +73,15 @@ describe("/users", () => {
                 expect.objectContaining({
                     error: expect.arrayContaining([
                         expect.objectContaining({
-                            param: "forename",
-                            msg: "the first name must have minimum length of 3"
-                        }),
-                        expect.objectContaining({
-                            param: "surname",
+                            param: "email",
                             msg: "the last name must have minimum length of 3"
                         }),
                         expect.objectContaining({
-                            param: "email",
+                            param: "username",
+                            msg: "the username must have minimum length of 3"
+                        }),
+                        expect.objectContaining({
+                            param: "password",
                             msg: "the last name must have minimum length of 3"
                         }),
                     ]),
@@ -100,9 +100,9 @@ describe("/users", () => {
 
         it("respond with 204 with user updated successfully", async () => {
             const updatedUser = {
-                forename: "first",
-                surname: "last",
-                email: "email@test.com"
+                email: "email@test.com",
+                username: "testuser",
+                password: "testpassword",
             }
             await request(app)
             .post("/users/1")

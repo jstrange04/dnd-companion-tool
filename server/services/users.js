@@ -1,14 +1,14 @@
-const { prisma } = require("../utils")
+const { prisma } = require("../utils");
+const bcrypt = require("bcrypt");
 
 async function getAllUsers() {
   return await prisma.users.findMany({
     select: {
-        id: true,
-        email: true,
-        forename: true,
-        surname: true,
-        date_created: true
-      }
+      id: true,
+      email: true,
+      username: true,
+      date_created: true,
+    },
   });
 }
 
@@ -20,9 +20,8 @@ async function getUser(id) {
     select: {
       id: true,
       email: true,
-      forename: true,
-      surname: true,
-      date_created: true
+      username: true,
+      date_created: true,
     },
   });
 }
@@ -35,43 +34,36 @@ async function getUserByEmail(email) {
     select: {
       id: true,
       email: true,
-      forename: true,
-      surname: true,
-      date_created: true
+      username: true,
+      password: true,
+      date_created: true,
     },
   });
 
   return users && users.length > 0 && users[0];
 }
 
-async function createUser(
-    forename,
-    surname,
-    email
-  ) {
+async function createUser(email, username, password) {
+  const hashedPassword = await bcrypt.hash(password, 10);
   await prisma.users.create({
     data: {
-      forename: forename,
-      surname: surname,
       email: email,
+      usernname: username,
+      password: hashedPassword,
     },
   });
 }
 
-async function updateUser(
-    id, 
-    email, 
-    forename, 
-    surname, 
-    ) {
-    return await prisma.users.update({
-      where: {
-        id: parseInt(id),
+async function updateUser(id, email, username, password ) {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  return await prisma.users.update({
+    where: {
+      id: parseInt(id),
     },
-      data: {
-        email: email,
-        forename: forename,
-        surname: surname,
+    data: {
+      email: email,
+      username: username,
+      password: hashedPassword,
     },
   });
 }

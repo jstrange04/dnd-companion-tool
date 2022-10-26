@@ -1,8 +1,8 @@
-INSERT INTO users (email, forename, surname, date_created) VALUES ('garygygax@aol.com','Gary','Gygax','01/01/2022 22:00:00');
-INSERT INTO users (email, forename, surname, date_created) VALUES ('bdwalters@hotmail.com','Dave','Walters','02/03/2022 14:00:00');
-INSERT INTO users (email, forename, surname, date_created) VALUES ('brennanlmulligan@gmail.com','Brennan','Mulligan','04/04/2022 13:00:00');
-INSERT INTO users (email, forename, surname, date_created) VALUES ('mattmercer@hotmail.com','Matt','Mercer','05/06/2022 21:00:00');
-INSERT INTO users (email, forename, surname, date_created) VALUES ('jcarl@msn.com','Jason','Carl','07/08/2022 09:30:00');
+INSERT INTO users (username, email, password, date_created) VALUES ('Gary Gygax', 'garygygax@aol.com', '','01/01/2022 22:00:00');
+INSERT INTO users (username, email, password, date_created) VALUES ('Dave Walters', 'bdwalters@hotmail.com', '','02/03/2022 14:00:00');
+INSERT INTO users (username, email, password, date_created) VALUES ('Brennan Mulligan', 'brennanlmulligan@gmail.com', '','04/04/2022 13:00:00');
+INSERT INTO users (username, email, password, date_created) VALUES ('Matt Mercer', 'mattmercer@hotmail.com', '','05/06/2022 21:00:00');
+INSERT INTO users (username, email, password, date_created) VALUES ('Jason Carl', 'jcarl@msn.com', '', '07/08/2022 09:30:00');
 
 INSERT INTO parties (party_name, party_level, date_created) VALUES ('The Savage Six', 5, '07/08/2022 09:30:00');
 INSERT INTO parties (party_name, party_level, date_created) VALUES ('The Smiling Company', 3, '07/08/2022 09:30:00');

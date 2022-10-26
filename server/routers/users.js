@@ -28,8 +28,8 @@ const {
  *             examples:
  *               jsonObject:
  *                 summary: An example JSON response
- *                 value: '[{ "id": 1, "email": "email@test.com", "forename": "first", "surname": "last", "date_created": "00/00/00 00:00:00" },
- *                        { "id": 1, "email": "email@test.com", "forename": "first", "surname": "last", "date_created": "00/00/00 00:00:00" }, ]'
+ *                 value: '[{ "id": 1, "email": "email@test.com", "username": "user", "date_created": "00/00/00 00:00:00" },
+ *                        { "id": 1, "email": "email@test.com", "username": "user", "date_created": "00/00/00 00:00:00" }, ]'
  *       204:
  *         description: No content
  */
@@ -56,7 +56,7 @@ router.route("/").get(getAllUsers);
  *             examples:
  *               jsonObject:
  *                 summary: An example JSON response
- *                 value: '{ "id": 1, "email": "email@test.com", "forename": "first", "surname": "last", "date_created": "00/00/00 00:00:00" }'
+ *                 value: '{ "id": 1, "email": "email@test.com", "username": "user", "password": "password", "date_created": "00/00/00 00:00:00" }'
  *       204:
  *         description: No content
  */
@@ -83,7 +83,7 @@ router.route("/:user_id(\\d+)").get(getUser);
  *             examples:
  *               jsonObject:
  *                 summary: An example JSON response
- *                 value: '{ "id": 1, "email": "email@test.com", "forename": "first", "surname": "last", "date_created": "00/00/00 00:00:00" }'
+ *                 value: '{ "id": 1, "email": "email@test.com", "username": "user", "password": "password", "date_created": "00/00/00 00:00:00" }'
  *       204:
  *         description: No content
  */
@@ -103,18 +103,18 @@ router.route("/email/").get(getUserByEmail);
  *           schema:
  *             type: object
  *             properties:
- *               forename:
- *                 type: string
- *                 required: true
- *                 description: The forename for the user
- *               surname:
- *                 type: string
- *                 required: true
- *                 description: The surname for the user
  *               email:
  *                 type: string
  *                 required: true
  *                 description: The email for the user
+ *               username:
+ *                 type: string
+ *                 required: true
+ *                 description: The username for the user
+ *               password:
+ *                 type: string
+ *                 required: true
+ *                 description: The password for the user
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
@@ -129,14 +129,17 @@ router.route("/").post(
       .isEmail()
       .withMessage("the email must be in a valid email format")
       .trim(),
-    check("forename")
+    check("username")
       .isLength({ min: 3 })
-      .withMessage("the first name must have minimum length of 3")
+      .withMessage("the username must have minimum length of 3")
       .trim(),
-    check("surname")
-      .isLength({ min: 3 })
-      .withMessage("the last name must have minimum length of 3")
-      .trim(),
+    check("password")
+      .isLength({ min: 8, max: 15 })
+      .withMessage("the password should have min and max length between 8-15")
+      .matches(/\d/)
+      .withMessage("the password should have at least one number")
+      .matches(/[!@#$%^&*(),.?":{}|<>]/)
+      .withMessage("the password should have at least one special character"),
   ],
   validation.validate,
   createUser
@@ -161,25 +164,26 @@ router.route("/").post(
  *           schema:
  *             type: object
  *             properties:
- *               forename:
- *                 type: string
- *                 required: true
- *                 description: The forename for the user
- *               surname:
- *                 type: string
- *                 required: true
- *                 description: The surname for the user
  *               email:
  *                 type: string
  *                 required: true
  *                 description: The email for the user
+ *               username:
+ *                 type: string
+ *                 required: true
+ *                 description: The username for the user
+ *               password:
+ *                 type: string
+ *                 required: true
+ *                 description: The password for the user
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
  *       204:
  *         description: User Updated
  */
-router.route("/:user_id(\\d+)")
+router
+  .route("/:user_id(\\d+)")
   .put(
     [
       check("email")
@@ -187,18 +191,17 @@ router.route("/:user_id(\\d+)")
         .isEmail()
         .withMessage("the email must have minimum length of 3")
         .trim(),
-      check("forename")
+      check("username")
         .isLength({ min: 3 })
-        .withMessage("the first name must have minimum length of 3")
+        .withMessage("the username must have minimum length of 3")
         .trim(),
-      check("surname")
-        .isLength({ min: 3 })
-        .withMessage("the last name must have minimum length of 3")
-        .trim(),
-      check("date_created")
-        .isISO8601()
-        .toDate()
-        .withMessage("the value is not a valid ISO8601 date"),
+      check("password")
+        .isLength({ min: 8, max: 15 })
+        .withMessage("the password should have min and max length between 8-15")
+        .matches(/\d/)
+        .withMessage("the password should have at least one number")
+        .matches(/[!@#$%^&*(),.?":{}|<>]/)
+        .withMessage("the password should have at least one special character"),
     ],
     validation.validate,
     updateUser

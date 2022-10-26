@@ -98,9 +98,9 @@ model user_characters {
 
 model users {
   id              Int              @id @default(autoincrement())
+  username        String           @db.VarChar(50)
   email           String           @db.VarChar(100)
-  forename        String           @db.VarChar(50)
-  surname         String           @db.VarChar(50)
+  password        String           @db.VarChar(100)
   date_created    DateTime         @default(now()) @db.Timestamp(6)
   user_characters user_characters?
 }

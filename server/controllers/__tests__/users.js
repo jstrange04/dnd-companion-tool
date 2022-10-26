@@ -82,17 +82,15 @@ describe("user controller", () => {
 
   describe("createUser", () => {
     it("should respond with an error if the user creation fails", async () => {
-      const forename = "";
-      const surname = "";
       const email = "";
-      const userCharacters = 1;
+      const username = "";
+      const password = "";
       
       const req = {
         body: {
-          forename: forename,
-          surname: surname,
           email: email,
-          user_characters: userCharacters
+          username: username,
+          password: password,
         },
       };
 
@@ -102,10 +100,9 @@ describe("user controller", () => {
 
       expect(userService.createUser).toHaveBeenCalledTimes(1);
       expect(userService.createUser).toHaveBeenCalledWith(
-        forename,
-        surname,
         email,
-        userCharacters
+        username,
+        password
       );
     });
 
@@ -113,12 +110,14 @@ describe("user controller", () => {
       const forename = "first";
       const surname = "last";
       const email = "email@test.com";
+      const username = "testname";
+      const password = "testpassword";
 
       const req = {
         body: {
-          forename: forename,
-          surname: surname,
           email: email,
+          username: username,
+          password: password,
         },
       };
       const res = {
@@ -126,16 +125,16 @@ describe("user controller", () => {
       };
 
       when(userService.createUser)
-        .calledWith(forename, surname, email)
-        .mockReturnValueOnce({ forename, surname, email });
+        .calledWith( email, username, password )
+        .mockReturnValueOnce({ email, username, password });
 
       await userController.createUser(req, res);
 
       expect(userService.createUser).toHaveBeenCalledTimes(1);
       expect(userService.createUser).toHaveBeenCalledWith(
-        forename,
-        surname,
-        email
+        email,
+        username,
+        password,
       );
       expect(res.sendStatus).toHaveBeenCalledTimes(1);
       expect(res.sendStatus).toHaveBeenCalledWith(201);
@@ -145,15 +144,15 @@ describe("user controller", () => {
   describe("updateUser", () => {
     it("should respond with an error if the user udpating fails", async () => {
       const userId = 1;
-      const forename = "";
-      const surname = "";
       const email = "";
+      const username = "";
+      const password = "";
 
       const req = {
         body: {
-          forename: forename,
-          surname: surname,
           email: email,
+          username: username,
+          password: password,
         },
         params: {
           id: userId,
@@ -167,23 +166,23 @@ describe("user controller", () => {
       expect(userService.updateUser).toHaveBeenCalledTimes(1);
       expect(userService.updateUser).toHaveBeenCalledWith(
         userId,
-        forename,
-        surname,
-        email
+        email,
+        username,
+        password,
       );
     });
 
     it("should return 200 when the user is updated successfully", async () => {
       const userId = 1;
-      const forename = "first";
-      const surname = "last";
       const email = "email@test.com";
+      const username = "testname";
+      const password = "testpassword";
 
       const req = {
         body: {
-          forename: forename,
-          surname: surname,
           email: email,
+          username: username,
+          password: password,
         },
         params: {
           id: userId,
@@ -194,8 +193,8 @@ describe("user controller", () => {
       res.json = jest.fn().mockReturnValue(res);
 
       when(userService.updateUser)
-        .calledWith(forename, surname, email)
-        .mockReturnValueOnce({ forename, surname, email });
+        .calledWith(email, username, password)
+        .mockReturnValueOnce({ email, username, password });
 
       await userController.updateUser(req, res);
 
