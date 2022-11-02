@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { userService } = require("./users");
+const userService = require("./users");
 const {
   ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET,

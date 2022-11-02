@@ -18,5 +18,18 @@ services:
     - POSTGRES_DB=dct_db
     volumes:
       - db:/var/lib/postgresql/data
+  api:
+    profiles: ["dev"]
+    build:
+      context: ./server
+      dockerfile: Dockerfile.local
+    volumes:
+      - ./server:/app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - flyway
+    environment:
+      DATABASE_URL: "postgres://postgres:password@db:5432/dct_db?schema=public"
 volumes:
   db:

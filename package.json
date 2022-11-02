@@ -4,7 +4,9 @@
   "description": "A companion tool for GMs and Players",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "storybook": "start-storybook -p 7007",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,16 @@
   },
   "homepage": "https://github.com/jstrange04/dnd-companion-tool#readme",
   "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@storybook/addon-actions": "^5.3.21",
+    "@storybook/addon-knobs": "^5.3.21",
+    "@storybook/addon-links": "^5.3.21",
+    "@storybook/addon-ondevice-actions": "^5.3.23",
+    "@storybook/addon-ondevice-knobs": "^5.3.26",
+    "@storybook/react-native": "^5.3.27",
+    "@storybook/react-native-server": "^5.3.23",
+    "babel-loader": "^8.2.5",
     "cypress": "^10.9.0"
-  }
+  },
+  "dependencies": {}
 }

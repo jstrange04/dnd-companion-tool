@@ -11,6 +11,9 @@ const handleTest = (res, next) => {
 const verifyToken = async (res, req, next) => {
   if (process.env.NODE_ENV === "test") return handleTest(res, next);
 
+  if ((req.path === "/auth" || req.path === "/user") && req.method == "POST")
+  return next();
+
   const splitAuth = req.headers.authorization?.split(" ");
   const token = splitAuth && splitAuth.length >= 2 && splitAuth[1];
 

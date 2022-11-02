@@ -43,7 +43,8 @@ async function updateCampaign(req, res) {
   const updatedCampaign = await campaignService.updateCampaign(
     campaign_id,
     name, 
-    description
+    description,
+    date_modified = new Date().getUTCDate(),
   );
   res.status(200).json(updatedCampaign);
 }

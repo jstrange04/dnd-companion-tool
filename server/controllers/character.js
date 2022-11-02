@@ -32,8 +32,8 @@ async function createCharacter(req, res) {
   const {          
     name,
     race,
-    character_class,
-    subclass,
+    char_class,
+    sub_class,
     level,
     strength,
     dexterity,
@@ -47,8 +47,8 @@ async function createCharacter(req, res) {
   await characterService.createCharacter(
     name,
     race,
-    character_class,
-    subclass,
+    char_class,
+    sub_class,
     level,
     strength,
     dexterity,
@@ -58,7 +58,7 @@ async function createCharacter(req, res) {
     charisma,
     hit_points,
     armour_class,
-    movement_speed
+    movement_speed,
   );
   res.sendStatus(201);
 }
@@ -68,8 +68,8 @@ async function updateCharacter(req, res) {
   const {     
     name,
     race,
-    character_class,
-    subclass,
+    char_class,
+    sub_class,
     level,
     strength,
     dexterity,
@@ -84,8 +84,8 @@ async function updateCharacter(req, res) {
     character_id,
     name,
     race,
-    character_class,
-    subclass,
+    char_class,
+    sub_class,
     level,
     strength,
     dexterity,
@@ -95,7 +95,8 @@ async function updateCharacter(req, res) {
     charisma,
     hit_points,
     armour_class,
-    movement_speed
+    movement_speed,
+    date_modified = new Date().getUTCDate(),
   );
   res.status(200).json(updatedCharacter);
 }

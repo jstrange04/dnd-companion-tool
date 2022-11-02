@@ -35,7 +35,8 @@ async function updateParty(req, res) {
   const updatedParty = await partyService.updateParty(
     party_id,
     name, 
-    party_level
+    party_level,
+    date_modified = new Date().getUTCDate(),
   );
   res.status(200).json(updatedParty);
 }

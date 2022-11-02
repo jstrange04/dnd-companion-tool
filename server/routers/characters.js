@@ -9,8 +9,8 @@ const {
   getCharacterByName,
   createCharacter,
   updateCharacter,
-  deleteCharacter,
-} = require("../services/characters");
+  removeCharacter,
+} = require("../controllers/character");
 
 /**
  * @swagger
@@ -31,8 +31,8 @@ const {
  *                 value: '[{ "id": 1,
  *                            "name": "Character One",
  *                            "race": "Elf"
- *                            "class": "Fighter",
- *                            "subclass": "Champion",
+ *                            "char_class": "Fighter",
+ *                            "sub_class": "Champion",
  *                            "level": "5",
  *                            "strength": "15",
  *                            "dexterity": "14",
@@ -47,8 +47,8 @@ const {
  *                           {"id": 2,
  *                            "name": "Character Two",
  *                            "race": "Human"
- *                            "class":"Rogue",
- *                            "subclass": "Assassin",
+ *                            "char_class":"Rogue",
+ *                            "sub_class": "Assassin",
  *                            "level": "5",
  *                            "strength": "15",
  *                            "dexterity": "14",
@@ -89,8 +89,8 @@ router.route("/").get(getAllCharacters);
  *                 value: '{ "id": 1,
  *                            "name": "Character One",
  *                            "race": "Elf"
- *                            "class": "Fighter",
- *                            "subclass": "Champion",
+ *                            "char_class": "Fighter",
+ *                            "sub_class": "Champion",
  *                            "level": "5",
  *                            "strength": "15",
  *                            "dexterity": "14",
@@ -131,8 +131,8 @@ router.route("/:character_id(\\d+)").get(getCharacter);
  *                 value: '{ "id": 1,
  *                            "name": "Character One",
  *                            "race": "Elf"
- *                            "class": "Fighter",
- *                            "subclass": "Champion",
+ *                            "char_class": "Fighter",
+ *                            "sub_class": "Champion",
  *                            "level": "5",
  *                            "strength": "15",
  *                            "dexterity": "14",
@@ -171,14 +171,14 @@ router.route("/name/").get(getCharacterByName);
  *                 type: string
  *                 required: true
  *                 description: The race for the character
- *               class:
+ *               char_class:
  *                 type: string
  *                 required: true
  *                 description: The class for the character
- *               subclass:
+ *               sub_class:
  *                 type: string
  *                 required: false
- *                 description: The subclass for the character
+ *                 description: The sub class for the character
  *               level:
  *                 type: int
  *                 required: true
@@ -237,13 +237,13 @@ router
         .isLength({ min: 3 })
         .withMessage("the character race must have minimum length of 3")
         .trim(),
-      check("character_class")
+      check("char_class")
         .isLength({ min: 3 })
         .withMessage("the character class must have minimum length of 3")
         .trim(),
-      check("subclass")
+      check("sub_class")
         .isLength({ min: 3 })
-        .withMessage("the character class must have minimum length of 3")
+        .withMessage("the character sub class must have minimum length of 3")
         .trim(),
       check("level")
         .isNumeric()
@@ -302,14 +302,14 @@ router
  *                 type: string
  *                 required: true
  *                 description: The race for the character
- *               class:
+ *               char_class:
  *                 type: string
  *                 required: true
  *                 description: The class for the character
- *               subclass:
+ *               sub_class:
  *                 type: string
  *                 required: false
- *                 description: The subclass for the character
+ *                 description: The sub class for the character
  *               level:
  *                 type: int
  *                 required: true
@@ -368,11 +368,11 @@ router
         .isLength({ min: 3 })
         .withMessage("the character race must have minimum length of 3")
         .trim(),
-      check("character_class")
+      check("char_class")
         .isLength({ min: 3 })
         .withMessage("the character class must have minimum length of 3")
         .trim(),
-      check("subclass")
+      check("sub_class")
         .isLength({ min: 3 })
         .withMessage("the character class must have minimum length of 3")
         .trim(),
@@ -430,6 +430,6 @@ router
  *       201:
  *         description: Character Deleted
  */
-router.route("/:id").delete(deleteCharacter);
+router.route("/:id").delete(removeCharacter);
 
 module.exports = router;

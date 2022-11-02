@@ -4,11 +4,13 @@ const swaggerUI = require("swagger-ui-express")
 const swaggerJSDoc = require("swagger-jsdoc")
 const { json, urlencoded } = require("body-parser");
 const {
+  authRouter,
   userRouter,
   characterRouter,
   partyRouter,
   campaignRouter,
 } = require("./routers/index");
+const { verifyToken } = require("./middleware/auth");
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -40,6 +42,9 @@ app.use("/swagger.json", (req, res) =>
   res.json(openapiSpecification).status(200)
 );
 
+//app.all("*", verifyToken);
+
+app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/characters", characterRouter);
 app.use("/parties", partyRouter);

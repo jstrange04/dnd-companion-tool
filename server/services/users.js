@@ -21,7 +21,7 @@ async function getUser(id) {
       id: true,
       email: true,
       username: true,
-      date_created: true,
+  //    date_created: true,
     },
   });
 }
@@ -36,7 +36,7 @@ async function getUserByEmail(email) {
       email: true,
       username: true,
       password: true,
-      date_created: true,
+      //date_created: true,
     },
   });
 
@@ -48,7 +48,7 @@ async function createUser(email, username, password) {
   await prisma.users.create({
     data: {
       email: email,
-      usernname: username,
+      username: username,
       password: hashedPassword,
     },
   });

@@ -11,14 +11,16 @@ CREATE TABLE IF NOT EXISTS parties (
     party_name VARCHAR(250) NOT NULL,
     party_level INT,
     date_created TIMESTAMP NOT NULL DEFAULT NOW()
+    date_modified TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS characters (
     id SERIAL PRIMARY KEY,
+    image VARCHAR,
     name VARCHAR(100) NOT NULL,
     race VARCHAR(50) NOT NULL,
-    character_class VARCHAR(50) NOT NULL,
-    subclass VARCHAR(100),
+    char_class VARCHAR(50) NOT NULL,
+    sub_class VARCHAR(100),
     level INT NOT NULL,
     strength INT NOT NULL,
     dexterity INT NOT NULL,
@@ -28,15 +30,18 @@ CREATE TABLE IF NOT EXISTS characters (
     charisma INT NOT NULL,
     hit_points INT NOT NULL,
     armour_class INT NOT NULL,
-    movement_speed INT NOT NULL
+    movement_speed INT NOT NULL,
+    date_modified TIMESTAMP
 );
 
 
 CREATE TABLE IF NOT EXISTS campaigns (
     id SERIAL PRIMARY KEY,
+    image VARCHAR,
     name VARCHAR(250) NOT NULL, 
     description VARCHAR(500),
-    date_created TIMESTAMP NOT NULL DEFAULT NOW()
+    date_created TIMESTAMP NOT NULL DEFAULT NOW(),
+    date_modified TIMESTAMP,
 );
 
 CREATE TABLE IF NOT EXISTS games (
