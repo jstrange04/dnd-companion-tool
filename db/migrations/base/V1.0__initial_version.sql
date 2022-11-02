@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS parties (
     id SERIAL PRIMARY KEY,
     party_name VARCHAR(250) NOT NULL,
     party_level INT,
-    date_created TIMESTAMP NOT NULL DEFAULT NOW()
+    date_created TIMESTAMP NOT NULL DEFAULT NOW(),
     date_modified TIMESTAMP
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS campaigns (
     name VARCHAR(250) NOT NULL, 
     description VARCHAR(500),
     date_created TIMESTAMP NOT NULL DEFAULT NOW(),
-    date_modified TIMESTAMP,
+    date_modified TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS games (
@@ -57,24 +57,24 @@ CREATE TABLE IF NOT EXISTS monsters (
 
 CREATE TABLE IF NOT EXISTS user_characters (
     id SERIAL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES users(id),
-    FOREIGN KEY (id) REFERENCES characters(id)
+    user_id INT CONSTRAINT user_characters_users_user_id_fk REFERENCES users,
+    character_id INT CONSTRAINT user_characters_characters_character_id_fk REFERENCES users
 );
 
 CREATE TABLE IF NOT EXISTS party_characters (
     id SERIAL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES parties(id),
-    FOREIGN KEY (id) REFERENCES characters(id)
+    party_id INT CONSTRAINT party_characters_parties_party_id_fk REFERENCES parties,
+    character_id INT CONSTRAINT party_characters_characters_character_id_fk REFERENCES characters
 );
 
 CREATE TABLE IF NOT EXISTS campaign_parties (
-    id INT NOT NULL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES campaigns(id),
-    FOREIGN KEY (id) REFERENCES parties(id)
+    id SERIAL PRIMARY KEY,
+    campaign_id INT CONSTRAINT campaign_parties_campaigns_campaign_id_fk REFERENCES campaigns,
+    party_id INT CONSTRAINT campaign_parties_parties_party_id_fk REFERENCES parties
 );
 
 CREATE TABLE IF NOT EXISTS game_monsters (
-    id INT NOT NULL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES games(id),
-    FOREIGN KEY (id) REFERENCES monsters(id)
+    id SERIAL PRIMARY KEY,
+    game_id INT CONSTRAINT game_monsters_games_game_id_fk REFERENCES games,
+    monster_id INT CONSTRAINT game_monsters_monsters_monster_id_fk REFERENCES monsters
 );

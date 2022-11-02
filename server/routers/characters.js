@@ -413,7 +413,7 @@ router
 
 /**
  * @swagger
- * /character/{characterId}:
+ * /characters/{characterId}:
  *   delete:
  *     tags: [
  *       characters
