@@ -42,7 +42,7 @@ const {
  *                            "charisma": "10",
  *                            "constitution": "13",
  *                            "hit_points": "25",
- *                            "armor_class": "13",
+ *                            "armour_class": "13",
  *                            "movement_speed": "30" },
  *                           {"id": 2,
  *                            "name": "Character Two",
@@ -58,7 +58,7 @@ const {
  *                            "charisma": "10",
  *                            "constitution": "13",
  *                            "hit_points": "25",
- *                            "armor_class": "13",
+ *                            "armour_class": "13",
  *                            "movement_speed": "30" }]'
  *       204:
  *         description: No content
@@ -100,7 +100,7 @@ router.route("/").get(getAllCharacters);
  *                            "charisma": "10",
  *                            "constitution": "13",
  *                            "hit_points": "25",
- *                            "armor_class": "13",
+ *                            "armour_class": "13",
  *                            "movement_speed": "30"}'
  *       204:
  *         description: No content
@@ -142,7 +142,7 @@ router.route("/:character_id(\\d+)").get(getCharacter);
  *                            "charisma": "10",
  *                            "constitution": "13",
  *                            "hit_points": "25",
- *                            "armor_class": "13",
+ *                            "armour_class": "13",
  *                            "movement_speed": "30"}'
  *       204:
  *         description: No content
@@ -211,14 +211,18 @@ router.route("/name/").get(getCharacterByName);
  *                 type: int
  *                 required: true
  *                 description: The hit points for the character
- *               armor_class:
+ *               armour_class:
  *                 type: int
  *                 required: true
  *                 description: The armor class for the character
  *               movement_speed:
  *                 type: int
  *                 required: true
- *                 description: The movement speed for the character
+ *                 description: The movement speed for the character,
+ *               user_id:
+ *                 type: int
+ *                 required: true
+ *                 description: The user_id of the current user creating a character 
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
@@ -269,7 +273,7 @@ router
       check("hit_points")
         .isNumeric()
         .withMessage("the character's hit point total must be entered"),
-      check("armor_class")
+      check("armour_class")
         .isNumeric()
         .withMessage("the character's armor class must be entered"),
       check("movement_speed")
@@ -283,7 +287,7 @@ router
 /**
  * @swagger
  * /characters:
- *   post:
+ *   put:
  *     tags: [
  *       characters
  *     ]
@@ -342,7 +346,7 @@ router
  *                 type: int
  *                 required: true
  *                 description: The hit points for the character
- *               armor_class:
+ *               armour_class:
  *                 type: int
  *                 required: true
  *                 description: The armor class for the character
@@ -400,7 +404,7 @@ router
       check("hit_points")
         .isNumeric()
         .withMessage("the character's hit point total must be entered"),
-      check("armor_class")
+      check("armour_class")
         .isNumeric()
         .withMessage("the character's armor class must be entered"),
       check("movement_speed")

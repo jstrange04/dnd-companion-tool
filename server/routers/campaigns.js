@@ -7,6 +7,7 @@ const {
     getAllCampaigns,
     getCampaign,  
     getCampaignByName,
+    addPartyToCampaign,
     createCampaign, 
     updateCampaign, 
     removeCampaign,
@@ -126,6 +127,41 @@ router.route("/").post(
   ],
   validation.validate,
   createCampaign
+);
+
+/**
+ * @swagger
+ * /campaigns:
+ *   post:
+ *     tags: [
+ *       party_campaigns
+ *     ]
+ *     summary: 
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 required: true
+ *                 description: The name for the campaign
+ *               description:
+ *                 type: string
+ *                 required: true
+ *                 description: The description for the campaign
+ *     responses:
+ *       400:
+ *         description: Bad Request - required values are missing.
+ *       201:
+ *         description: 
+ */
+ router.route("/").post(
+  [
+  ],
+  validation.validate,
+  addPartyToCampaign
 );
 
 /**

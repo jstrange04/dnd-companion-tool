@@ -1,7 +1,15 @@
 const { prisma } = require("../utils")
 
 async function getAllParties() {
-  return await prisma.parties.findMany();
+  return await prisma.parties.findMany({
+    include: {
+      party_characters: {
+        include: {
+          characters: true
+        }
+      }
+    }
+  });
 }
 
 async function getParty(id) {
@@ -39,6 +47,18 @@ await prisma.parties.create({
 });
 }
 
+async function addCharacterToParty(
+  party_id,
+  character_id
+) {
+await prisma.party_characters.create({
+  data: {
+    party_id: party_id,
+    character_id: character_id
+  },
+});
+}
+
 async function updateParty(
   id,
   party_name, 
@@ -63,10 +83,20 @@ async function deleteParty(id) {
   });
 }
 
+async function deleteCharacterFromParty(id) {
+  return await prisma.party_characters.delete({
+    where: {
+      id: parseInt(id),
+    },
+  });
+}
+
 module.exports = {
   getAllParties,
   getParty,
   createParty,
+  addCharacterToParty,
   updateParty,
-  deleteParty
+  deleteParty,
+  deleteCharacterFromParty
 };

@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -8,11 +9,11 @@ datasource db {
 }
 
 model campaign_parties {
-  id          Int        @id @default(autoincrement())
-  campaign_id Int?
-  party_id    Int?
-  campaigns   campaigns? @relation(fields: [campaign_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "campaign_parties_campaigns_campaign_id_fk")
-  parties     parties?   @relation(fields: [party_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "campaign_parties_parties_party_id_fk")
+  id          Int       @id @default(autoincrement())
+  campaign_id Int
+  party_id    Int
+  campaigns   campaigns @relation(fields: [campaign_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "campaign_parties_campaigns_campaign_id_fk")
+  parties     parties   @relation(fields: [party_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "campaign_parties_parties_party_id_fk")
 }
 
 model campaigns {
@@ -44,6 +45,7 @@ model characters {
   movement_speed   Int
   date_modified    DateTime?          @db.Timestamp(6)
   party_characters party_characters[]
+  user_characters  user_characters[]
 }
 
 model flyway_schema_history {
@@ -62,11 +64,11 @@ model flyway_schema_history {
 }
 
 model game_monsters {
-  id         Int       @id @default(autoincrement())
-  game_id    Int?
-  monster_id Int?
-  games      games?    @relation(fields: [game_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "game_monsters_games_game_id_fk")
-  monsters   monsters? @relation(fields: [monster_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "game_monsters_monsters_monster_id_fk")
+  id         Int      @id @default(autoincrement())
+  game_id    Int
+  monster_id Int
+  games      games    @relation(fields: [game_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "game_monsters_games_game_id_fk")
+  monsters   monsters @relation(fields: [monster_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "game_monsters_monsters_monster_id_fk")
 }
 
 model games {
@@ -93,27 +95,26 @@ model parties {
 }
 
 model party_characters {
-  id           Int         @id @default(autoincrement())
-  party_id     Int?
-  character_id Int?
-  characters   characters? @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "party_characters_characters_character_id_fk")
-  parties      parties?    @relation(fields: [party_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "party_characters_parties_party_id_fk")
+  id           Int        @id @default(autoincrement())
+  party_id     Int
+  character_id Int
+  characters   characters @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "party_characters_characters_character_id_fk")
+  parties      parties    @relation(fields: [party_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "party_characters_parties_party_id_fk")
 }
 
 model user_characters {
-  id                                        Int    @id @default(autoincrement())
-  user_id                                   Int?
-  character_id                              Int?
-  users_user_characters_character_idTousers users? @relation("user_characters_character_idTousers", fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_characters_characters_character_id_fk")
-  users_user_characters_user_idTousers      users? @relation("user_characters_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_characters_users_user_id_fk")
+  id           Int        @id(map: "user_characters_pk") @default(autoincrement())
+  user_id      Int
+  character_id Int
+  characters   characters @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_characters_character_id_fk")
+  users        users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_characters_user_id_fk")
 }
 
 model users {
-  id                                                  Int               @id @default(autoincrement())
-  username                                            String            @db.VarChar(50)
-  email                                               String            @db.VarChar(100)
-  password                                            String            @db.VarChar(100)
-  date_created                                        DateTime          @default(now()) @db.Timestamp(6)
-  user_characters_user_characters_character_idTousers user_characters[] @relation("user_characters_character_idTousers")
-  user_characters_user_characters_user_idTousers      user_characters[] @relation("user_characters_user_idTousers")
+  id              Int               @id @default(autoincrement())
+  username        String            @db.VarChar(50)
+  email           String            @db.VarChar(100)
+  password        String            @db.VarChar(100)
+  date_created    DateTime          @default(now()) @db.Timestamp(6)
+  user_characters user_characters[]
 }

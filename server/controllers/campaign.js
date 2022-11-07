@@ -28,6 +28,15 @@ async function getCampaignByName(req, res) {
     }
 }
 
+async function addPartyToCampaign(req, res) {
+  const { campaign_id, party_id } = req.body;
+  await campaignService.addPartyToCampaign(
+    campaign_id,
+    party_id, 
+  );
+  res.sendStatus(201);
+}
+
 async function createCampaign(req, res) {
   const { name, description } = req.body;
   await campaignService.createCampaign(
@@ -59,6 +68,7 @@ module.exports = {
     getAllCampaigns,
     getCampaign,
     getCampaignByName,
+    addPartyToCampaign,
     createCampaign,
     updateCampaign,
     removeCampaign,

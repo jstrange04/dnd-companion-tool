@@ -43,7 +43,8 @@ async function createCharacter(req, res) {
     charisma,
     hit_points,
     armour_class,
-    movement_speed } = req.body;
+    movement_speed,
+  user_id } = req.body;
   await characterService.createCharacter(
     name,
     race,
@@ -59,6 +60,7 @@ async function createCharacter(req, res) {
     hit_points,
     armour_class,
     movement_speed,
+    user_id
   );
   res.sendStatus(201);
 }

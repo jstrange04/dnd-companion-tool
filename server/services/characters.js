@@ -1,4 +1,5 @@
-const { prisma } = require("../utils")
+const { prisma } = require("../utils");
+const { user_characters } = require("../utils/prisma");
 
 async function getAllCharacters() {
   return await prisma.characters.findMany();
@@ -24,7 +25,7 @@ async function getCharacter(id) {
       charisma: true,
       hit_points: true,
       armour_class: true,
-      movement_speed: true
+      movement_speed: true,
     },
   });
 }
@@ -32,7 +33,7 @@ async function getCharacter(id) {
 async function getCharacterByName(name) {
   const characters = await prisma.characters.findMany({
     where: {
-      name: name
+      name: name,
     },
     select: {
       id: true,
@@ -49,7 +50,7 @@ async function getCharacterByName(name) {
       charisma: true,
       hit_points: true,
       armour_class: true,
-      movement_speed: true
+      movement_speed: true,
     },
   });
 
@@ -57,39 +58,49 @@ async function getCharacterByName(name) {
 }
 
 async function createCharacter(
-    name,
-    race,
-    char_class,
-    sub_class,
-    level,
-    strength,
-    dexterity,
-    constitution,
-    intelligence,
-    wisdom,
-    charisma,
-    hit_points,
-    armor_class,
-    movement_speed
-  ) {
-  await prisma.characters.create({
-    data: {
-      name: name,
-      race: race,
-      char_class: char_class,
-      sub_class: sub_class,
-      level: level,
-      strength: strength,
-      dexterity: dexterity,
-      constitution: constitution,
-      intelligence: intelligence,
-      wisdom: wisdom,
-      charisma: charisma,
-      hit_points: hit_points,
-      armor_class: armor_class,
-      movement_speed: movement_speed,
-    },
-  });
+  name,
+  race,
+  char_class,
+  sub_class,
+  level,
+  strength,
+  dexterity,
+  constitution,
+  intelligence,
+  wisdom,
+  charisma,
+  hit_points,
+  armour_class,
+  movement_speed,
+  user_id
+) {
+  await prisma.$transaction(async (tx) => {
+    const newCharacter = await tx.characters.create({
+      data: {
+        name: name,
+        race: race,
+        char_class: char_class,
+        sub_class: sub_class,
+        level: level,
+        strength: strength,
+        dexterity: dexterity,
+        constitution: constitution,
+        intelligence: intelligence,
+        wisdom: wisdom,
+        charisma: charisma,
+        hit_points: hit_points,
+        armour_class: armour_class,
+        movement_speed: movement_speed
+      },
+    });
+    const new_character_id = newCharacter.id;
+    return tx.user_characters.create({
+      data: {
+        user_id: user_id,
+        character_id: new_character_id
+      }
+    })
+  })
 }
 
 async function updateCharacter(
@@ -106,7 +117,7 @@ async function updateCharacter(
   wisdom,
   charisma,
   hit_points,
-  armor_class,
+  armour_class,
   movement_speed
 ) {
   return await prisma.characters.update({
@@ -126,8 +137,8 @@ async function updateCharacter(
       wisdom: wisdom,
       charisma: charisma,
       hit_points: hit_points,
-      armor_class: armor_class,
-      movement_speed: movement_speed
+      armour_class: armour_class,
+      movement_speed: movement_speed,
     },
   });
 }

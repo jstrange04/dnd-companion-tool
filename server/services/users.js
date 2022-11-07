@@ -2,14 +2,7 @@ const { prisma } = require("../utils");
 const bcrypt = require("bcrypt");
 
 async function getAllUsers() {
-  return await prisma.users.findMany({
-    select: {
-      id: true,
-      email: true,
-      username: true,
-      date_created: true,
-    },
-  });
+  return await prisma.users.findMany();
 }
 
 async function getUser(id) {
@@ -21,7 +14,15 @@ async function getUser(id) {
       id: true,
       email: true,
       username: true,
-  //    date_created: true,
+      user_characters: {
+        select: {
+          characters: {
+            select: {
+              name: true,
+            }
+          }
+        }
+      }
     },
   });
 }
@@ -35,8 +36,15 @@ async function getUserByEmail(email) {
       id: true,
       email: true,
       username: true,
-      password: true,
-      //date_created: true,
+      user_characters: {
+        select: {
+          characters: {
+            select: {
+              name: true,
+            }
+          }
+        }
+      }
     },
   });
 

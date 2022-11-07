@@ -34,7 +34,6 @@ CREATE TABLE IF NOT EXISTS characters (
     date_modified TIMESTAMP
 );
 
-
 CREATE TABLE IF NOT EXISTS campaigns (
     id SERIAL PRIMARY KEY,
     image VARCHAR,
@@ -56,25 +55,25 @@ CREATE TABLE IF NOT EXISTS monsters (
 );
 
 CREATE TABLE IF NOT EXISTS user_characters (
-    id SERIAL PRIMARY KEY,
-    user_id INT CONSTRAINT user_characters_users_user_id_fk REFERENCES users,
-    character_id INT CONSTRAINT user_characters_characters_character_id_fk REFERENCES users
+    id SERIAL CONSTRAINT user_characters_pk PRIMARY KEY,
+    user_id INT CONSTRAINT user_characters_user_id_fk REFERENCES users NOT NULL,
+    character_id INT CONSTRAINT user_characters_character_id_fk REFERENCES characters NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS party_characters (
     id SERIAL PRIMARY KEY,
-    party_id INT CONSTRAINT party_characters_parties_party_id_fk REFERENCES parties,
-    character_id INT CONSTRAINT party_characters_characters_character_id_fk REFERENCES characters
+    party_id INT CONSTRAINT party_characters_parties_party_id_fk REFERENCES parties NOT NULL,
+    character_id INT CONSTRAINT party_characters_characters_character_id_fk REFERENCES characters NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS campaign_parties (
     id SERIAL PRIMARY KEY,
-    campaign_id INT CONSTRAINT campaign_parties_campaigns_campaign_id_fk REFERENCES campaigns,
-    party_id INT CONSTRAINT campaign_parties_parties_party_id_fk REFERENCES parties
+    campaign_id INT CONSTRAINT campaign_parties_campaigns_campaign_id_fk REFERENCES campaigns NOT NULL,
+    party_id INT CONSTRAINT campaign_parties_parties_party_id_fk REFERENCES parties NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS game_monsters (
     id SERIAL PRIMARY KEY,
-    game_id INT CONSTRAINT game_monsters_games_game_id_fk REFERENCES games,
-    monster_id INT CONSTRAINT game_monsters_monsters_monster_id_fk REFERENCES monsters
+    game_id INT CONSTRAINT game_monsters_games_game_id_fk REFERENCES games NOT NULL,
+    monster_id INT CONSTRAINT game_monsters_monsters_monster_id_fk REFERENCES monsters NOT NULL
 );

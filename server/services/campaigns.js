@@ -13,7 +13,12 @@ async function getCampaign(id) {
       id: true,
       name: true,
       description: true,
-      date_created: true
+      date_created: true,
+      campaign_parties: {
+        select: {
+          parties: true,
+        }
+      }
     },
   });
 }
@@ -27,11 +32,25 @@ async function getCampaignByName(name) {
       id: true,
       name: true,
       description: true,
-      date_created: true
+      date_created: true,
+      campaign_parties: {
+        select: {
+          parties: true,
+        }
+      }
     },
   });
 
   return campaigns && campaigns.length > 0 && campaigns[0];
+}
+
+async function addPartyToCampaign(campaign_id, party_id) {
+  await prisma.campaign_parties.create({
+    data: {
+      campaign_id: campaign_id,
+      party_id: party_id,
+    }
+  })
 }
 
 async function createCampaign(
@@ -74,6 +93,7 @@ module.exports = {
   getAllCampaigns,
   getCampaign,
   getCampaignByName,
+  addPartyToCampaign,
   createCampaign,
   updateCampaign,
   deleteCampaign,
