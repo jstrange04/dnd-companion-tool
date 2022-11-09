@@ -73,8 +73,8 @@ async function createCharacter(
   movement_speed: number,
   user_id: number
 ) {
-  await prisma.$transaction(async (tx) => {
-    const newCharacter = await tx.characters.create({
+  //await prisma.$transaction(async (tx: Prisma.) => {
+   await prisma.characters.create({
       data: {
         name: name,
         race: race,
@@ -92,14 +92,14 @@ async function createCharacter(
         movement_speed: movement_speed
       },
     });
-    const new_character_id = newCharacter.id;
-    return tx.user_characters.create({
-      data: {
-        user_id: user_id,
-        character_id: new_character_id
-      }
-    })
-  })
+    // const new_character_id = newCharacter.id;
+    // return await tx.user_characters.create({
+    //   data: {
+    //     user_id: user_id,
+    //     character_id: new_character_id
+    //   }
+    // })
+  //})
 }
 
 async function updateCharacter(
