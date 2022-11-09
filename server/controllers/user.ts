@@ -1,6 +1,7 @@
-const { userService } = require("../services");
+import { Response, Request } from 'express';
+import { userService } from '../services'
 
-async function getAllUsers(req, res) {
+async function getAllUsers(req: Request, res: Response) {
   const users = await userService.getAllUsers();
   if (users && users.length > 0) {
     res.status(200).json(users);
@@ -9,7 +10,7 @@ async function getAllUsers(req, res) {
   }
 }
 
-async function createUser(req, res) {
+async function createUser(req: Request, res: Response) {
   const { email, username, password } = req.body;
   await userService.createUser(
     email,
@@ -19,11 +20,11 @@ async function createUser(req, res) {
   res.sendStatus(201);
 }
 
-async function updateUser(req, res) {
+async function updateUser(req: Request, res: Response) {
   const { user_id } = req.params;
   const { email, username, password } = req.body;
   const updatedUser = await userService.updateUser(
-    user_id,
+    parseInt(user_id),
     email,
     username,
     password
@@ -31,9 +32,9 @@ async function updateUser(req, res) {
   res.status(200).json(updatedUser);
 }
 
-async function getUser(req, res) {
+async function getUser(req: Request, res: Response) {
   const { user_id } = req.params;
-  const getUser = await userService.getUser(user_id);
+  const getUser = await userService.getUser(parseInt(user_id));
   if (getUser) {
     res.status(200).json(getUser);
   } else {
@@ -41,7 +42,7 @@ async function getUser(req, res) {
   }
 }
 
-async function getUserByEmail(req, res) {
+async function getUserByEmail(req: Request, res: Response) {
     const getUserByEmail = await userService.getUserByEmail(req.body.email);
     if (getUserByEmail) {
         res.status(200).json(getUserByEmail)
@@ -50,13 +51,13 @@ async function getUserByEmail(req, res) {
     }
 }
 
-async function removeUser(req, res) {
+async function removeUser(req: Request, res: Response) {
   const { id } = req.params;
-  const removeUser = await userService.deleteUser(id);
+  const removeUser = await userService.deleteUser(parseInt(id));
   res.status(200).json(removeUser);
 }
 
-module.exports = {
+export {
     getUser,
     getAllUsers,
     getUserByEmail,

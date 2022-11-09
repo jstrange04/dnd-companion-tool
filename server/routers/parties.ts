@@ -1,15 +1,15 @@
-const { Router } = require("express");
-const router = Router();
-const { validation } = require("../utils");
-const { check } = require("express-validator");
-
-const {
+import { Router } from 'express';
+import { validation } from '../utils';
+import { check } from 'express-validator';
+import {
   getAllParties,
   getParty,
   createParty,
   updateParty,
   removeParty,
-} = require("../controllers/party");
+} from '../controllers/party';
+
+const partyRouter = Router();
 
 /**
  * @swagger
@@ -32,7 +32,7 @@ const {
  *       204:
  *         description: No content
  */
-router.route("/").get(getAllParties);
+ partyRouter.route("/").get(getAllParties);
 
 /**
  * @swagger
@@ -59,7 +59,7 @@ router.route("/").get(getAllParties);
  *       204:
  *         description: No content
  */
-router.route("/:party_id(\\d+)").get(getParty);
+ partyRouter.route("/:party_id(\\d+)").get(getParty);
 
 /**
  * @swagger
@@ -89,7 +89,7 @@ router.route("/:party_id(\\d+)").get(getParty);
  *       201:
  *         description: Party Created
  */
-router
+ partyRouter
   .route("/")
   .post(
     [
@@ -138,7 +138,7 @@ router
  *       204:
  *         description: Party Updated
  */
-router
+ partyRouter
   .route("/:party_id(\\d+)")
   .put(
     [
@@ -173,6 +173,6 @@ router
  *       201:
  *         description: Party Deleted
  */
-router.route("/:id").delete(removeParty);
+ partyRouter.route("/:id").delete(removeParty);
 
-module.exports = router;
+export { partyRouter };

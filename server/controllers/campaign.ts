@@ -1,6 +1,7 @@
-const { campaignService } = require("../services");
+import { Response, Request } from 'express';
+import { campaignService } from '../services';
 
-async function getAllCampaigns(req, res) {
+async function getAllCampaigns(req: Request, res: Response) {
   const campaign = await campaignService.getAllCampaigns();
   if (campaign && campaign.length > 0) {
     res.status(200).json(campaign);
@@ -9,9 +10,9 @@ async function getAllCampaigns(req, res) {
   }
 }
 
-async function getCampaign(req, res) {
+async function getCampaign(req: Request, res: Response) {
     const { campaign_id } = req.params;
-    const getCampaign = await campaignService.getCampaign(campaign_id);
+    const getCampaign = await campaignService.getCampaign(parseInt(campaign_id));
     if (getCampaign) {
       res.status(200).json(getCampaign);
     } else {
@@ -19,7 +20,7 @@ async function getCampaign(req, res) {
     }
   }
 
-async function getCampaignByName(req, res) {
+async function getCampaignByName(req: Request, res: Response) {
     const getCampaignByName = await campaignService.getCampaignByName(req.body.name);
     if (getCampaignByName) {
         res.status(200).json(getCampaignByName)
@@ -28,7 +29,7 @@ async function getCampaignByName(req, res) {
     }
 }
 
-async function addPartyToCampaign(req, res) {
+async function addPartyToCampaign(req: Request, res: Response) {
   const { campaign_id, party_id } = req.body;
   await campaignService.addPartyToCampaign(
     campaign_id,
@@ -37,7 +38,7 @@ async function addPartyToCampaign(req, res) {
   res.sendStatus(201);
 }
 
-async function createCampaign(req, res) {
+async function createCampaign(req: Request, res: Response) {
   const { name, description } = req.body;
   await campaignService.createCampaign(
     name,
@@ -46,25 +47,25 @@ async function createCampaign(req, res) {
   res.sendStatus(201);
 }
 
-async function updateCampaign(req, res) {
+async function updateCampaign(req: Request, res: Response) {
   const { campaign_id } = req.params;
   const { name, description} = req.body;
   const updatedCampaign = await campaignService.updateCampaign(
-    campaign_id,
+    parseInt(campaign_id),
     name, 
     description,
-    date_modified = new Date().getUTCDate(),
+    //date_modified = new Date().getUTCDate(),
   );
   res.status(200).json(updatedCampaign);
 }
 
-async function removeCampaign(req, res) {
+async function removeCampaign(req: Request, res: Response) {
   const { id } = req.params;
-  const removeCampaign = await campaignService.deleteCampaign(id);
+  const removeCampaign = await campaignService.deleteCampaign(parseInt(id));
   res.status(200).json(removeCampaign);
 }
 
-module.exports = {
+export {
     getAllCampaigns,
     getCampaign,
     getCampaignByName,

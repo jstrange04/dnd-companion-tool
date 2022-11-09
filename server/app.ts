@@ -1,16 +1,16 @@
-const express = require("express");
-const cors = require("cors");
-const swaggerUI = require("swagger-ui-express")
-const swaggerJSDoc = require("swagger-jsdoc")
-const { json, urlencoded } = require("body-parser");
-const {
+import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import swaggerUI from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import { json, urlencoded } from 'body-parser';
+import {
   authRouter,
   userRouter,
   characterRouter,
   partyRouter,
   campaignRouter,
-} = require("./routers/index");
-const { verifyToken } = require("./middleware/auth");
+} from './routers/index';
+import { verifyToken } from './middleware/auth';
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -28,7 +28,7 @@ const swaggerDefinition = {
 
 const openapiSpecification = swaggerJSDoc({
   swaggerDefinition,
-  apis: ["./routers/*.js"],
+  apis: ["./routers/*.ts"],
 });
 
 const app = express();
@@ -38,7 +38,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(openapiSpecification));
-app.use("/swagger.json", (req, res) =>
+app.use("/swagger.json", (req: Request, res: Response) =>
   res.json(openapiSpecification).status(200)
 );
 
@@ -50,8 +50,8 @@ app.use("/characters", characterRouter);
 app.use("/parties", partyRouter);
 app.use("/campaigns", campaignRouter);
 
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).send(err);
 });
 
-module.exports = app;
+export { app };

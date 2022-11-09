@@ -1,31 +1,31 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const userService = require("./users");
-const {
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { userService } from './users';
+import {
   ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET,
-} = require("../constants/auth");
+} from '../constants/auth';
 
-async function authenticate(email, password) {
-  const user = await userService.getUserByEmail(email);
+async function authenticate(email: string, password: string) {
+  const user = await userService.getUserByEmail(email, true);
   if (user) {
     const passwordCorrect = await bcrypt.compare(password, user.password);
     if (passwordCorrect) {
       return await generateTokens(user);
     }
   }
-  throw new Error(`Authentication failed: ${email}`);
+  throw Error(`Authentication failed: ${email}`);
 }
 
-async function refresh(userId) {
+async function refresh(userId: number) {
   const user = await userService.getUser(userId);
   if (user) {
     return await generateTokens(user);
   }
-  throw new Error(`Token could not be generated`);
+  throw Error(`Token could not be generated`);
 }
 
-function generateTokens(user) {
+function generateTokens(user: any) {
   return new Promise((response, reject) => {
     try {
       const accessToken = jwt.sign({ sub: user.id }, ACCESS_TOKEN_SECRET, {
@@ -41,7 +41,9 @@ function generateTokens(user) {
   });
 }
 
-module.exports = {
+const authService = {
   authenticate,
   refresh,
-};
+}
+
+export { authService };

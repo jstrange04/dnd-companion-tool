@@ -1,17 +1,18 @@
-const { authService } = require("../services");
+import { Request, Response } from 'express';
+import { authService } from '../services';
 
-async function authenticate(req, res) {
+async function authenticate(req: Request, res: Response) {
   const { email, password } = req.body;
   const authenticationTokens = await authService.authenticate(email, password);
   res.status(200).json(authenticationTokens);
 }
 
-async function refresh(req, res) {
+async function refresh(req: Request, res: Response) {
   const authenticationTokens = await authService.refresh(res.locals.user);
   res.status(200).json(authenticationTokens);
 }
 
-module.exports = {
+export {
   authenticate,
   refresh,
 };

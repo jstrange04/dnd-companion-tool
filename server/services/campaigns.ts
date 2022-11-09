@@ -1,13 +1,13 @@
-const { prisma } = require("../utils")
+import { prisma } from '../utils'
 
 async function getAllCampaigns() {
   return await prisma.campaigns.findMany();
 }
 
-async function getCampaign(id) {
+async function getCampaign(id: number) {
   return await prisma.campaigns.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     select: {
       id: true,
@@ -23,7 +23,7 @@ async function getCampaign(id) {
   });
 }
 
-async function getCampaignByName(name) {
+async function getCampaignByName(name: string) {
   const campaigns = await prisma.campaigns.findMany({
     where: {
       name: name,
@@ -44,7 +44,7 @@ async function getCampaignByName(name) {
   return campaigns && campaigns.length > 0 && campaigns[0];
 }
 
-async function addPartyToCampaign(campaign_id, party_id) {
+async function addPartyToCampaign(campaign_id: number, party_id: number) {
   await prisma.campaign_parties.create({
     data: {
       campaign_id: campaign_id,
@@ -54,8 +54,8 @@ async function addPartyToCampaign(campaign_id, party_id) {
 }
 
 async function createCampaign(
-    name,
-    description
+    name: string,
+    description: string
   ) {
   await prisma.campaigns.create({
     data: {
@@ -66,13 +66,13 @@ async function createCampaign(
 }
 
 async function updateCampaign(
-    id,
-    name, 
-    description
+    id: number,
+    name: string, 
+    description: string
     ) {
     return await prisma.campaigns.update({
       where: {
-        id: parseInt(id),
+        id: id,
     },
       data: {
         name: name,
@@ -81,15 +81,15 @@ async function updateCampaign(
   });
 }
 
-async function deleteCampaign(id) {
+async function deleteCampaign(id: number) {
   return await prisma.campaigns.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-module.exports = {
+const campaignService = {
   getAllCampaigns,
   getCampaign,
   getCampaignByName,
@@ -97,4 +97,6 @@ module.exports = {
   createCampaign,
   updateCampaign,
   deleteCampaign,
-};
+}
+
+export { campaignService };

@@ -1,14 +1,14 @@
-const { prisma } = require("../utils");
-const bcrypt = require("bcrypt");
+import { prisma } from '../utils'
+import bcrypt from 'bcrypt';
 
 async function getAllUsers() {
   return await prisma.users.findMany();
 }
 
-async function getUser(id) {
+async function getUser(id: number) {
   return await prisma.users.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     select: {
       id: true,
@@ -27,7 +27,7 @@ async function getUser(id) {
   });
 }
 
-async function getUserByEmail(email) {
+async function getUserByEmail(email: string, includePassword: boolean = false) {
   const users = await prisma.users.findMany({
     where: {
       email: email,
@@ -36,6 +36,7 @@ async function getUserByEmail(email) {
       id: true,
       email: true,
       username: true,
+      password: includePassword,
       user_characters: {
         select: {
           characters: {
@@ -51,7 +52,7 @@ async function getUserByEmail(email) {
   return users && users.length > 0 && users[0];
 }
 
-async function createUser(email, username, password) {
+async function createUser(email: string, username: string, password: string) {
   const hashedPassword = await bcrypt.hash(password, 10);
   await prisma.users.create({
     data: {
@@ -62,11 +63,11 @@ async function createUser(email, username, password) {
   });
 }
 
-async function updateUser(id, email, username, password ) {
+async function updateUser(id: number, email: string, username: string, password: string ) {
   const hashedPassword = await bcrypt.hash(password, 10);
   return await prisma.users.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       email: email,
@@ -76,19 +77,21 @@ async function updateUser(id, email, username, password ) {
   });
 }
 
-async function deleteUser(id) {
+async function deleteUser(id: number) {
   return await prisma.users.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-module.exports = {
+const userService = {
   getAllUsers,
   getUser,
   getUserByEmail,
   createUser,
   updateUser,
-  deleteUser,
-};
+  deleteUser
+}
+
+export { userService };

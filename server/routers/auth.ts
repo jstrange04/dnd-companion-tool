@@ -1,8 +1,9 @@
-const { Router } = require("express");
-const router = Router();
-const { validation } = require("../utils");
-const { check } = require("express-validator");
-const { authenticate, refresh } = require("../controllers/auth");
+import { Router } from 'express';
+import { validation } from '../utils';
+import { check } from 'express-validator';
+import { authenticate, refresh } from '../controllers/auth'
+
+const authRouter = Router();
 
 /**
  * @swagger
@@ -32,7 +33,7 @@ const { authenticate, refresh } = require("../controllers/auth");
  *       201:
  *         description: User Authenticated
  */
-router
+ authRouter
   .route("/")
   .post(
     [
@@ -51,7 +52,7 @@ router
 /**
  * @swagger
  * /refresh:
- *   post:
+ *   get:
  *     tags: [
  *       auth
  *     ]
@@ -76,6 +77,6 @@ router
  *       201:
  *         description: User Authentication Refreshed
  */
-router.route("/refresh").get(refresh);
+ authRouter.route("/refresh").get(refresh);
 
-module.exports = router;
+export { authRouter };

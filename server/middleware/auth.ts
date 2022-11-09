@@ -1,14 +1,15 @@
-const jwt = require("jsonwebtoken");
-const {
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import {
   ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET,
-} = require("../constants/auth");
+} from '../constants/auth';
 
-const handleTest = (res, next) => {
+const handleTest = (res: Response, next: NextFunction) => {
   res.locals.user = 1;
   return next();
 };
-const verifyToken = async (res, req, next) => {
+const verifyToken = async (res: Response, req: Request, next: NextFunction) => {
   if (process.env.NODE_ENV === "test") return handleTest(res, next);
 
   if ((req.path === "/auth" || req.path === "/user") && req.method == "POST")
@@ -41,10 +42,10 @@ const verifyToken = async (res, req, next) => {
   }
 };
 
-const checkTokenValidity = (token, secret) => {
+const checkTokenValidity = (token: string, secret: string): string | jwt.JwtPayload => {
   return jwt.verify(token, secret);
 };
 
-module.exports = {
+export {
   verifyToken,
 };

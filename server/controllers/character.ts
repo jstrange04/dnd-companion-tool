@@ -1,6 +1,7 @@
-const { characterService } = require("../services");
+import { Response, Request } from 'express';
+import { characterService } from '../services';
 
-async function getAllCharacters(req, res) {
+async function getAllCharacters(req: Request, res: Response) {
   const characters = await characterService.getAllCharacters();
   if (characters && characters.length > 0) {
     res.status(200).json(characters);
@@ -9,9 +10,9 @@ async function getAllCharacters(req, res) {
   }
 }
 
-async function getCharacter(req, res) {
+async function getCharacter(req: Request, res: Response) {
   const { character_id } = req.params;
-  const getCharacter = await characterService.getCharacter(character_id);
+  const getCharacter = await characterService.getCharacter(parseInt(character_id));
   if (getCharacter) {
     res.status(200).json(getCharacter);
   } else {
@@ -19,7 +20,7 @@ async function getCharacter(req, res) {
   }
 }
 
-async function getCharacterByName(req, res) {
+async function getCharacterByName(req: Request, res: Response) {
     const getCharacterByName = await characterService.getCharacterByName(req.body.email);
     if (getCharacterByName) {
         res.status(200).json(getCharacterByName)
@@ -28,7 +29,7 @@ async function getCharacterByName(req, res) {
     }
 }
 
-async function createCharacter(req, res) {
+async function createCharacter(req: Request, res: Response) {
   const {          
     name,
     race,
@@ -65,7 +66,7 @@ async function createCharacter(req, res) {
   res.sendStatus(201);
 }
 
-async function updateCharacter(req, res) {
+async function updateCharacter(req: Request, res: Response) {
   const { character_id } = req.params;
   const {     
     name,
@@ -83,7 +84,7 @@ async function updateCharacter(req, res) {
     armour_class,
     movement_speed } = req.body;
   const updatedCharacter = await characterService.updateCharacter(
-    character_id,
+    parseInt(character_id),
     name,
     race,
     char_class,
@@ -98,18 +99,18 @@ async function updateCharacter(req, res) {
     hit_points,
     armour_class,
     movement_speed,
-    date_modified = new Date().getUTCDate(),
+    //date_modified = new Date().getUTCDate(),
   );
   res.status(200).json(updatedCharacter);
 }
 
-async function removeCharacter(req, res) {
+async function removeCharacter(req: Request, res: Response) {
   const { id } = req.params;
-  const removeCharacter = await characterService.removeCharacter(id);
+  const removeCharacter = await characterService.deleteCharacter(parseInt(id));
   res.status(200).json(removeCharacter);
 }
 
-module.exports = {
+export {
     getAllCharacters,
     createCharacter,
     updateCharacter,

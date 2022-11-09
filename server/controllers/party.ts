@@ -1,6 +1,7 @@
-const { partyService } = require("../services");
+import { Response, Request } from 'express';
+import { partyService } from '../services';
 
-async function getAllParties(req, res) {
+async function getAllParties(req: Request, res: Response) {
   const parties = await partyService.getAllParties();
   if (parties && parties.length > 0) {
     res.status(200).json(parties);
@@ -9,9 +10,9 @@ async function getAllParties(req, res) {
   }
 }
 
-async function getParty(req, res) {
+async function getParty(req: Request, res: Response) {
   const { party_id } = req.params;
-  const getParty = await partyService.getParty(party_id);
+  const getParty = await partyService.getParty(parseInt(party_id));
   if (getParty) {
     res.status(200).json(getParty);
   } else {
@@ -19,7 +20,7 @@ async function getParty(req, res) {
   }
 }
 
-async function createParty(req, res) {
+async function createParty(req: Request, res: Response) {
   const { name, party_level } = req.body;
   console.log(name);
   await partyService.createParty(
@@ -29,25 +30,25 @@ async function createParty(req, res) {
   res.sendStatus(201);
 }
 
-async function updateParty(req, res) {
+async function updateParty(req: Request, res: Response) {
   const { party_id } = req.params;
   const { name, party_level} = req.body;
   const updatedParty = await partyService.updateParty(
-    party_id,
+    parseInt(party_id),
     name, 
     party_level,
-    date_modified = new Date().getUTCDate(),
+    //date_modified = new Date().getUTCDate(),
   );
   res.status(200).json(updatedParty);
 }
 
-async function removeParty(req, res) {
+async function removeParty(req: Request, res: Response) {
   const { id } = req.params;
-  const removeParty = await partyService.deleteParty(id);
+  const removeParty = await partyService.deleteParty(parseInt(id));
   res.status(200).json(removeParty);
 }
 
-module.exports = {
+export {
     getAllParties,
     getParty,
     createParty,

@@ -1,4 +1,4 @@
-const { prisma } = require("../utils")
+import { prisma } from '../utils'
 
 async function getAllParties() {
   return await prisma.parties.findMany({
@@ -12,10 +12,10 @@ async function getAllParties() {
   });
 }
 
-async function getParty(id) {
+async function getParty(id: number) {
   return await prisma.parties.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     select: {
       id: true,
@@ -36,8 +36,8 @@ async function getParty(id) {
 }
 
 async function createParty(
-  party_name,
-  party_level
+  party_name: string,
+  party_level: number
 ) {
 await prisma.parties.create({
   data: {
@@ -48,8 +48,8 @@ await prisma.parties.create({
 }
 
 async function addCharacterToParty(
-  party_id,
-  character_id
+  party_id: number,
+  character_id: number
 ) {
 await prisma.party_characters.create({
   data: {
@@ -60,13 +60,13 @@ await prisma.party_characters.create({
 }
 
 async function updateParty(
-  id,
-  party_name, 
-  party_level
+  id: number,
+  party_name: string, 
+  party_level: number
   ) {
   return await prisma.parties.update({
     where: {
-      id: parseInt(id),
+      id: id,
   },
     data: {
       party_name: party_name,
@@ -75,23 +75,23 @@ async function updateParty(
 });
 }
 
-async function deleteParty(id) {
+async function deleteParty(id: number) {
   return await prisma.parties.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-async function deleteCharacterFromParty(id) {
+async function deleteCharacterFromParty(id: number) {
   return await prisma.party_characters.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-module.exports = {
+const partyService = {
   getAllParties,
   getParty,
   createParty,
@@ -99,4 +99,6 @@ module.exports = {
   updateParty,
   deleteParty,
   deleteCharacterFromParty
-};
+}
+
+export { partyService };

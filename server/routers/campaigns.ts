@@ -1,9 +1,7 @@
-const { Router } = require("express");
-const router = Router();
-const { validation } = require("../utils")
-const { check } = require("express-validator");
-
-const {
+import { Router } from 'express';
+import { validation } from '../utils';
+import { check } from 'express-validator';
+import {
     getAllCampaigns,
     getCampaign,  
     getCampaignByName,
@@ -11,9 +9,11 @@ const {
     createCampaign, 
     updateCampaign, 
     removeCampaign,
-} = require("../controllers/campaign");
+} from '../controllers/campaign';
 
-/**
+const campaignRouter = Router();
+
+/*
  * @swagger
  * /campaigns:
  *   get:
@@ -34,7 +34,7 @@ const {
  *       204:
  *         description: No content
  */
-router.route("/").get(getAllCampaigns);
+campaignRouter.route("/").get(getAllCampaigns);
 
 /**
  * @swagger
@@ -61,7 +61,7 @@ router.route("/").get(getAllCampaigns);
  *       204:
  *         description: No content
  */
-router.route("/:campaign_id(\\d+)").get(getCampaign);
+ campaignRouter.route("/:campaign_id(\\d+)").get(getCampaign);
 
 /**
  * @swagger
@@ -88,7 +88,7 @@ router.route("/:campaign_id(\\d+)").get(getCampaign);
  *       204:
  *         description: No content
  */
-router.route("/campaign/").get(getCampaignByName);
+ campaignRouter.route("/campaign/").get(getCampaignByName);
 
 /**
  * @swagger
@@ -118,7 +118,7 @@ router.route("/campaign/").get(getCampaignByName);
  *       201:
  *         description: Campaign Created
  */
-router.route("/").post(
+ campaignRouter.route("/").post(
   [
     check("name")
       .isLength({ min: 3 })
@@ -157,7 +157,7 @@ router.route("/").post(
  *       201:
  *         description: 
  */
- router.route("/").post(
+ campaignRouter.route("/").post(
   [
   ],
   validation.validate,
@@ -197,7 +197,7 @@ router.route("/").post(
  *       204:
  *         description: Campaign Updated
  */
-router.route("/:campaign_id(\\d+)").put(
+ campaignRouter.route("/:campaign_id(\\d+)").put(
   [
     check("name")
       .isLength({ min: 3 })
@@ -227,7 +227,7 @@ router.route("/:campaign_id(\\d+)").put(
  *       201:
  *         description: Campaign Deleted
  */
-router.route("/:id").delete(removeCampaign);
+ campaignRouter.route("/:id").delete(removeCampaign);
 
-module.exports = router;
+export { campaignRouter };
  

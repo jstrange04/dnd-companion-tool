@@ -1,17 +1,17 @@
-const { Router } = require("express");
-const router = Router();
-const { validation } = require("../utils");
-const { check } = require("express-validator");
+import { Router } from 'express';
+import { validation } from '../utils';
+import { check } from 'express-validator';
 
-const {
+import {
   getAllUsers,
   getUser,
   getUserByEmail,
   createUser,
   updateUser,
   removeUser,
-} = require("../controllers/user");
+} from '../controllers/user';
 
+const userRouter = Router();
 /**
  * @swagger
  * /users:
@@ -33,7 +33,7 @@ const {
  *       204:
  *         description: No content
  */
-router.route("/").get(getAllUsers);
+userRouter.route("/").get(getAllUsers);
 
 /**
  * @swagger
@@ -60,7 +60,7 @@ router.route("/").get(getAllUsers);
  *       204:
  *         description: No content
  */
-router.route("/:user_id(\\d+)").get(getUser);
+userRouter.route("/:user_id(\\d+)").get(getUser);
 
 /**
  * @swagger
@@ -87,7 +87,7 @@ router.route("/:user_id(\\d+)").get(getUser);
  *       204:
  *         description: No content
  */
-router.route("/email/").get(getUserByEmail);
+userRouter.route("/email/").get(getUserByEmail);
 
 /**
  * @swagger
@@ -121,7 +121,7 @@ router.route("/email/").get(getUserByEmail);
  *       201:
  *         description: User Created
  */
-router.route("/").post(
+userRouter.route("/").post(
   [
     check("email")
       .isLength({ min: 3 })
@@ -182,30 +182,28 @@ router.route("/").post(
  *       204:
  *         description: User Updated
  */
-router
-  .route("/:user_id(\\d+)")
-  .put(
-    [
-      check("email")
-        .isLength({ min: 3 })
-        .isEmail()
-        .withMessage("the email must have minimum length of 3")
-        .trim(),
-      check("username")
-        .isLength({ min: 3 })
-        .withMessage("the username must have minimum length of 3")
-        .trim(),
-      check("password")
-        .isLength({ min: 8, max: 15 })
-        .withMessage("the password should have min and max length between 8-15")
-        .matches(/\d/)
-        .withMessage("the password should have at least one number")
-        .matches(/[!@#$%^&*(),.?":{}|<>]/)
-        .withMessage("the password should have at least one special character"),
-    ],
-    validation.validate,
-    updateUser
-  );
+userRouter.route("/:user_id(\\d+)").put(
+  [
+    check("email")
+      .isLength({ min: 3 })
+      .isEmail()
+      .withMessage("the email must have minimum length of 3")
+      .trim(),
+    check("username")
+      .isLength({ min: 3 })
+      .withMessage("the username must have minimum length of 3")
+      .trim(),
+    check("password")
+      .isLength({ min: 8, max: 15 })
+      .withMessage("the password should have min and max length between 8-15")
+      .matches(/\d/)
+      .withMessage("the password should have at least one number")
+      .matches(/[!@#$%^&*(),.?":{}|<>]/)
+      .withMessage("the password should have at least one special character"),
+  ],
+  validation.validate,
+  updateUser
+);
 
 /**
  * @swagger
@@ -226,6 +224,6 @@ router
  *       201:
  *         description: User Deleted
  */
-router.route("/:id").delete(removeUser);
+userRouter.route("/:id").delete(removeUser);
 
-module.exports = router;
+export { userRouter };

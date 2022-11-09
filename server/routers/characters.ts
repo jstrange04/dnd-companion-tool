@@ -1,17 +1,16 @@
-const { Router } = require("express");
-const router = Router();
-const { validation } = require("../utils");
-const { check } = require("express-validator");
-
-const {
+import { Router } from 'express';
+import { validation } from '../utils';
+import { check } from 'express-validator';
+import {
   getAllCharacters,
   getCharacter,
   getCharacterByName,
   createCharacter,
   updateCharacter,
   removeCharacter,
-} = require("../controllers/character");
+} from '../controllers/character';
 
+const characterRouter = Router();
 /**
  * @swagger
  * /characters:
@@ -63,7 +62,7 @@ const {
  *       204:
  *         description: No content
  */
-router.route("/").get(getAllCharacters);
+ characterRouter.route("/").get(getAllCharacters);
 
 /**
  * @swagger
@@ -105,7 +104,7 @@ router.route("/").get(getAllCharacters);
  *       204:
  *         description: No content
  */
-router.route("/:character_id(\\d+)").get(getCharacter);
+ characterRouter.route("/:character_id(\\d+)").get(getCharacter);
 
 /**
  * @swagger
@@ -147,7 +146,7 @@ router.route("/:character_id(\\d+)").get(getCharacter);
  *       204:
  *         description: No content
  */
-router.route("/name/").get(getCharacterByName);
+ characterRouter.route("/name/").get(getCharacterByName);
 
 /**
  * @swagger
@@ -229,7 +228,7 @@ router.route("/name/").get(getCharacterByName);
  *       201:
  *         description: Character Created
  */
-router
+ characterRouter
   .route("/")
   .post(
     [
@@ -360,7 +359,7 @@ router
  *       201:
  *         description: Character Updated
  */
-router
+ characterRouter
   .route("/:character_id(\\d+)")
   .put(
     [
@@ -434,6 +433,6 @@ router
  *       201:
  *         description: Character Deleted
  */
-router.route("/:id").delete(removeCharacter);
+ characterRouter.route("/:id").delete(removeCharacter);
 
-module.exports = router;
+export { characterRouter };

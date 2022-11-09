@@ -1,14 +1,13 @@
-const { prisma } = require("../utils");
-const { user_characters } = require("../utils/prisma");
+import { prisma } from '../utils'
 
 async function getAllCharacters() {
   return await prisma.characters.findMany();
 }
 
-async function getCharacter(id) {
+async function getCharacter(id: number) {
   return await prisma.characters.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     select: {
       id: true,
@@ -30,7 +29,7 @@ async function getCharacter(id) {
   });
 }
 
-async function getCharacterByName(name) {
+async function getCharacterByName(name: string) {
   const characters = await prisma.characters.findMany({
     where: {
       name: name,
@@ -58,21 +57,21 @@ async function getCharacterByName(name) {
 }
 
 async function createCharacter(
-  name,
-  race,
-  char_class,
-  sub_class,
-  level,
-  strength,
-  dexterity,
-  constitution,
-  intelligence,
-  wisdom,
-  charisma,
-  hit_points,
-  armour_class,
-  movement_speed,
-  user_id
+  name: string,
+  race: string,
+  char_class: string,
+  sub_class: string,
+  level: number,
+  strength: number,
+  dexterity: number,
+  constitution: number,
+  intelligence: number,
+  wisdom: number,
+  charisma: number,
+  hit_points: number,
+  armour_class: number,
+  movement_speed: number,
+  user_id: number
 ) {
   await prisma.$transaction(async (tx) => {
     const newCharacter = await tx.characters.create({
@@ -104,25 +103,25 @@ async function createCharacter(
 }
 
 async function updateCharacter(
-  id,
-  name,
-  race,
-  char_class,
-  sub_class,
-  level,
-  strength,
-  dexterity,
-  constitution,
-  intelligence,
-  wisdom,
-  charisma,
-  hit_points,
-  armour_class,
-  movement_speed
+  id: number,
+  name: string,
+  race: string,
+  char_class: string,
+  sub_class: string,
+  level: number,
+  strength: number,
+  dexterity: number,
+  constitution: number,
+  intelligence: number,
+  wisdom: number,
+  charisma: number,
+  hit_points: number,
+  armour_class: number,
+  movement_speed: number,
 ) {
   return await prisma.characters.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       name: name,
@@ -143,19 +142,22 @@ async function updateCharacter(
   });
 }
 
-async function deleteCharacter(id) {
+async function deleteCharacter(id: number) {
   return await prisma.characters.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-module.exports = {
+const characterService = {
   getAllCharacters,
   getCharacter,
   getCharacterByName,
   createCharacter,
   updateCharacter,
   deleteCharacter,
-};
+}
+
+export { characterService };
+
