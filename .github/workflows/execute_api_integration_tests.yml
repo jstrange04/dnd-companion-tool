@@ -1,4 +1,4 @@
-name: Execute API Unit Tests
+name: Execute API Integration Tests
 
 on:
   pull_request:
