@@ -1,14 +1,7 @@
 import { Router } from 'express';
 import { validation } from '../utils';
 import { check } from 'express-validator';
-import {
-  getAllCharacters,
-  getCharacter,
-  getCharacterByName,
-  createCharacter,
-  updateCharacter,
-  removeCharacter,
-} from '../controllers/character';
+import { characterController } from '../controllers/character';
 
 const characterRouter = Router();
 /**
@@ -62,7 +55,7 @@ const characterRouter = Router();
  *       204:
  *         description: No content
  */
- characterRouter.route("/").get(getAllCharacters);
+ characterRouter.route("/").get(characterController.getAllCharacters);
 
 /**
  * @swagger
@@ -104,7 +97,7 @@ const characterRouter = Router();
  *       204:
  *         description: No content
  */
- characterRouter.route("/:character_id(\\d+)").get(getCharacter);
+ characterRouter.route("/:character_id(\\d+)").get(characterController.getCharacter);
 
 /**
  * @swagger
@@ -146,7 +139,7 @@ const characterRouter = Router();
  *       204:
  *         description: No content
  */
- characterRouter.route("/name/").get(getCharacterByName);
+ characterRouter.route("/name/").get(characterController.getCharacterByName);
 
 /**
  * @swagger
@@ -280,7 +273,7 @@ const characterRouter = Router();
         .withMessage("the character's movement speed must be entered"),
     ],
     validation.validate,
-    createCharacter
+    characterController.createCharacter
   );
 
 /**
@@ -411,7 +404,7 @@ const characterRouter = Router();
         .withMessage("the character's movement speed must be entered"),
     ],
     validation.validate,
-    updateCharacter
+    characterController.updateCharacter
   );
 
 /**
@@ -433,6 +426,6 @@ const characterRouter = Router();
  *       201:
  *         description: Character Deleted
  */
- characterRouter.route("/:id").delete(removeCharacter);
+ characterRouter.route("/:id").delete(characterController.removeCharacter);
 
 export { characterRouter };

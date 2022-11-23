@@ -65,7 +65,7 @@ async function createUser(email: string, username: string, password: string) {
 
 async function updateUser(id: number, email: string, username: string, password: string ) {
   const hashedPassword = await bcrypt.hash(password, 10);
-  return await prisma.users.update({
+   await prisma.users.update({
     where: {
       id: id,
     },
@@ -78,7 +78,7 @@ async function updateUser(id: number, email: string, username: string, password:
 }
 
 async function deleteUser(id: number) {
-  return await prisma.users.delete({
+ await prisma.users.delete({
     where: {
       id: id,
     },

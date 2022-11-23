@@ -23,13 +23,13 @@ async function createUser(req: Request, res: Response) {
 async function updateUser(req: Request, res: Response) {
   const { user_id } = req.params;
   const { email, username, password } = req.body;
-  const updatedUser = await userService.updateUser(
+  await userService.updateUser(
     parseInt(user_id),
     email,
     username,
     password
   );
-  res.status(200).json(updatedUser);
+  res.sendStatus(204);
 }
 
 async function getUser(req: Request, res: Response) {
@@ -53,15 +53,17 @@ async function getUserByEmail(req: Request, res: Response) {
 
 async function removeUser(req: Request, res: Response) {
   const { id } = req.params;
-  const removeUser = await userService.deleteUser(parseInt(id));
-  res.status(200).json(removeUser);
+  await userService.deleteUser(parseInt(id));
+  res.sendStatus(204);
 }
 
-export {
-    getUser,
-    getAllUsers,
-    getUserByEmail,
-    createUser,
-    updateUser,
-    removeUser
-};
+const userController = {
+  getUser,
+  getAllUsers,
+  getUserByEmail,
+  createUser,
+  updateUser,
+  removeUser
+}
+
+export { userController };

@@ -1,13 +1,7 @@
 import { Router } from 'express';
 import { validation } from '../utils';
 import { check } from 'express-validator';
-import {
-  getAllParties,
-  getParty,
-  createParty,
-  updateParty,
-  removeParty,
-} from '../controllers/party';
+import { partyController } from '../controllers/party';
 
 const partyRouter = Router();
 
@@ -32,7 +26,7 @@ const partyRouter = Router();
  *       204:
  *         description: No content
  */
- partyRouter.route("/").get(getAllParties);
+ partyRouter.route("/").get(partyController.getAllParties);
 
 /**
  * @swagger
@@ -59,7 +53,7 @@ const partyRouter = Router();
  *       204:
  *         description: No content
  */
- partyRouter.route("/:party_id(\\d+)").get(getParty);
+ partyRouter.route("/:party_id(\\d+)").get(partyController.getParty);
 
 /**
  * @swagger
@@ -93,7 +87,7 @@ const partyRouter = Router();
   .route("/")
   .post(
     [
-      check("name")
+      check("party_name")
         .isLength({ min: 3 })
         .withMessage("the party name must have minimum length of 3")
         .trim(),
@@ -102,7 +96,7 @@ const partyRouter = Router();
         .withMessage("the parties level must be a number")
     ],
     validation.validate,
-    createParty
+    partyController.createParty
   );
 
 /**
@@ -151,7 +145,7 @@ const partyRouter = Router();
         .withMessage("the parties level must be a number"),
     ],
     validation.validate,
-    updateParty
+    partyController.updateParty
   );
 
 /**
@@ -173,6 +167,6 @@ const partyRouter = Router();
  *       201:
  *         description: Party Deleted
  */
- partyRouter.route("/:id").delete(removeParty);
+ partyRouter.route("/:id").delete(partyController.removeParty);
 
 export { partyRouter };

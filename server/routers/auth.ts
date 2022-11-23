@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { validation } from '../utils';
 import { check } from 'express-validator';
-import { authenticate, refresh } from '../controllers/auth'
+import { authController } from '../controllers/auth'
 
 const authRouter = Router();
 
@@ -46,7 +46,7 @@ const authRouter = Router();
         .withMessage("your password should have min and max length between 8-15"),
     ],
     validation.validate,
-    authenticate
+    authController.authenticate
   );
 
 /**
@@ -77,6 +77,6 @@ const authRouter = Router();
  *       201:
  *         description: User Authentication Refreshed
  */
- authRouter.route("/refresh").get(refresh);
+ authRouter.route("/refresh").get(authController.refresh);
 
 export { authRouter };

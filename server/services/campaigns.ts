@@ -70,7 +70,7 @@ async function updateCampaign(
     name: string, 
     description: string
     ) {
-    return await prisma.campaigns.update({
+   await prisma.campaigns.update({
       where: {
         id: id,
     },

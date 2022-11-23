@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.ts",
     "test:unit": "NODE_ENV=test jest --testPathIgnorePatterns ./routers/",
-    "test:integration": "NODE_ENV=test jest --config ./jest.integration.config.js --testPathPattern ./routers/ --forceExit"
+    "test:integration": "NODE_ENV=test jest --config ./jest.integration.config.ts --testPathPattern ./routers/ --forceExit --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
@@ -28,9 +28,9 @@
     "nodemon": "^2.0.19",
     "prisma": "^4.1.1",
     "supertest": "^6.3.0",
-    "testcontainers": "^8.15.0",
     "swagger-jsdoc": "^6.2.5",
-    "swagger-ui-express": "^4.5.0"
+    "swagger-ui-express": "^4.5.0",
+    "testcontainers": "^8.15.0"
   },
   "devDependencies": {
     "@prisma/client": "^4.1.1",

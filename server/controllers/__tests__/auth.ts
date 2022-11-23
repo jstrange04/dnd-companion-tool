@@ -1,8 +1,10 @@
-const authController = require("../auth");
-const authService = require("../../services/auth");
-const { when } = require("jest-when");
+import { Request, Response } from 'express';
+import { authService } from '../../services/auth';
+import { authController } from '../auth';
+import { when } from 'jest-when';
 
 jest.mock("../../services/auth");
+jest.mock("bcrypt");
 
 describe("auth controller", () => {
   describe("authenticate", () => {
@@ -14,14 +16,19 @@ describe("auth controller", () => {
           email: email,
           password: password,
         },
-      };
-      const res = {};
+      } as Request;
+      const res = {} as Response;
       res.status = jest.fn().mockReturnValue(res);
       res.json = jest.fn().mockReturnValue(res);
 
+      const mockReturnValue = {
+        email: 'test',
+        password: 'test'
+      }
+
       when(authService.authenticate)
         .calledWith(email, password)
-        .mockReturnValueOnce({ email, password });
+        .mockReturnValueOnce(Promise.resolve(mockReturnValue));
 
       await authController.authenticate(req, res);
 
@@ -36,14 +43,15 @@ describe("auth controller", () => {
     it("should return 200 Response when member refresh is authenticated", async () => {
       const userId = 1;
       const tokens = {};
-      const res = {};
+      const res = {} as Response;
       res.status = jest.fn().mockReturnValue(res);
       res.json = jest.fn().mockReturnValue(res);
       res.locals = { user: userId };
+      const req = {} as Request
 
-      when(authService.refresh).calledWith(userId).mockReturnValueOnce(tokens);
+      when(authService.refresh).calledWith(userId).mockReturnValueOnce(Promise.resolve(tokens));
 
-      await authController.refresh(undefined, res);
+      await authController.refresh(req, res);
 
       expect(authService.refresh).toHaveBeenCalledWith(userId);
       expect(res.status).toHaveBeenCalledTimes(1);

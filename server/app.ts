@@ -43,6 +43,11 @@ app.use("/swagger.json", (req: Request, res: Response) =>
 );
 
 //app.all("*", verifyToken);
+// // Use middleware to set the default Content-Type
+app.use(function (req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  next();
+});
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);

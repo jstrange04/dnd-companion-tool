@@ -1,15 +1,7 @@
 import { Router } from 'express';
 import { validation } from '../utils';
 import { check } from 'express-validator';
-import {
-    getAllCampaigns,
-    getCampaign,  
-    getCampaignByName,
-    addPartyToCampaign,
-    createCampaign, 
-    updateCampaign, 
-    removeCampaign,
-} from '../controllers/campaign';
+import { campaignController } from '../controllers/campaign';
 
 const campaignRouter = Router();
 
@@ -34,7 +26,7 @@ const campaignRouter = Router();
  *       204:
  *         description: No content
  */
-campaignRouter.route("/").get(getAllCampaigns);
+campaignRouter.route("/").get(campaignController.getAllCampaigns);
 
 /**
  * @swagger
@@ -61,7 +53,7 @@ campaignRouter.route("/").get(getAllCampaigns);
  *       204:
  *         description: No content
  */
- campaignRouter.route("/:campaign_id(\\d+)").get(getCampaign);
+ campaignRouter.route("/:campaign_id(\\d+)").get(campaignController.getCampaign);
 
 /**
  * @swagger
@@ -88,7 +80,7 @@ campaignRouter.route("/").get(getAllCampaigns);
  *       204:
  *         description: No content
  */
- campaignRouter.route("/campaign/").get(getCampaignByName);
+ campaignRouter.route("/campaign/").get(campaignController.getCampaignByName);
 
 /**
  * @swagger
@@ -126,7 +118,7 @@ campaignRouter.route("/").get(getAllCampaigns);
       .trim(),
   ],
   validation.validate,
-  createCampaign
+  campaignController.createCampaign
 );
 
 /**
@@ -161,7 +153,7 @@ campaignRouter.route("/").get(getAllCampaigns);
   [
   ],
   validation.validate,
-  addPartyToCampaign
+  campaignController.addPartyToCampaign
 );
 
 /**
@@ -205,7 +197,7 @@ campaignRouter.route("/").get(getAllCampaigns);
       .trim(),
   ],
   validation.validate,
-  updateCampaign
+  campaignController.updateCampaign
 );
 
 /**
@@ -227,7 +219,7 @@ campaignRouter.route("/").get(getAllCampaigns);
  *       201:
  *         description: Campaign Deleted
  */
- campaignRouter.route("/:id").delete(removeCampaign);
+ campaignRouter.route("/:id").delete(campaignController.removeCampaign);
 
 export { campaignRouter };
  

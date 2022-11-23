@@ -1,6 +1,5 @@
-const userService = require("../users");
-const prisma = require("../../utils/prisma");
-const { when } = require("jest-when");
+import { userService } from '../users';
+import { prisma } from '../../utils/prisma';
 
 jest.mock("@prisma/client");
 jest.mock("../../utils/prisma");

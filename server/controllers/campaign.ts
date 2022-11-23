@@ -50,27 +50,29 @@ async function createCampaign(req: Request, res: Response) {
 async function updateCampaign(req: Request, res: Response) {
   const { campaign_id } = req.params;
   const { name, description} = req.body;
-  const updatedCampaign = await campaignService.updateCampaign(
+  await campaignService.updateCampaign(
     parseInt(campaign_id),
     name, 
     description,
     //date_modified = new Date().getUTCDate(),
   );
-  res.status(200).json(updatedCampaign);
+  res.sendStatus(204);
 }
 
 async function removeCampaign(req: Request, res: Response) {
   const { id } = req.params;
-  const removeCampaign = await campaignService.deleteCampaign(parseInt(id));
-  res.status(200).json(removeCampaign);
+  await campaignService.deleteCampaign(parseInt(id));
+  res.sendStatus(204);
 }
 
-export {
-    getAllCampaigns,
-    getCampaign,
-    getCampaignByName,
-    addPartyToCampaign,
-    createCampaign,
-    updateCampaign,
-    removeCampaign,
-};
+const campaignController = {
+  getAllCampaigns,
+  getCampaign,
+  getCampaignByName,
+  addPartyToCampaign,
+  createCampaign,
+  updateCampaign,
+  removeCampaign
+}
+
+export { campaignController };

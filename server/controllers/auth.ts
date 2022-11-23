@@ -12,7 +12,9 @@ async function refresh(req: Request, res: Response) {
   res.status(200).json(authenticationTokens);
 }
 
-export {
+const authController = {
   authenticate,
   refresh,
-};
+}
+
+export { authController };

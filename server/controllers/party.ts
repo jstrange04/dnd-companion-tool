@@ -21,10 +21,9 @@ async function getParty(req: Request, res: Response) {
 }
 
 async function createParty(req: Request, res: Response) {
-  const { name, party_level } = req.body;
-  console.log(name);
+  const { party_name, party_level } = req.body;
   await partyService.createParty(
-    name,
+    party_name,
     party_level
   );
   res.sendStatus(201);
@@ -32,26 +31,27 @@ async function createParty(req: Request, res: Response) {
 
 async function updateParty(req: Request, res: Response) {
   const { party_id } = req.params;
-  const { name, party_level} = req.body;
-  const updatedParty = await partyService.updateParty(
+  const { party_name, party_level} = req.body;
+  await partyService.updateParty(
     parseInt(party_id),
-    name, 
+    party_name, 
     party_level,
-    //date_modified = new Date().getUTCDate(),
   );
-  res.status(200).json(updatedParty);
+  res.sendStatus(204);
 }
 
 async function removeParty(req: Request, res: Response) {
   const { id } = req.params;
-  const removeParty = await partyService.deleteParty(parseInt(id));
-  res.status(200).json(removeParty);
+  await partyService.deleteParty(parseInt(id));
+  res.sendStatus(204);
 }
 
-export {
-    getAllParties,
-    getParty,
-    createParty,
-    updateParty,
-    removeParty
-};
+const partyController = {
+  getAllParties,
+  getParty,
+  createParty,
+  updateParty,
+  removeParty
+}
+
+export { partyController };

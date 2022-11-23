@@ -12,5 +12,5 @@ module.exports = async () => {
     .withWaitStrategy("flyway-1", Wait.forLogMessage(/^Successfully applied/))
     .up();
 
-  await new Promise((x) => setTimeout(x, 2000));
+  await new Promise((x) => setTimeout(x, 500));
 };

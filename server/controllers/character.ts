@@ -83,7 +83,7 @@ async function updateCharacter(req: Request, res: Response) {
     hit_points,
     armour_class,
     movement_speed } = req.body;
-  const updatedCharacter = await characterService.updateCharacter(
+  await characterService.updateCharacter(
     parseInt(character_id),
     name,
     race,
@@ -101,7 +101,7 @@ async function updateCharacter(req: Request, res: Response) {
     movement_speed,
     //date_modified = new Date().getUTCDate(),
   );
-  res.status(200).json(updatedCharacter);
+  res.status(204);
 }
 
 async function removeCharacter(req: Request, res: Response) {
@@ -110,11 +110,13 @@ async function removeCharacter(req: Request, res: Response) {
   res.status(200).json(removeCharacter);
 }
 
-export {
-    getAllCharacters,
-    createCharacter,
-    updateCharacter,
-    getCharacter,
-    getCharacterByName,
-    removeCharacter
-};
+const characterController = {
+  getAllCharacters,
+  createCharacter,
+  updateCharacter,
+  getCharacter,
+  getCharacterByName,
+  removeCharacter
+}
+
+export { characterController };

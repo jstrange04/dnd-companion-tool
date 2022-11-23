@@ -64,7 +64,7 @@ async function updateParty(
   party_name: string, 
   party_level: number
   ) {
-  return await prisma.parties.update({
+ await prisma.parties.update({
     where: {
       id: id,
   },
@@ -76,7 +76,7 @@ async function updateParty(
 }
 
 async function deleteParty(id: number) {
-  return await prisma.parties.delete({
+   await prisma.parties.delete({
     where: {
       id: id,
     },
@@ -84,7 +84,7 @@ async function deleteParty(id: number) {
 }
 
 async function deleteCharacterFromParty(id: number) {
-  return await prisma.party_characters.delete({
+   await prisma.party_characters.delete({
     where: {
       id: id,
     },

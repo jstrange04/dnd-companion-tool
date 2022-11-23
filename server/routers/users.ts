@@ -1,15 +1,7 @@
 import { Router } from 'express';
 import { validation } from '../utils';
 import { check } from 'express-validator';
-
-import {
-  getAllUsers,
-  getUser,
-  getUserByEmail,
-  createUser,
-  updateUser,
-  removeUser,
-} from '../controllers/user';
+import { userController } from '../controllers/user';
 
 const userRouter = Router();
 /**
@@ -33,7 +25,7 @@ const userRouter = Router();
  *       204:
  *         description: No content
  */
-userRouter.route("/").get(getAllUsers);
+userRouter.route("/").get(userController.getAllUsers);
 
 /**
  * @swagger
@@ -60,7 +52,7 @@ userRouter.route("/").get(getAllUsers);
  *       204:
  *         description: No content
  */
-userRouter.route("/:user_id(\\d+)").get(getUser);
+userRouter.route("/:user_id(\\d+)").get(userController.getUser);
 
 /**
  * @swagger
@@ -87,7 +79,7 @@ userRouter.route("/:user_id(\\d+)").get(getUser);
  *       204:
  *         description: No content
  */
-userRouter.route("/email/").get(getUserByEmail);
+userRouter.route("/email/").get(userController.getUserByEmail);
 
 /**
  * @swagger
@@ -142,7 +134,7 @@ userRouter.route("/").post(
       .withMessage("the password should have at least one special character"),
   ],
   validation.validate,
-  createUser
+  userController.createUser
 );
 
 /**
@@ -202,7 +194,7 @@ userRouter.route("/:user_id(\\d+)").put(
       .withMessage("the password should have at least one special character"),
   ],
   validation.validate,
-  updateUser
+  userController.updateUser
 );
 
 /**
@@ -224,6 +216,6 @@ userRouter.route("/:user_id(\\d+)").put(
  *       201:
  *         description: User Deleted
  */
-userRouter.route("/:id").delete(removeUser);
+userRouter.route("/:id").delete(userController.removeUser);
 
 export { userRouter };
