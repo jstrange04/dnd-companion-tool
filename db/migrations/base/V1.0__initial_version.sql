@@ -56,20 +56,20 @@ CREATE TABLE IF NOT EXISTS monsters (
 
 CREATE TABLE IF NOT EXISTS user_characters (
     id SERIAL CONSTRAINT user_characters_pk PRIMARY KEY,
-    user_id INT CONSTRAINT user_characters_user_id_fk REFERENCES users NOT NULL,
-    character_id INT CONSTRAINT user_characters_character_id_fk REFERENCES characters NOT NULL
+    user_id INT CONSTRAINT user_characters_user_id_fk REFERENCES users ON DELETE CASCADE NOT NULL,
+    character_id INT CONSTRAINT user_characters_character_id_fk REFERENCES characters ON DELETE CASCADE NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS party_characters (
     id SERIAL PRIMARY KEY,
-    party_id INT CONSTRAINT party_characters_parties_party_id_fk REFERENCES parties NOT NULL,
-    character_id INT CONSTRAINT party_characters_characters_character_id_fk REFERENCES characters NOT NULL
+    party_id INT CONSTRAINT party_characters_parties_party_id_fk REFERENCES parties ON DELETE CASCADE NOT NULL,
+    character_id INT CONSTRAINT party_characters_characters_character_id_fk REFERENCES characters ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS campaign_parties (
     id SERIAL PRIMARY KEY,
-    campaign_id INT CONSTRAINT campaign_parties_campaigns_campaign_id_fk REFERENCES campaigns NOT NULL,
-    party_id INT CONSTRAINT campaign_parties_parties_party_id_fk REFERENCES parties NOT NULL
+    campaign_id INT CONSTRAINT campaign_parties_campaigns_campaign_id_fk REFERENCES campaigns ON DELETE CASCADE NOT NULL,
+    party_id INT CONSTRAINT campaign_parties_parties_party_id_fk REFERENCES parties ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS game_monsters (

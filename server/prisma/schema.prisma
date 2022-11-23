@@ -12,8 +12,8 @@ model campaign_parties {
   id          Int       @id @default(autoincrement())
   campaign_id Int
   party_id    Int
-  campaigns   campaigns @relation(fields: [campaign_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "campaign_parties_campaigns_campaign_id_fk")
-  parties     parties   @relation(fields: [party_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "campaign_parties_parties_party_id_fk")
+  campaigns   campaigns @relation(fields: [campaign_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "campaign_parties_campaigns_campaign_id_fk")
+  parties     parties   @relation(fields: [party_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "campaign_parties_parties_party_id_fk")
 }
 
 model campaigns {
@@ -98,16 +98,16 @@ model party_characters {
   id           Int        @id @default(autoincrement())
   party_id     Int
   character_id Int
-  characters   characters @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "party_characters_characters_character_id_fk")
-  parties      parties    @relation(fields: [party_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "party_characters_parties_party_id_fk")
+  characters   characters @relation(fields: [character_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "party_characters_characters_character_id_fk")
+  parties      parties    @relation(fields: [party_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "party_characters_parties_party_id_fk")
 }
 
 model user_characters {
   id           Int        @id(map: "user_characters_pk") @default(autoincrement())
   user_id      Int
   character_id Int
-  characters   characters @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_characters_character_id_fk")
-  users        users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_characters_user_id_fk")
+  characters   characters @relation(fields: [character_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "user_characters_character_id_fk")
+  users        users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "user_characters_user_id_fk")
 }
 
 model users {
