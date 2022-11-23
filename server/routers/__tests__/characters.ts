@@ -69,30 +69,30 @@ describe("/characters", () => {
                 .expect(400);
         });
 
-        // it("respond with 204 with character updated successfully", async () => {
-        //     const updatedCharacter = {
-        //         name: "Drizzt DoUrden",
-        //         race: "Drow",
-        //         char_class: "Range",
-        //         sub_class: "Beast Master",
-        //         level: 15,
-        //         strength: 16,
-        //         dexterity: 20,
-        //         constitution: 12,
-        //         intelligence: 18,
-        //         wisdom: 16,
-        //         charisma: 20,
-        //         hit_points: 134,
-        //         armour_class: 19,
-        //         movement_speed: 45,
-        //         user_id: 3
-        //   }
-        //     await request(app)
-        //     .put("/characters/1")
-        //     .set("Accept", "application/json")
-        //     .send(updatedCharacter)
-        //     .expect(204);
-        // });
+        it("respond with 204 with character updated successfully", async () => {
+            const updatedCharacter = {
+                name: "Drizzt DoUrden",
+                race: "Drow",
+                char_class: "Range",
+                sub_class: "Beast Master",
+                level: 15,
+                strength: 16,
+                dexterity: 20,
+                constitution: 12,
+                intelligence: 18,
+                wisdom: 16,
+                charisma: 20,
+                hit_points: 134,
+                armour_class: 19,
+                movement_speed: 45,
+                user_id: 3
+          }
+            await request(app)
+            .put("/characters/1")
+            .set("Accept", "application/json")
+            .send(updatedCharacter)
+            .expect(204);
+        });
     });
 })
 
