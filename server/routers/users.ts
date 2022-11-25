@@ -79,7 +79,7 @@ userRouter.route("/:user_id(\\d+)").get(userController.getUser);
  *       204:
  *         description: No content
  */
-userRouter.route("/email/").get(userController.getUserByEmail);
+userRouter.route("/email").get(userController.getUserByEmail);
 
 /**
  * @swagger

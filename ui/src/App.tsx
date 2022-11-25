@@ -1,62 +1,26 @@
-import React, { useState } from 'react';
+import {Route, Routes, Navigate} from 'react-router-dom';
+import NavigationRoutes from './constants/routes'
+import Login from './pages/login/index'
+import Home from './pages/home/index'
 import './App.css';
-import axios from 'axios';
+
+const defaultRoutes = () => {
+  return (
+    <>
+      <Route path={NavigationRoutes.Login} element={<Login/>}/>
+      <Route path={NavigationRoutes.Home} element={<Home/>}/>
+      <Route path="*" element={<Navigate to={NavigationRoutes.Login}/>}/>
+    </>
+  )
+};
 
 function App() {
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleEmailChange = (event: any) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: any) => {
-    setPassword(event.target.value);
-  };
-
-  const instance = axios.create({
-    baseURL: "http://localhost:3001/",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const login = async (email: string, password: string) => {
-    return await instance
-      .post("/auth", { email, password })
-      .then((response) => {
-        if (response.data.accessToken) {
-          console.log(response.data);
-        }
-        email = '';
-        password = '';
-        //window.location.reload();
-        setUser(response.data);
-        return response.data;
-      });
-  };
-
-  const setUser = (user: any) => {
-    localStorage.setItem("user", JSON.stringify(user));
-  };
-
-  const handleLogin = async () => {
-    try {
-      login(email, password);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <div className="App">
-      <div>
-        <input placeholder='Enter Email Address' value={email} onChange={handleEmailChange}></input>
-        <input placeholder='Enter Password' value={password} onChange={handlePasswordChange}></input>
-        <button type='submit' onClick={handleLogin}>Login</button>
-      </div>
-    </div>
+    <>
+    <Routes>
+    {defaultRoutes()}
+    </Routes>
+    </>
   );
 }
 
