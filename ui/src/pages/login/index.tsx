@@ -1,5 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import { AuthService } from "../../services"
+import { useNavigate } from "react-router-dom";
+import NavigationRoutes from "../../constants/routes";
 import jwt_decode from 'jwt-decode';
 
 const Login = () => {
@@ -14,36 +17,51 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const instance = axios.create({
-    baseURL: "http://localhost:3001/",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  // const instance = axios.create({
+  //   baseURL: "http://localhost:3001/",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
 
-  const login = async (email: string, password: string) => {
-    return await instance
-      .post("/auth", { email, password })
-      .then((response) => {
-        if (response.data.accessToken) {
-          const user = jwt_decode(response.data.accessToken);
-          console.log(user);
-          setUser(user);
-        }
-        email = '';
-        password = '';
-        window.location.reload();
-        return response.data;
-      });
-  };
+  // const login = async (email: string, password: string) => {
+  //   return await instance
+  //     .post("/auth", { email, password })
+  //     .then((response) => {
+  //       if (response.data.accessToken) {
+  //         const user = jwt_decode(response.data.accessToken);
+  //         console.log(user);
+  //         setUser(user);
+  //       }
+  //       email = '';
+  //       password = '';
+  //       window.location.reload();
+  //       return response.data;
+  //     });
+  // };
+  const navigate = useNavigate();
 
-  const setUser = (user: any) => {
-    localStorage.setItem("user", JSON.stringify(user));
-  };
+  const Login = async (email: string, password: string) => {
+    
+    debugger;
+    const response = await AuthService.authenticate(email, password);
+    if (response.status === 200) {
+      const user = jwt_decode(response.data.accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
+      console.log(user);
+      navigate(NavigationRoutes.Home);
+    }
+    return response.data;
+  }
 
-  const handleLogin = async () => {
+  // const setUser = (user: any) => {
+  //   localStorage.setItem("user", JSON.stringify(user));
+  // };
+
+  const handleLogin = () => {
     try {
-      login(email, password);
+      console.log(email + ' ' + password);
+      Login(email, password);
     } catch (err) {
       console.log(err);
     }
