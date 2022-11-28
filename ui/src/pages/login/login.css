@@ -1,0 +1,33 @@
+.box {
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+    width: 80%;
+    justify-content: center;
+    align-content: center;
+    column-gap: 20px;
+}
+
+.email {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    height: auto;
+}
+
+input {
+    margin: 5px;
+}
+
+button {
+    font-weight: 500;
+    font-size: medium;
+    margin: 5px 
+};
+
+header {
+    justify-content: center;
+    align-content: center;
+    font-weight: 600;
+}

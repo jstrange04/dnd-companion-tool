@@ -1,8 +1,8 @@
-import { AuthContext } from "../../contexts";
+import { AuthContext } from "../contexts";
 import { useNavigate } from "react-router-dom";
-import NavigationRoutes from "../../constants/routes";
+import NavigationRoutes from "../constants/routes";
 
-const Home = () => {
+const NavBar = () => {
   const {dispatch} = AuthContext.useLogin();
   const navigate = useNavigate();
 
@@ -21,4 +21,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default NavBar;
