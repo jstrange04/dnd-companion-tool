@@ -1,11 +1,4 @@
-import axios from "axios";
-
-const instance = axios.create({
-    baseURL: "http://localhost:3001/",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+import instance from "../utils/axios";
 
 const authenticate = async (email: string, password: string) => {
     return await instance

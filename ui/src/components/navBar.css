@@ -1,0 +1,10 @@
+.bar {
+    display: flex;
+    flex-direction: row;
+    background-color: darkorange;
+    width: 100%;
+}
+
+button {
+    background-color: darkorange;
+}

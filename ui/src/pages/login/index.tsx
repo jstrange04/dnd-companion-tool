@@ -48,6 +48,10 @@ const Login = () => {
     }
   };
 
+  const handleRegister = () => {
+    navigate(NavigationRoutes.Register);
+  };
+
   return (
     <div className="box">
       <header>The Companion Tool</header>
@@ -66,6 +70,7 @@ const Login = () => {
           <button type="submit" onClick={handleLogin}>
             Login
           </button>
+          <text onClick={handleRegister}>register here</text>
         </div>
       </div>
     </div>

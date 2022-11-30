@@ -12,12 +12,12 @@ async function getAllUsers(req: Request, res: Response) {
 
 async function createUser(req: Request, res: Response) {
   const { email, username, password } = req.body;
-  await userService.createUser(
+  const user = await userService.createUser(
     email,
     username, 
     password
   );
-  res.sendStatus(201);
+  res.status(201).json(user);
 }
 
 async function updateUser(req: Request, res: Response) {

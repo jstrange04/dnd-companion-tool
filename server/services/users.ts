@@ -1,4 +1,5 @@
 import { prisma } from '../utils'
+import { authService } from './auth';
 import bcrypt from 'bcrypt';
 
 async function getAllUsers() {
@@ -54,13 +55,14 @@ async function getUserByEmail(email: string, includePassword: boolean = false) {
 
 async function createUser(email: string, username: string, password: string) {
   const hashedPassword = await bcrypt.hash(password, 10);
-  await prisma.users.create({
+  const user = await prisma.users.create({
     data: {
       email: email,
       username: username,
       password: hashedPassword,
     },
   });
+  return authService.generateTokens(user);
 }
 
 async function updateUser(id: number, email: string, username: string, password: string ) {

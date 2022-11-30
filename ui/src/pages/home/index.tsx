@@ -1,22 +1,24 @@
-import { AuthContext } from "../../contexts";
-import { useNavigate } from "react-router-dom";
-import NavigationRoutes from "../../constants/routes";
+import NavBar from "../../components/navBar";
+import {
+  UserService,
+  CharacterService,
+  CampaignService,
+  PartyService,
+} from "../../services";
 
 const Home = () => {
-  const {dispatch} = AuthContext.useLogin();
-  const navigate = useNavigate();
+  debugger;
 
-  // logs the user out by clearing the local user info
-  const handleLogout = () => {
-    dispatch({type: 'logout'});
-    localStorage.removeItem('user');
-    navigate(NavigationRoutes.Login);
-  }
+  const characters = CharacterService.getCharacters();
+  const user = UserService.getUser(1);
+  const campaigns = CampaignService.getCampaigns();
+  const parties = PartyService.getParties();
 
   return (
     <div>
       <header>Home Page</header>
-      <button onClick={handleLogout}> Logout </button>
+      <NavBar />
+      <p>{}</p>
     </div>
   );
 };

@@ -44,6 +44,7 @@ function generateTokens(user: any) {
 const authService = {
   authenticate,
   refresh,
+  generateTokens
 }
 
 export { authService };
