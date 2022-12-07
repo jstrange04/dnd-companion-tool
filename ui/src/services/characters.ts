@@ -8,8 +8,17 @@ const getCharacters = async () => {
       });
   };
 
+const getCharactersByUser = async (user_id: number) => {
+    return await instance
+      .get(`/characters/${user_id}`)
+      .then((response) => {
+        return response;
+      });
+  };
+
 const CharacterService = {
     getCharacters: getCharacters,
+    getCharactersByUser: getCharactersByUser
 }
 
 export default CharacterService;

@@ -57,6 +57,64 @@ const characterRouter = Router();
  */
  characterRouter.route("/").get(characterController.getAllCharacters);
 
+ /**
+ * @swagger
+ * /characters:
+ *   get:
+ *     tags: [
+ *       characters
+ *     ]
+ *     summary: Returns an array of character items
+ *     parameters:
+ *       - name: usererId
+ *         in: path
+ *         type: integer
+ *         description: The user_ID the characters are associated with.
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             examples:
+ *               jsonObject:
+ *                 summary: An example JSON response
+ *                 value: '[{ "id": 1,
+ *                            "name": "Character One",
+ *                            "race": "Elf"
+ *                            "char_class": "Fighter",
+ *                            "sub_class": "Champion",
+ *                            "level": "5",
+ *                            "strength": "15",
+ *                            "dexterity": "14",
+ *                            "constitution": "13",
+ *                            "intelligence": "12",
+ *                            "wisdom": "11",
+ *                            "charisma": "10",
+ *                            "constitution": "13",
+ *                            "hit_points": "25",
+ *                            "armour_class": "13",
+ *                            "movement_speed": "30" },
+ *                           {"id": 2,
+ *                            "name": "Character Two",
+ *                            "race": "Human"
+ *                            "char_class":"Rogue",
+ *                            "sub_class": "Assassin",
+ *                            "level": "5",
+ *                            "strength": "15",
+ *                            "dexterity": "14",
+ *                            "constitution": "13",
+ *                            "intelligence": "12",
+ *                            "wisdom": "11",
+ *                            "charisma": "10",
+ *                            "constitution": "13",
+ *                            "hit_points": "25",
+ *                            "armour_class": "13",
+ *                            "movement_speed": "30" }]'
+ *       204:
+ *         description: No content
+ */
+  characterRouter.route("/:user_id(\\d+)").get(characterController.getCharactersByUser);
+
 /**
  * @swagger
  * /characters/{characterId}:
