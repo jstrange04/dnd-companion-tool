@@ -1,26 +1,41 @@
-import { AuthContext } from "../../contexts";
-import { useNavigate } from "react-router-dom";
-import NavigationRoutes from "../../constants/routes";
 import NavBar from "../../components/navBar";
+import { useEffect, useState } from "react";
+import { CharacterService, PartyService } from "../../services";
 
-const Home = () => {
-  const {dispatch} = AuthContext.useLogin();
-  const navigate = useNavigate();
+const Characters = () => {
+  const [parties, setParties] = useState<any>([]);
+  const [characters, setCharacters] = useState<any>([]);
 
-  // logs the user out by clearing the local user info
-  const handleLogout = () => {
-    dispatch({type: 'logout'});
-    localStorage.removeItem('user');
-    navigate(NavigationRoutes.Login);
-  }
+  const fetchData = async () => {
+    const [parties, characters] = await Promise.all([
+      PartyService.getParties(),
+      CharacterService.getCharacters(),
+    ]);
+
+    setParties(parties.data);
+    setCharacters(characters.data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>
-      <header>Characters</header>
-      <NavBar/>
-      <button onClick={handleLogout}> Logout </button>
+      <header>Parties</header>
+      <NavBar />
+      <ul>
+        {characters.map((character: any) => (
+          <li key={character.id}>{character.name}</li>
+        ))}
+      </ul>
+      <ul>
+        {parties.map((party: any) => (
+          <li key={party.id}>{party.party_name}</li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default Home;
+export default Characters;

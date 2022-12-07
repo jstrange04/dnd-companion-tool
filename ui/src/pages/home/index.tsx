@@ -12,8 +12,8 @@ const Home = () => {
   //debugger;
   const [user, setUser] = useState<any>({});
   const [characters, setCharacters] = useState<any>([]);
-  const [campaigns, setCampaigns] = useState<any>({});
-  const [parties, setParties] = useState<any>({});
+  const [campaigns, setCampaigns] = useState<any>([]);
+  const [parties, setParties] = useState<any>([]);
 
   const fetchData = async () => {
     const jwt = TokenUtils.getJWT();
