@@ -23,11 +23,15 @@ INSERT INTO campaigns (name, description, date_created ) VALUES
 
 INSERT INTO user_characters (user_id, character_id) VALUES
 ((select min(id) from users), (select min(id) from characters)),
-((select max(id) from users), (select max(id) from characters));
+((select max(id) from users), (select max(id) from characters)),
+(5, 4),
+(4, 2);
 
 INSERT INTO party_characters (party_id, character_id) VALUES
 ((select min(id) from parties), (select min(id) from characters)),
-((select max(id) from parties), (select max(id) from characters));
+((select max(id) from parties), (select max(id) from characters)),
+(3, 2),
+(3, 4);
 
 INSERT INTO campaign_parties (campaign_id, party_id) VALUES
 ((select min(id) from campaigns), (select min(id) from parties)),

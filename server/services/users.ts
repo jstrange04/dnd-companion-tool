@@ -19,11 +19,37 @@ async function getUser(id: number) {
         select: {
           characters: {
             select: {
+              id: true,
               name: true,
+              race: true,
+              char_class: true,
+              sub_class: true,
+              level: true,
+              party_characters: {
+                select: {
+                  parties: {
+                    select: {
+                      id: true,
+                      party_name: true,
+                      campaign_parties: {
+                        select: {
+                          campaigns: {
+                            select: {
+                              id: true,
+                              name: true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
-      }
+      },
+
     },
   });
 }
@@ -43,6 +69,10 @@ async function getUserByEmail(email: string, includePassword: boolean = false) {
           characters: {
             select: {
               name: true,
+              race: true,
+              char_class: true,
+              sub_class: true,
+              level: true,
             }
           }
         }

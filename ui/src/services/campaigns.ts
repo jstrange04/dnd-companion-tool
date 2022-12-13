@@ -8,8 +8,17 @@ const getCampaigns = async () => {
       });
   };
 
+  const createCampaign = async (name: string, description: string, image: string, parties: string[]) => {
+    return await instance
+      .post("/characters", { name, description, image, parties })
+      .then((response) => {
+        return response;
+      });
+  };
+
 const CampaignService = {
     getCampaigns: getCampaigns,
+    createCampaign: createCampaign
 }
 
 export default CampaignService;
