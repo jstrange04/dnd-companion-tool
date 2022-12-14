@@ -1,4 +1,4 @@
-import NavBar from "../../components/navBar";
+import NavBar from "../../components/appBar";
 import { useEffect, useState } from "react";
 import { CharacterService, PartyService } from "../../services";
 
@@ -20,8 +20,8 @@ const Parties = () => {
 
   return (
     <div>
-      <header>Parties</header>
       <NavBar />
+      <header>Parties</header>
       <ul>
         {parties.map((party: any) => (
           <li key={party.id}>{party.party_name}</li>

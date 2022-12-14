@@ -1,4 +1,4 @@
-import NavBar from "../../components/navBar";
+import NavBar from "../../components/appBar";
 import { useEffect, useState } from "react";
 import { CampaignService, PartyService } from "../../services";
 
@@ -22,8 +22,8 @@ const Campaigns = () => {
 
   return (
     <div>
-      <header>Parties</header>
       <NavBar />
+      <header>Campaigns</header>
       <ul>
         {campaigns.map((campaign: any) => (
           <li key={campaign.id}>{campaign.name}</li>

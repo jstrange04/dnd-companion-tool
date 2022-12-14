@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { CampaignService } from "../../../services";
 import NavigationRoutes from "../../../constants/routes";
+import NavBar from "../../../components/appBar";
 
 const initialCampaignData = { name: "", desc: "", image: "", parites: []};
 
@@ -69,6 +70,7 @@ const CreateCampaign = () => {
 
   return (
     <div>
+      <NavBar/>
       <header>Create a Campaign</header>
       <div className="box">
         <header>The Companion Tool</header>

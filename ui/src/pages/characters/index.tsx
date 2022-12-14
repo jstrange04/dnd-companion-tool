@@ -1,4 +1,4 @@
-import NavBar from "../../components/navBar";
+import NavBar from "../../components/appBar";
 import { useEffect, useState } from "react";
 import { CharacterService, PartyService } from "../../services";
 import { useNavigate } from "react-router-dom";
@@ -29,8 +29,8 @@ const Characters = () => {
 
   return (
     <div>
-      <header>Parties</header>
       <NavBar />
+      <header>Characters</header>
       <ul>
         {characters.map((character: any) => (
           <li key={character.id}>{character.name + ` Race: ` + character.race + ` Class: ` + character.char_class + ` Subclass: ` + character.sub_class + ` Level: ` + character.level}</li>
