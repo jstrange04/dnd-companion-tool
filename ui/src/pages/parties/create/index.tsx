@@ -2,6 +2,11 @@ import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CharacterService, PartyService } from "../../../services";
 import NavigationRoutes from "../../../constants/routes";
+import NavBar from "../../../components/appBar";
+import "./index.css";
+
+import Box from "@mui/material/Box";
+import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 
 const initialPartyData = { name: "", desc: "", image: "", parties: [] };
 
@@ -20,9 +25,45 @@ const partyReducer = (state: any, action: any) => {
   }
 };
 
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 40 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "race",
+    headerName: "Race",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "char_class",
+    headerName: "Class",
+    width: 100,
+    editable: true,
+  },
+  {
+    field: "sub_class",
+    headerName: "Sub Class",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "level",
+    headerName: "Level",
+    type: "number",
+    width: 50,
+    editable: true,
+  },
+];
+
 const CreateParty = () => {
   const [party, dispatch] = useReducer(partyReducer, initialPartyData);
   const [characters, setCharacters] = useState<any>([]);
+  const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
 
   const navigate = useNavigate();
 
@@ -48,7 +89,6 @@ const CreateParty = () => {
   }, []);
 
   const CreateParty = async (party: any) => {
-    debugger;
     const response = await PartyService.createParty(
       party.name,
       party.desc,
@@ -58,6 +98,7 @@ const CreateParty = () => {
     navigate(NavigationRoutes.Parties);
     return response.data;
   };
+  debugger;
 
   const handleCreateParty = () => {
     try {
@@ -68,43 +109,53 @@ const CreateParty = () => {
     }
   };
 
+  const handleAddCharacter = (character: any) => {
+    const characterValue = "";
+  };
+
   return (
     <div>
-      <header>The Companion Tool</header>
+      <NavBar />
+      <header>Create a Party</header>
       <div className="box">
-        <header>Create a Party</header>
-        <div className="box">
-          <div className="email">
-            <input
-              placeholder="Enter Name"
-              value={party.name}
-              onChange={handleNameChange}
-            ></input>
-            <input
-              placeholder="Enter Description"
-              value={party.desc}
-              onChange={handleDescChange}
-            ></input>
-            <input
-              placeholder="Enter Image (Optional)"
-              value={party.image}
-              onChange={handleImageChange}
-            ></input>
-            <button type="submit" onClick={handleCreateParty}>
-              Create Party
-            </button>
-            <ul>
-              {characters.map((characters: any) => (
-                <li key={characters.id}>{characters.name}</li>
-              ))}
-            </ul>
-            <select name="characters" id="cars">
-                {characters.map((characters: any) => (
-                  <option key={characters.id}>{characters.name}</option>
-                ))}
-            </select>
-          </div>
+        <div className="email">
+          <input
+            placeholder="Enter Name"
+            value={party.name}
+            onChange={handleNameChange}
+          ></input>
+          <input
+            placeholder="Enter Description"
+            value={party.desc}
+            onChange={handleDescChange}
+          ></input>
+          <input
+            placeholder="Enter Image (Optional)"
+            value={party.image}
+            onChange={handleImageChange}
+          ></input>
         </div>
+        <Box sx={{ height: 400, width: "100%" }}>
+          <DataGrid
+            rows={characters}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+            onSelectionModelChange={(newSelection: any) => {
+              setSelectionModel(newSelection);
+            }}
+            selectionModel={selectionModel}
+          />
+          {selectionModel.map((selection: any) => (
+            <h1>{selection}</h1>
+          ))}
+        </Box>
+        <button type="submit" onClick={handleCreateParty}>
+          Create Party
+        </button>
       </div>
     </div>
   );
