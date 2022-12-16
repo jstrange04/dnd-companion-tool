@@ -10,7 +10,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NavigationRoutes from "../constants/routes";
 import { Link, NavigationType } from "react-router-dom";
 
@@ -39,46 +38,18 @@ const pages: page[] = [
 ];
 
 const settings: page[] = [
-  {
-    display: "Profile",
-    route: NavigationRoutes.Home,
-  },
-  {
-    display: "Account",
-    route: NavigationRoutes.Home,
-  },
-  {
-    display: "Logout",
-    route: NavigationRoutes.Login,
-  },
-];
-
-const theme = createTheme({
-  palette: {
-    neutral: {
-      main: "#FFC300",
-      contrastText: "#fff",
-    },
-  },
-});
-
-declare module "@mui/material/styles" {
-  interface Palette {
-    neutral: Palette["primary"];
-  }
-
-  // allow configuration using `createTheme`
-  interface PaletteOptions {
-    neutral?: PaletteOptions["primary"];
-  }
-}
-
-// Update the AppBar's color prop options
-declare module "@mui/material/AppBar" {
-  interface AppBarPropsColorOverrides {
-    neutral: true;
-  }
-}
+    {
+        display: "Profile",
+        route: NavigationRoutes.Home,
+     },
+     {
+        display: "Account",
+        route: NavigationRoutes.Home,
+     },
+    {
+        display: "Logout",
+        route: NavigationRoutes.Login
+    }];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -111,7 +82,6 @@ function NavBar() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <AppBar position="static" color="neutral">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -182,7 +152,7 @@ function NavBar() {
               Companion Tool
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => renderMenuItem(page))}
+            {pages.map((page) => renderMenuItem(page))}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
@@ -213,7 +183,6 @@ function NavBar() {
           </Toolbar>
         </Container>
       </AppBar>
-    </ThemeProvider>
   );
 }
 export default NavBar;

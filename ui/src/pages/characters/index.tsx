@@ -1,4 +1,3 @@
-import NavBar from "../../components/appBar";
 import { useEffect, useState } from "react";
 import { CharacterService, PartyService } from "../../services";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +28,6 @@ const Characters = () => {
 
   return (
     <div>
-      <NavBar />
       <header>Characters</header>
       <ul>
         {characters.map((character: any) => (

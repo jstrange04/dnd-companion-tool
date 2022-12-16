@@ -1,4 +1,3 @@
-import NavBar from "../../components/appBar";
 import {
   UserService,
   CharacterService,
@@ -50,7 +49,6 @@ const Home = () => {
   console.log(parties)
   return (
     <div>
-      <NavBar />
       <header>Home Page</header>
       <p>{`Welcome ` + user?.username}</p>
       <h2>Characters</h2>

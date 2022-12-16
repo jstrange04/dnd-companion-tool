@@ -2,11 +2,12 @@ import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CharacterService, PartyService } from "../../../services";
 import NavigationRoutes from "../../../constants/routes";
-import NavBar from "../../../components/appBar";
+import Button from "@mui/material/Button";
 import "./index.css";
 
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
+import { TextField } from "@mui/material";
 
 const initialPartyData = { name: "", desc: "", image: "", parties: [] };
 
@@ -98,7 +99,6 @@ const CreateParty = () => {
     navigate(NavigationRoutes.Parties);
     return response.data;
   };
-  debugger;
 
   const handleCreateParty = () => {
     try {
@@ -109,54 +109,85 @@ const CreateParty = () => {
     }
   };
 
-  const handleAddCharacter = (character: any) => {
-    const characterValue = "";
+  const handleAddCharacter = () => {
+    return selectionModel.map((selection: any) => <h1>{selection}</h1>);
   };
 
   return (
     <div>
-      <NavBar />
-      <header>Create a Party</header>
-      <div className="box">
-        <div className="email">
-          <input
-            placeholder="Enter Name"
-            value={party.name}
-            onChange={handleNameChange}
-          ></input>
-          <input
-            placeholder="Enter Description"
-            value={party.desc}
-            onChange={handleDescChange}
-          ></input>
-          <input
-            placeholder="Enter Image (Optional)"
-            value={party.image}
-            onChange={handleImageChange}
-          ></input>
-        </div>
-        <Box sx={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={characters}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-            disableSelectionOnClick
-            experimentalFeatures={{ newEditingApi: true }}
-            onSelectionModelChange={(newSelection: any) => {
-              setSelectionModel(newSelection);
-            }}
-            selectionModel={selectionModel}
-          />
-          {selectionModel.map((selection: any) => (
-            <h1>{selection}</h1>
-          ))}
-        </Box>
-        <button type="submit" onClick={handleCreateParty}>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          marginLeft: 10,
+        }}
+      >
+        <h1>Create a Party</h1>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          marginLeft: 10,
+        }}
+      >
+        <TextField
+          placeholder="Enter Name"
+          value={party.name}
+          onChange={handleNameChange}
+        ></TextField>
+        <TextField
+          placeholder="Enter Description"
+          value={party.desc}
+          onChange={handleDescChange}
+        ></TextField>
+        <TextField
+          placeholder="Enter Image (Optional)"
+          value={party.image}
+          onChange={handleImageChange}
+        ></TextField>
+      </Box>
+      <Box sx={{ height: 400, width: "90%", marginLeft: 10 }}>
+        <DataGrid
+          rows={characters}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+          disableSelectionOnClick
+          experimentalFeatures={{ newEditingApi: true }}
+          onSelectionModelChange={(newSelection: any) => {
+            setSelectionModel(newSelection);
+          }}
+          selectionModel={selectionModel}
+        />
+        {selectionModel.map((selection: any) => (
+          <h1>{selection.name}</h1>
+        ))}
+        <Button type="submit" onClick={handleAddCharacter}>
+          Add
+        </Button>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          marginLeft: 20,
+        }}
+      >
+        <Button type="submit" onClick={handleCreateParty}>
           Create Party
-        </button>
-      </div>
+        </Button>
+      </Box>
     </div>
   );
 };

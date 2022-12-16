@@ -2,6 +2,9 @@ import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { CharacterService } from "../../../services";
 import NavigationRoutes from "../../../constants/routes";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const initialCharacterData = { name: "", race: "" };
 
@@ -129,7 +132,19 @@ const CreateCharacter = () => {
   const handleRegister = () => {
     try {
       console.log(
-        character.name + " " + character.race + " " + character.class + " " + character.subClass + " " + character.level + " " + character.strength + " " + character.dexterity
+        character.name +
+          " " +
+          character.race +
+          " " +
+          character.class +
+          " " +
+          character.subClass +
+          " " +
+          character.level +
+          " " +
+          character.strength +
+          " " +
+          character.dexterity
       );
       CreateCharacter(character);
     } catch (err) {
@@ -139,87 +154,216 @@ const CreateCharacter = () => {
 
   return (
     <div>
-      <header>Create a Character</header>
-      <div className="box">
-        <header>The Companion Tool</header>
-        <div className="box">
-          <div className="email">
-            <input
-              placeholder="Enter Name"
-              value={character.name}
-              onChange={handleNameChange}
-            ></input>
-            <input
-              placeholder="Enter Race"
-              value={character.race}
-              onChange={handleRaceChange}
-            ></input>
-            <input
-              placeholder="Enter Class"
-              value={character.charClass}
-              onChange={handleClassChange}
-            ></input>
-            <input
-              placeholder="Enter Sub Class"
-              value={character.subClass}
-              onChange={handleSubClassChange}
-            ></input>
-            <input
-              placeholder="Enter Level"
-              value={character.level}
-              onChange={handleLevelChange}
-            ></input>
-            <input
-              placeholder="Enter Strength"
-              value={character.strength}
-              onChange={handleStrengthChange}
-            ></input>
-            <input
-              placeholder="Enter Dexterity"
-              value={character.dexterity}
-              onChange={handleDexterityChange}
-            ></input>
-            <input
-              placeholder="Enter Constitution"
-              value={character.constitution}
-              onChange={handleConstitutionChange}
-            ></input>
-            <input
-              placeholder="Enter Wisdom"
-              value={character.wisdom}
-              onChange={handleWisdomChange}
-            ></input>
-            <input
-              placeholder="Enter Intelligence"
-              value={character.intelligence}
-              onChange={handleIntelligenceChange}
-            ></input>
-            <input
-              placeholder="Enter Charisma"
-              value={character.charisma}
-              onChange={handleCharismaChange}
-            ></input>
-            <input
-              placeholder="Enter Armour Class"
-              value={character.armourClass}
-              onChange={handleArmourClassChange}
-            ></input>
-            <input
-              placeholder="Enter Hit Points"
-              value={character.hitPoints}
-              onChange={handleHitPointsChange}
-            ></input>
-            <input
-              placeholder="Enter Movement Speed"
-              value={character.movementSpeed}
-              onChange={handleMovementSpeedChange}
-            ></input>
-            <button type="submit" onClick={handleRegister}>
-              Create Character
-            </button>
-          </div>
-        </div>
-      </div>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          marginLeft: 10,
+        }}
+      >
+        <h1>Create a Character</h1>
+      </Box>
+      <Box
+        sx={{
+          height: "auto",
+          width: "100%",
+          marginLeft: 10,
+        }}
+      >
+        <Box
+          sx={{
+            height: "auto",
+            width: "100%",
+          }}
+        >
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            sx={{
+              height: 7,
+              width: 250,
+            }}
+            placeholder="Character Name"
+            value={character.name}
+            onChange={handleNameChange}
+          ></TextField>
+          <TextField
+            id="outlined-basic"
+            label="Race"
+            variant="outlined"
+            sx={{
+              height: 7,
+              width: 250,
+              marginLeft: 5,
+            }}
+            placeholder="Enter Race"
+            value={character.race}
+            onChange={handleRaceChange}
+          ></TextField>
+          <TextField
+            id="outlined-basic"
+            label="Class"
+            variant="outlined"
+            sx={{
+              height: 7,
+              width: 250,
+              marginLeft: 5,
+            }}
+            placeholder="Enter Class"
+            value={character.charClass}
+            onChange={handleClassChange}
+          ></TextField>
+          <TextField
+            id="outlined-basic"
+            label="Sub Class"
+            variant="outlined"
+            sx={{
+              height: 7,
+              width: 250,
+              marginLeft: 5,
+            }}
+            placeholder="Enter Sub Class"
+            value={character.subClass}
+            onChange={handleSubClassChange}
+          ></TextField>
+          <TextField
+            id="outlined-basic"
+            label="Level"
+            variant="outlined"
+            sx={{
+              height: 7,
+              width: 250,
+              marginLeft: 5,
+            }}
+            placeholder="Enter Level"
+            value={character.level}
+            onChange={handleLevelChange}
+          ></TextField>
+        </Box>
+        <Box
+          sx={{
+            height: "auto",
+            width: "100%",
+            marginTop: 10,
+          }}
+        >
+          <TextField
+            sx={{
+              height: 20,
+              marginLeft: 5,
+            }}
+            placeholder="Enter Strength"
+            value={character.strength}
+            onChange={handleStrengthChange}
+          ></TextField>
+          <TextField
+            sx={{
+              height: 20,
+              marginLeft: 10,
+            }}
+            placeholder="Enter Dexterity"
+            value={character.dexterity}
+            onChange={handleDexterityChange}
+          ></TextField>
+          <TextField
+            sx={{
+              height: 20,
+              marginLeft: 10,
+            }}
+            placeholder="Enter Constitution"
+            value={character.constitution}
+            onChange={handleConstitutionChange}
+          ></TextField>
+        </Box>
+        <Box
+          sx={{
+            height: "auto",
+            width: "100%",
+            marginTop: 10,
+          }}
+        >
+          <TextField
+            sx={{
+              height: 20,
+              marginLeft: 5,
+            }}
+            placeholder="Enter Wisdom"
+            value={character.wisdom}
+            onChange={handleWisdomChange}
+          ></TextField>
+          <TextField
+            sx={{
+              height: 20,
+              marginLeft: 10,
+            }}
+            placeholder="Enter Intelligence"
+            value={character.intelligence}
+            onChange={handleIntelligenceChange}
+          ></TextField>
+          <TextField
+            sx={{
+              height: 20,
+              marginLeft: 10,
+            }}
+            placeholder="Enter Charisma"
+            value={character.charisma}
+            onChange={handleCharismaChange}
+          ></TextField>
+        </Box>
+        <Box
+          sx={{
+            height: "auto",
+            width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            marginLeft: 10,
+            marginTop: 10,
+          }}
+        >
+          <TextField
+            sx={{
+              height: 10,
+            }}
+            placeholder="Enter Armour Class"
+            value={character.armourClass}
+            onChange={handleArmourClassChange}
+          ></TextField>
+          <TextField
+            sx={{
+              height: 10,
+              marginLeft: 10,
+            }}
+            placeholder="Enter Hit Points"
+            value={character.hitPoints}
+            onChange={handleHitPointsChange}
+          ></TextField>
+          <TextField
+            sx={{
+              height: 10,
+              marginLeft: 10,
+            }}
+            placeholder="Enter Movement Speed"
+            value={character.movementSpeed}
+            onChange={handleMovementSpeedChange}
+          ></TextField>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          marginLeft: 10,
+        }}
+      >
+        <Button type="submit" onClick={handleRegister}>
+          Create Character
+        </Button>
+      </Box>
     </div>
   );
 };
