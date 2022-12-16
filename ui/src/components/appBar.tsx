@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NavigationRoutes from "../constants/routes";
-import { Link, NavigationType } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface page {
   display: string;
@@ -38,14 +38,6 @@ const pages: page[] = [
 ];
 
 const settings: page[] = [
-    {
-        display: "Profile",
-        route: NavigationRoutes.Home,
-     },
-     {
-        display: "Account",
-        route: NavigationRoutes.Home,
-     },
     {
         display: "Logout",
         route: NavigationRoutes.Login
@@ -81,6 +73,16 @@ function NavBar() {
     );
   };
 
+  const renderSettingsItem = ({ route, display }: page) => {
+    return (
+      <Link key={route} to={route} style={{ textDecoration: "none" }}>
+        <MenuItem sx={{ my: 2, color: "netural", display: "block" }}>
+          {display}
+        </MenuItem>
+      </Link>
+    );
+  };
+
   return (
       <AppBar position="static" color="neutral">
         <Container maxWidth="xl">
@@ -102,7 +104,6 @@ function NavBar() {
             >
               Companion Tool
             </Typography>
-
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -177,7 +178,7 @@ function NavBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((page) => renderMenuItem(page))}
+                {settings.map((page) => renderSettingsItem(page))}
               </Menu>
             </Box>
           </Toolbar>

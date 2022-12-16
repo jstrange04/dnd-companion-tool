@@ -6,9 +6,15 @@ import {
 } from "../../services";
 import TokenUtils from "../../utils/token";
 import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import NavigationRoutes from "../../constants/routes";
+import { useNavigate } from "react-router-dom";
+import DrawerNavBar from "../../components/drawer";
 
 const Home = () => {
   //debugger;
+  const navigate = useNavigate();
   const [user, setUser] = useState<any>([]);
   const [characters, setCharacters] = useState<any>([]);
   const [campaigns, setCampaigns] = useState<any>([]);
@@ -38,6 +44,18 @@ const Home = () => {
     setParties(partiesList);
   };
 
+  const handleCharacterNav = () => {
+    navigate(NavigationRoutes.Characters);
+  }
+
+  const handleCampaignNav = () => {
+    navigate(NavigationRoutes.Campaigns);
+  }
+
+  const handlePartyNav = () => {
+    navigate(NavigationRoutes.Parties);
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -49,26 +67,78 @@ const Home = () => {
   console.log(parties)
   return (
     <div>
-      <header>Home Page</header>
-      <p>{`Welcome ` + user?.username}</p>
-      <h2>Characters</h2>
+      <DrawerNavBar />
+      <Box
+        sx={{
+          height: 25,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".2rem",
+          marginLeft: 10,
+        }}
+      >
+        <p>{`Welcome ` + user?.username}</p>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          marginLeft: 10,
+        }}
+      >
+        <h1 onClick={handleCharacterNav}>Characters</h1>
+      </Box>
+      <Box sx={{ height: "auto", width: "90%", marginLeft: 10, fontFamily: "monospace", }}>
       <ul>
         {characters.map((character: any) => (
-          <li key={character.characters.id}>{character.characters.name}</li>
+          <li key={character.characters.id}>{character.characters.name + " Level: " + character.characters.level + " Race: " + character.characters.race + " Class: " + character.characters.char_class}</li>
         ))}
       </ul>
-      <h2>Campaigns</h2>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          marginLeft: 10,
+          marginTop: 5
+        }}
+      >
+        <h1 onClick={handleCampaignNav}>Campaigns</h1>
+      </Box>
+      <Box sx={{ height: "auto", width: "90%", marginLeft: 10, fontFamily: "monospace", }}>
       <ul>
         {campaigns.map((campaign: any) => (
           <li key={campaign.id}>{campaign.name}</li>
         ))}
       </ul>
-      <h2>Parties</h2>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".3rem",
+          marginLeft: 10,
+          marginTop: 5
+        }}
+      >
+        <h1 onClick={handlePartyNav}>Parties</h1>
+      </Box>
+      <Box sx={{ height: "auto", width: "90%", marginLeft: 10, fontFamily: "monospace", }}>
       <ul>
         {partiesList.map((party: any) => (
           <li key={party.parties.id}>{party.parties.party_name}</li>
         ))}
       </ul>
+      </Box>
     </div>
   );
 };

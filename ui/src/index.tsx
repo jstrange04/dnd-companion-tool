@@ -6,6 +6,7 @@ import { AuthContext } from "./contexts";
 import NavBar from "./components/appBar";
 import createTheme from "@mui/material/styles/createTheme";
 import { ThemeProvider } from "@mui/material/styles";
+import DrawerNavBar from "./components/drawer";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -42,7 +43,8 @@ root.render(
   <BrowserRouter>
   <AuthContext.AuthProvider>
   <ThemeProvider theme={theme}>
-    <NavBar />
+    {/* <NavBar /> */}
+    <DrawerNavBar />
     <App/>
     </ThemeProvider>
     </AuthContext.AuthProvider>
