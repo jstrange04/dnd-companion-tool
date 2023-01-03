@@ -38,6 +38,7 @@ const Campaigns = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 10
         }}
       >
         <h1>Campaigns</h1>

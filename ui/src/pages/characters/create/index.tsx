@@ -162,6 +162,7 @@ const CreateCharacter = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 10,
         }}
       >
         <h1>Create a Character</h1>
@@ -249,11 +250,18 @@ const CreateCharacter = () => {
             height: "auto",
             width: "100%",
             marginTop: 10,
+            fontFamily: "monospace",
+            fontWeight: 700,
           }}
         >
+          <label> Attributes: </label>
           <TextField
+            id="outlined-basic"
+            label="Strength"
+            variant="outlined"
             sx={{
               height: 20,
+              width: 120,
               marginLeft: 5,
             }}
             placeholder="Enter Strength"
@@ -261,18 +269,26 @@ const CreateCharacter = () => {
             onChange={handleStrengthChange}
           ></TextField>
           <TextField
+            id="outlined-basic"
+            label="Dexterity"
+            variant="outlined"
             sx={{
               height: 20,
-              marginLeft: 10,
+              width: 120,
+              marginLeft: 5,
             }}
             placeholder="Enter Dexterity"
             value={character.dexterity}
             onChange={handleDexterityChange}
           ></TextField>
           <TextField
+            id="outlined-basic"
+            label="Constitution"
+            variant="outlined"
             sx={{
               height: 20,
-              marginLeft: 10,
+              width: 120,
+              marginLeft: 5,
             }}
             placeholder="Enter Constitution"
             value={character.constitution}
@@ -283,12 +299,17 @@ const CreateCharacter = () => {
           sx={{
             height: "auto",
             width: "100%",
-            marginTop: 10,
+            marginTop: 5,
+            marginLeft: 15
           }}
         >
           <TextField
+            id="outlined-basic"
+            label="Wisdom"
+            variant="outlined"
             sx={{
               height: 20,
+              width: 120,
               marginLeft: 5,
             }}
             placeholder="Enter Wisdom"
@@ -296,18 +317,26 @@ const CreateCharacter = () => {
             onChange={handleWisdomChange}
           ></TextField>
           <TextField
+            id="outlined-basic"
+            label="Intelligence"
+            variant="outlined"
             sx={{
               height: 20,
-              marginLeft: 10,
+              width: 120,
+              marginLeft: 5,
             }}
             placeholder="Enter Intelligence"
             value={character.intelligence}
             onChange={handleIntelligenceChange}
           ></TextField>
           <TextField
+            id="outlined-basic"
+            label="Charisma"
+            variant="outlined"
             sx={{
               height: 20,
-              marginLeft: 10,
+              width: 120,
+              marginLeft: 5,
             }}
             placeholder="Enter Charisma"
             value={character.charisma}
@@ -358,6 +387,7 @@ const CreateCharacter = () => {
           height: 50,
           width: "100%",
           marginLeft: 10,
+          marginTop: 10
         }}
       >
         <Button type="submit" onClick={handleRegister}>

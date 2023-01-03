@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { Button, TextField } from "@mui/material";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 
-const initialCampaignData = { name: "", desc: "", image: "", parites: [] };
+const initialCampaignData = { name: "", desc: "", image: "", parties: [] };
 
 const campaignReducer = (state: any, action: any) => {
   switch (action.type) {
@@ -76,8 +76,6 @@ const CreateCampaign = () => {
     const response = await CampaignService.createCampaign(
       campaign.name,
       campaign.desc,
-      campaign.image,
-      campaign.parties
     );
     navigate(NavigationRoutes.Campaigns);
     return response.data;
@@ -102,42 +100,53 @@ const CreateCampaign = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 10,
         }}
       >
         <h1>Create a Campaign</h1>
       </Box>
       <Box
         sx={{
-          height: 50,
+          height: 60,
           width: "100%",
           fontFamily: "monospace",
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 2,
+          marginBottom: 2
         }}
       >
         <TextField
+          id="outlined-basic"
+          label="Name"
+          variant="outlined"
           placeholder="Enter Name"
           value={campaign.name}
           onChange={handleNameChange}
+          sx={{
+            height: 10,
+            width: 250,
+            fontFamily: "monospace",
+          }}
         ></TextField>
         <TextField
+          id="outlined-basic"
+          label="Description"
+          variant="outlined"
           placeholder="Enter Description"
-          value={campaign.race}
+          value={campaign.description}
           onChange={handleDescChange}
-        ></TextField>
-        <TextField
-          placeholder="Enter Image (Optional)"
-          value={campaign.charClass}
-          onChange={handleImageChange}
-        ></TextField>
-        <TextField
-          placeholder="Enter Parties"
-          value={campaign.subClass}
-          onChange={handlePartiesChange}
+          sx={{
+            height: 10,
+            width: 450,
+            fontFamily: "monospace",
+            marginLeft: 2 
+          }}
         ></TextField>
       </Box>
-      <Box sx={{ height: 400, width: "90%", marginLeft: 10 }}>
+      <Box sx={{ height: 400, width: "90%", marginLeft: 10,
+          marginBottom: 2}}>
         <DataGrid
           rows={parties}
           columns={columns}
@@ -165,7 +174,7 @@ const CreateCampaign = () => {
           fontFamily: "monospace",
           fontWeight: 700,
           letterSpacing: ".3rem",
-          marginLeft: 20,
+          marginLeft: 10,
         }}
       >
         <Button type="submit" onClick={handleCreateCampaign}>

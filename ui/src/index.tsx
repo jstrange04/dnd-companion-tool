@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { AuthContext } from "./contexts";
-import NavBar from "./components/appBar";
 import createTheme from "@mui/material/styles/createTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import DrawerNavBar from "./components/drawer";
@@ -41,12 +40,12 @@ declare module "@mui/material/AppBar" {
 
 root.render(
   <BrowserRouter>
-  <AuthContext.AuthProvider>
-  <ThemeProvider theme={theme}>
-    {/* <NavBar /> */}
-    <DrawerNavBar />
-    <App/>
-    </ThemeProvider>
+    <AuthContext.AuthProvider>
+      <ThemeProvider theme={theme}>
+        <DrawerNavBar>
+          <App />
+        </DrawerNavBar>
+      </ThemeProvider>
     </AuthContext.AuthProvider>
   </BrowserRouter>
 );

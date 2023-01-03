@@ -8,9 +8,9 @@ const getCampaigns = async () => {
       });
   };
 
-  const createCampaign = async (name: string, description: string, image: string, parties: string[]) => {
+  const createCampaign = async (name: string, description: string) => {
     return await instance
-      .post("/characters", { name, description, image, parties })
+      .post("/campaigns", { name, description})
       .then((response) => {
         return response;
       });

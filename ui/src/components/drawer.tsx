@@ -18,7 +18,6 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 
 const drawerWidth = 240;
-
 interface page {
   display: string;
   route: string;
@@ -92,7 +91,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-function DrawerNavBar() {
+function DrawerNavBar(props: any) {
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -172,7 +172,7 @@ function DrawerNavBar() {
         <List>{pages.map((page) => renderMenuItem(page))}</List>
         <Divider />
       </Drawer>
-      <Main open={open}></Main>
+      <Main open={open}>{props.children}</Main>
     </Box>
   );
 }

@@ -3,24 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { CharacterService, PartyService } from "../../../services";
 import NavigationRoutes from "../../../constants/routes";
 import Button from "@mui/material/Button";
-import "./index.css";
 
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import { TextField } from "@mui/material";
 
-const initialPartyData = { name: "", desc: "", image: "", parties: [] };
+import "./index.css"
+
+const initialPartyData = { party_name: "", party_level: 0, parties: [] };
 
 const partyReducer = (state: any, action: any) => {
   switch (action.type) {
     case "NAME":
-      return { ...state, name: action.value };
-    case "DESC":
-      return { ...state, class: action.value };
-    case "IMAGE":
-      return { ...state, subClass: action.value };
+      return { ...state, party_name: action.value };
+    case "LEVEL":
+      return { ...state, party_level: action.value };
     case "PARTIES":
-      return { ...state, level: action.value };
+      return { ...state, parties: action.value };
     default:
       return state;
   }
@@ -72,13 +71,13 @@ const CreateParty = () => {
     dispatch({ type: "NAME", value: event.target.value });
   };
 
-  const handleDescChange = (event: any) => {
-    dispatch({ type: "DESC", value: event.target.value });
+  const handleLevelChange = (event: any) => {
+    dispatch({ type: "LEVEL", value: event.target.value });
   };
 
-  const handleImageChange = (event: any) => {
-    dispatch({ type: "IMAGE", value: event.target.value });
-  };
+  // const handleImageChange = (event: any) => {
+  //   dispatch({ type: "IMAGE", value: event.target.value });
+  // };
 
   const fetchData = async () => {
     const [characters] = await Promise.all([CharacterService.getCharacters()]);
@@ -90,19 +89,14 @@ const CreateParty = () => {
   }, []);
 
   const CreateParty = async (party: any) => {
-    const response = await PartyService.createParty(
-      party.name,
-      party.desc,
-      party.image,
-      party.parties
-    );
+    const response = await PartyService.createParty(party.party_name, party.party_level);
     navigate(NavigationRoutes.Parties);
     return response.data;
   };
 
   const handleCreateParty = () => {
     try {
-      console.log(party.party_name + " " + party.desc);
+      console.log(party.party_name + " " + party.party_level);
       CreateParty(party);
     } catch (err) {
       console.log(err);
@@ -112,6 +106,15 @@ const CreateParty = () => {
   const handleAddCharacter = () => {
     return selectionModel.map((selection: any) => <h1>{selection}</h1>);
   };
+
+  const getLevels = () => {
+    let content = [];
+    let levels = 20;
+    for (let i = 1; i <= levels; i++) {
+      content.push(<option value={i}>{i}</option>);
+    }
+    return content;
+  }
 
   return (
     <div>
@@ -123,6 +126,7 @@ const CreateParty = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 10,
         }}
       >
         <h1>Create a Party</h1>
@@ -133,27 +137,30 @@ const CreateParty = () => {
           width: "100%",
           fontFamily: "monospace",
           fontWeight: 700,
-          letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 2,
+          marginBottom: 2,
         }}
       >
         <TextField
+        id="outlined-basic"
+        label="Name"
+        variant="outlined"
           placeholder="Enter Name"
           value={party.name}
           onChange={handleNameChange}
+          sx={{
+            height: 10,
+            width: 250,
+            fontFamily: "monospace",
+          }}
         ></TextField>
-        <TextField
-          placeholder="Enter Description"
-          value={party.desc}
-          onChange={handleDescChange}
-        ></TextField>
-        <TextField
-          placeholder="Enter Image (Optional)"
-          value={party.image}
-          onChange={handleImageChange}
-        ></TextField>
+        <label> Level: </label>
+        <select className="select" onSelect={handleLevelChange}>
+        { getLevels() }
+        </select>
       </Box>
-      <Box sx={{ height: 400, width: "90%", marginLeft: 10 }}>
+      <Box sx={{ height: 400, width: "90%", marginLeft: 10, marginBottom: 2 }}>
         <DataGrid
           rows={characters}
           columns={columns}
@@ -168,7 +175,7 @@ const CreateParty = () => {
           selectionModel={selectionModel}
         />
         {selectionModel.map((selection: any) => (
-          <h1>{selection.name}</h1>
+          <h1>{selection}</h1>
         ))}
         <Button type="submit" onClick={handleAddCharacter}>
           Add
@@ -181,7 +188,7 @@ const CreateParty = () => {
           fontFamily: "monospace",
           fontWeight: 700,
           letterSpacing: ".3rem",
-          marginLeft: 20,
+          marginLeft: 10,
         }}
       >
         <Button type="submit" onClick={handleCreateParty}>

@@ -38,6 +38,7 @@ const Parties = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 10
         }}
       >
         <h1>Parties</h1>
