@@ -108,7 +108,6 @@ const CreateCharacter = () => {
   };
 
   const CreateCharacter = async (character: any) => {
-    debugger;
     const response = await CharacterService.createCharacter(
       character.name,
       character.race,
@@ -172,14 +171,18 @@ const CreateCharacter = () => {
           height: "auto",
           width: "100%",
           marginLeft: 10,
+          marginTop: 5
         }}
       >
         <Box
           sx={{
             height: "auto",
             width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
           }}
         >
+          <label> Details: </label>
           <TextField
             id="outlined-basic"
             label="Name"
@@ -187,6 +190,7 @@ const CreateCharacter = () => {
             sx={{
               height: 7,
               width: 250,
+              marginLeft: 5,
             }}
             placeholder="Character Name"
             value={character.name}
@@ -300,7 +304,7 @@ const CreateCharacter = () => {
             height: "auto",
             width: "100%",
             marginTop: 5,
-            marginLeft: 15
+            marginLeft: 15,
           }}
         >
           <TextField
@@ -349,32 +353,41 @@ const CreateCharacter = () => {
             width: "100%",
             fontFamily: "monospace",
             fontWeight: 700,
-            letterSpacing: ".3rem",
-            marginLeft: 10,
             marginTop: 10,
           }}
         >
+          <label> Stats: </label>
           <TextField
+            id="outlined-basic"
+            label="Armour Class"
+            variant="outlined"
             sx={{
               height: 10,
+              marginLeft: 5,
             }}
             placeholder="Enter Armour Class"
             value={character.armourClass}
             onChange={handleArmourClassChange}
           ></TextField>
           <TextField
+            id="outlined-basic"
+            label="Hit Points"
+            variant="outlined"
             sx={{
               height: 10,
-              marginLeft: 10,
+              marginLeft: 5,
             }}
             placeholder="Enter Hit Points"
             value={character.hitPoints}
             onChange={handleHitPointsChange}
           ></TextField>
           <TextField
+            id="outlined-basic"
+            label="Movement Speed"
+            variant="outlined"
             sx={{
               height: 10,
-              marginLeft: 10,
+              marginLeft: 5,
             }}
             placeholder="Enter Movement Speed"
             value={character.movementSpeed}
@@ -387,7 +400,7 @@ const CreateCharacter = () => {
           height: 50,
           width: "100%",
           marginLeft: 10,
-          marginTop: 10
+          marginTop: 10,
         }}
       >
         <Button type="submit" onClick={handleRegister}>

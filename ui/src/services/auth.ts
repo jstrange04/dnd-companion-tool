@@ -10,9 +10,9 @@ const authenticate = async (email: string, password: string) => {
  
 const refresh = async () => {
     return await instance
-      .post("/auth")
+      .post("/auth/refresh")
       .then((response) => {
-        return response.data;
+        return response;
       });
   };
 

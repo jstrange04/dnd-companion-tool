@@ -28,6 +28,29 @@ const partyRouter = Router();
  */
  partyRouter.route("/").get(partyController.getAllParties);
 
+//  /**
+//  * @swagger
+//  * /parties:
+//  *   get:
+//  *     tags: [
+//  *       parties
+//  *     ]
+//  *     summary: Returns an array of party items
+//  *     responses:
+//  *       200:
+//  *         description: OK
+//  *         content:
+//  *           application/json:
+//  *             examples:
+//  *               jsonObject:
+//  *                 summary: An example JSON response
+//  *                 value: '[{ "id": 1, "name": "Party One", "party_level": "3", "date_created": "00/00/00 00:00:00"},
+//  *                         {"id": 2, "name": "Party Two", "party_level": "5", "date_created": "00/00/00 00:00:00"}]'
+//  *       204:
+//  *         description: No content
+//  */
+//  partyRouter.route("/").get(partyController.getUserParties);
+
 /**
  * @swagger
  * /parties/{partyId}:
@@ -54,6 +77,33 @@ const partyRouter = Router();
  *         description: No content
  */
  partyRouter.route("/:party_id(\\d+)").get(partyController.getParty);
+
+ /**
+ * @swagger
+ * /parties/{characterId}:
+ *   get:
+ *     tags: [
+ *       parties
+ *     ]
+ *     summary: Returns an array of parties
+ *     parameters:
+ *       - name: partyId
+ *         in: path
+ *         type: integer
+ *         description: The ID of the requested party.
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             examples:
+ *               jsonObject:
+ *                 summary: An example JSON response
+ *                 value: '{ "id": 1, "name": "Party One", "party_level": "3", "date_created": "00/00/00 00:00:00"}'
+ *       204:
+ *         description: No content
+ */
+ partyRouter.route("/characters/:character_id(\\d+)").get(partyController.getCharactersParties);
 
 /**
  * @swagger

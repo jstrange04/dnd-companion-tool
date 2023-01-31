@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import NavigationRoutes from "../../constants/routes";
 import { AuthContext } from "../../contexts";
 import "./login.css";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -54,25 +56,93 @@ const Login = () => {
 
   return (
     <div className="box">
-      <header>The Companion Tool</header>
-      <div className="box">
-        <div className="email">
-          <input
-            placeholder="Enter Email Address"
-            value={email}
-            onChange={handleEmailChange}
-          ></input>
-          <input
-            placeholder="Enter Password"
-            value={password}
-            onChange={handlePasswordChange}
-          ></input>
-          <button type="submit" onClick={handleLogin}>
-            Login
-          </button>
-          <text onClick={handleRegister}>register here</text>
-        </div>
-      </div>
+      <Box
+        sx={{
+          height: 25,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          letterSpacing: ".2rem",
+          marginLeft: 10,
+          marginTop: 10,
+        }}
+      >
+        <p>Login</p>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          marginLeft: 10,
+          marginTop: 5,
+          marginBottom: 2,
+        }}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          placeholder="Enter Email"
+          value={email}
+          onChange={handleEmailChange}
+          sx={{
+            height: 10,
+            width: 250,
+            fontFamily: "monospace",
+          }}
+        ></TextField>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          marginLeft: 10,
+          marginTop: 5,
+          marginBottom: 2,
+        }}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Password"
+          variant="outlined"
+          placeholder="Enter Password"
+          value={password}
+          onChange={handlePasswordChange}
+          sx={{
+            height: 10,
+            width: 250,
+            fontFamily: "monospace",
+          }}
+        ></TextField>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          width: "100%",
+          fontFamily: "monospace",
+          fontWeight: 700,
+          marginLeft: 10,
+          marginTop: 5,
+          marginBottom: 2,
+        }}
+      >
+        <button type="submit" onClick={handleLogin}>
+          Login
+        </button>
+      </Box>
+      <Box
+        sx={{
+          height: 50,
+          fontWeight: 300,
+          marginLeft: 10,
+        }}
+      >
+        <p onClick={handleRegister}>Register</p>
+      </Box>
     </div>
   );
 };

@@ -25,7 +25,6 @@ const Register = () => {
   };
 
   const Register = async (email: string, username: string, password: string) => {
-    debugger;
     const response = await UserService.createUser(email, username, password);
     if (response.status === 201) {
       const authDetails = {

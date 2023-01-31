@@ -1,5 +1,5 @@
 const ACCESS_TOKEN_SECRET = "jwtsecret";
-const REFRESH_TOKEN_SECRET= "refereshJWTSecret";
+const REFRESH_TOKEN_SECRET = "refreshJWTSecret";
 
 export {
     ACCESS_TOKEN_SECRET,

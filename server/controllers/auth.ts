@@ -8,7 +8,8 @@ async function authenticate(req: Request, res: Response) {
 }
 
 async function refresh(req: Request, res: Response) {
-  const authenticationTokens = await authService.refresh(res.locals.user);
+  const userId  = res.locals.user as number;
+  const authenticationTokens = await authService.refresh(userId);
   res.status(200).json(authenticationTokens);
 }
 

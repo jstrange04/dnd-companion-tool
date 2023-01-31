@@ -15,7 +15,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import NavigationRoutes from "../constants/routes";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import TokenUtils from "../utils/token";
 
 const drawerWidth = 240;
 interface page {
@@ -103,6 +103,11 @@ function DrawerNavBar(props: any) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
+  const handleLogout = () => {
+    TokenUtils.removeUser();
+    window.location.href = NavigationRoutes.Login;
+  };
 
   const renderMenuItem = ({ route, display }: page) => {
     return (
@@ -144,6 +149,9 @@ function DrawerNavBar(props: any) {
           >
             The Companion Tool
           </Typography>
+          <Box sx={{ flexGrow: 0 }}>
+            <p onClick={handleLogout}>Logout</p>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer

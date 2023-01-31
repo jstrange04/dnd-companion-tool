@@ -51,32 +51,18 @@ const authRouter = Router();
 
 /**
  * @swagger
- * /refresh:
- *   get:
+ * /auth/refresh:
+ *   post:
  *     tags: [
  *       auth
  *     ]
  *     summary: Refreshes a users JWT token
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 required: true
- *                 description: The email address for the user
- *               password:
- *                 type: string
- *                 required: true
- *                 description: The password of the user
  *     responses:
  *       400:
- *         description: Bad Request - required values are missing.
+ *         description: Bad Request.
  *       201:
  *         description: User Authentication Refreshed
  */
- authRouter.route("/refresh").get(authController.refresh);
+ authRouter.route("/refresh").post(authController.refresh);
 
 export { authRouter };

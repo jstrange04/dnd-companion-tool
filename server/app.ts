@@ -24,6 +24,23 @@ const swaggerDefinition = {
       description: "Local development server",
     },
   ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        in: 'header',
+        name: 'Authorization',
+        description: 'Bearer token to access these api endpoints',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    },
+  },
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
 };
 
 const openapiSpecification = swaggerJSDoc({
@@ -42,7 +59,7 @@ app.use("/swagger.json", (req: Request, res: Response) =>
   res.json(openapiSpecification).status(200)
 );
 
-//app.all("*", verifyToken);
+app.all("*", verifyToken);
 // // Use middleware to set the default Content-Type
 app.use(function (req, res, next) {
   res.setHeader("Content-Type", "application/json");

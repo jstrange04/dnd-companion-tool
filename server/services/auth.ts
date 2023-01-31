@@ -29,10 +29,10 @@ function generateTokens(user: any) {
   return new Promise((response, reject) => {
     try {
       const accessToken = jwt.sign({ sub: user.id }, ACCESS_TOKEN_SECRET, {
-        expiresIn: 1500,
+        expiresIn: 15,
       });
       const refreshToken = jwt.sign({ sub: user.id }, REFRESH_TOKEN_SECRET, {
-        expiresIn: 90000,
+        expiresIn: 9000,
       });
       response({ accessToken, refreshToken });
     } catch (error) {

@@ -1,15 +1,50 @@
+import { idText } from 'typescript';
 import { prisma } from '../utils'
 
 async function getAllParties() {
   return await prisma.parties.findMany({
     include: {
       party_characters: {
-        include: {
+        select: {
           characters: true
         }
       }
     }
   });
+}
+
+async function getUserParties(id: number[]) {
+  return await prisma.parties.findMany({
+    where: {
+      id: { in: id },
+    },
+    select: {
+      id: true,
+      party_name: true,
+      party_level: true,
+      date_created: true,
+      party_characters: {
+        select: {
+          characters: {
+            select: {
+              name: true,
+            }
+          }
+        }
+      }
+    },
+    // first get users characters
+    // then get the characters partys
+    // then return parties
+  });
+}
+
+async function getCharacterParties(id: number) {
+  return await prisma.party_characters.findMany({
+    where: {
+      character_id: id,
+    }
+  })
 }
 
 async function getParty(id: number) {
@@ -93,6 +128,8 @@ async function deleteCharacterFromParty(id: number) {
 
 const partyService = {
   getAllParties,
+  getUserParties,
+  getCharacterParties,
   getParty,
   createParty,
   addCharacterToParty,
