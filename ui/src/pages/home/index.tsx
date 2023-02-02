@@ -1,4 +1,4 @@
-import { PartyService, UserService } from "../../services";
+import { UserService } from "../../services";
 import TokenUtils from "../../utils/token";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
@@ -12,33 +12,22 @@ const Home = () => {
   const [characters, setCharacters] = useState<any>([]);
   const [campaigns, setCampaigns] = useState<any>([]);
   const [parties, setParties] = useState<any>([]);
-  const partiesList: any[] = [];
 
   const fetchData = async () => {
     const jwt = TokenUtils.getJWT();
-    const [user] = await Promise.all([UserService.getUser(jwt.sub)]);
+    const user = await UserService.getUser(jwt.sub);
 
     localStorage.setItem("userDetails", JSON.stringify(user.data));
+    
+    const partiesRetrieved = user.data.characters.flatMap( (x: any) => x.parties).flat(1);
+    const campaignsRetrieved = partiesRetrieved.flatMap( (x: any) => x.campaigns).flat(1);
+
     setUser(user.data);
-    setCharacters(user.data.user_characters);
+    setCharacters(user.data.characters);
 
-    characters.foreach(async (character: any) => {
-      character.foreach(async (parties: any) => {
-        partiesList.push(parties.data);
-      })
-    }) 
+    setParties(partiesRetrieved);
+    setCampaigns(campaignsRetrieved);
 
-    // characters.map(async (character: any) => {
-    //   character.map(async (parties: any) => {
-    //     parties.map(async (party: any) => {
-    //       partiesList.push(party.data);
-    //     })
-    //   })
-    //   // const [party] = await Promise.all([PartyService.getUserParties(character.characters.id)]);
-    //   // partiesList.push(party.data);
-    // }) 
-    setParties(partiesList);
-    console.log(parties)
   };
 
   const handleCharacterNav = () => {
@@ -106,14 +95,14 @@ const Home = () => {
       >
         <ul>
           {characters.map((character: any) => (
-            <li key={character.characters.id}>
-              {character.characters.name +
+            <li key={character.id}>
+              {character.name +
                 " Level: " +
-                character.characters.level +
+                character.level +
                 " Race: " +
-                character.characters.race +
+                character.race +
                 " Class: " +
-                character.characters.char_class}
+                character.class}
             </li>
           ))}
         </ul>
@@ -133,7 +122,7 @@ const Home = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
-          marginTop: 5,
+          marginTop: 2,
         }}
       >
         <h1 onClick={handleCampaignNav}>Campaigns</h1>
@@ -167,7 +156,7 @@ const Home = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
-          marginTop: 5,
+          marginTop: 2,
         }}
       >
         <h1 onClick={handlePartyNav}>Parties</h1>
@@ -182,7 +171,7 @@ const Home = () => {
       >
         <ul>
           {parties.map((party: any) => (
-            <li key={party.character_id}>{'Party: '+ party.id}</li>
+            <li key={party.id}>{party.name}</li>
           ))}
         </ul>
         <img

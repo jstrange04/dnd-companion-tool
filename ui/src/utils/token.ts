@@ -20,12 +20,19 @@ const removeUser = () => {
   localStorage.removeItem("user");
 };
 
+const isTokenExpired = (token: any) => {
+  const jwt = jwtDecode(token) as any;
+  const currentTime = new Date().getTime() / 1000;
+  return currentTime > jwt.exp;
+};
+
 const TokenUtils = {
   getAccessToken,
   getRefreshToken,
   getJWT,
   setUser,
-  removeUser
+  removeUser,
+  isTokenExpired
 };
 
 export default TokenUtils;

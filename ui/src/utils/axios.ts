@@ -11,8 +11,11 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = TokenUtils.getAccessToken();
-    if (token && config.headers && config.url !== "/auth/refresh") {
+    const token =
+      config.url !== "/auth/refresh"
+        ? TokenUtils.getAccessToken()
+        : TokenUtils.getRefreshToken();
+    if (token && config.headers) {
       config.headers.Authorization = "Bearer " + token;
     }
     return config;
@@ -29,40 +32,21 @@ instance.interceptors.response.use(
     console.log("org,:", originalConfig);
 
     if (err.response && err.response.status === 401) {
-      const refreshToken = TokenUtils.getRefreshToken();
-
-      // this should check if the URL is not the auth or refresh
+      // this should check if the URL is not refresh
       // and if the refresh token exists it should try get a new access token
-      if (
-        (originalConfig.url !== "/auth/refresh" || originalConfig.url !== "/auth") 
-        && refreshToken
-      ) {
-        try {
-          debugger;
-          const rs = await instance.post("/auth/refresh", {
-            refreshToken: refreshToken,
-          });
+      if (originalConfig.url !== "/auth/refresh") {
+        const refreshResponse = await instance.post("/auth/refresh");
 
-          console.log("response", rs);
-          debugger;
-          const { accessToken } = rs.data;
-
-          console.log("updateNewAccessToken", accessToken);
-
-          TokenUtils.setUser(accessToken);
-
+        if (refreshResponse.status === 200) {
+          TokenUtils.setUser(refreshResponse.data);
           return instance(originalConfig);
-        } catch (_error) {
-          //handle logout
-          TokenUtils.removeUser();
-          window.location.href = NavigationRoutes.Login;
-
-          console.log("remove refresh token expired");
-          return Promise.reject(_error);
         }
+        return Promise.reject(err);
+      } else {
+        TokenUtils.removeUser();
+        window.location.href = NavigationRoutes.Login;
       }
     }
-
     return Promise.reject(err);
   }
 );

@@ -8,13 +8,13 @@ const getParties = async () => {
       });
   };
 
-const getUserParties = async (characterId: number) => {
+/* const getUserParties = async (characterId: number) => {
   return await instance
         .get(`/parties/characters/${characterId}`)
         .then((response) => {
           return response;
         })
-}
+} */
 
 const getParty = async (partyId: number) => {
     return await instance
@@ -35,7 +35,7 @@ const createParty = async (party_name: string, party_level: number) => {
 const PartyService = {
     getParties: getParties,
     getParty: getParty,
-    getUserParties: getUserParties,
+    //getUserParties: getUserParties,
     createParty: createParty
 }
 

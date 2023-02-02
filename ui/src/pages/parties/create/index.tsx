@@ -72,15 +72,12 @@ const CreateParty = () => {
   };
 
   const handleLevelChange = (event: any) => {
+    console.log(event.target.value)
     dispatch({ type: "LEVEL", value: event.target.value });
   };
 
-  // const handleImageChange = (event: any) => {
-  //   dispatch({ type: "IMAGE", value: event.target.value });
-  // };
-
   const fetchData = async () => {
-    const [characters] = await Promise.all([CharacterService.getCharacters()]);
+    const characters = await CharacterService.getCharacters();
     setCharacters(characters.data);
   };
 
@@ -156,7 +153,7 @@ const CreateParty = () => {
           }}
         ></TextField>
         <label> Level: </label>
-        <select className="select" onSelect={handleLevelChange}>
+        <select className="select" onChange={handleLevelChange}>
         { getLevels() }
         </select>
       </Box>
