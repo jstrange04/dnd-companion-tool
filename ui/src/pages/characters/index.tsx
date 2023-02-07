@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { CharacterService, PartyService } from "../../services";
 import { useNavigate } from "react-router-dom";
 import NavigationRoutes from "../../constants/routes";
 import Box from "@mui/material/Box";
@@ -15,13 +14,13 @@ const Characters = () => {
   };
 
   const fetchData = async () => {
-    const [parties, characters] = await Promise.all([
-      PartyService.getParties(),
-      CharacterService.getCharacters(),
-    ]);
 
-    setParties(parties.data);
-    setCharacters(characters.data);
+    const userData = JSON.parse(localStorage.getItem("userDetails") ?? "{}");
+    const characterRetrieved = userData.characters;
+    const partiesRetrieved = userData.characters.flatMap( (x: any) => x.parties).flat(1);
+
+    setParties(partiesRetrieved);
+    setCharacters(characterRetrieved);
   };
 
   useEffect(() => {
@@ -58,26 +57,15 @@ const Characters = () => {
                 ` Race: ` +
                 character.race +
                 ` Class: ` +
-                character.char_class +
+                character.class +
                 ` Subclass: ` +
-                character.sub_class +
+                character.subClass +
                 ` Level: ` +
                 character.level}
+                { character.parties.map((party: any) => (
+                  <p key={party.id}>Party: {party.name}</p> 
+                ))}
             </li>
-          ))}
-        </ul>
-      </Box>
-      <Box
-        sx={{
-          height: "auto",
-          width: "90%",
-          marginLeft: 10,
-          fontFamily: "monospace",
-        }}
-      >
-        <ul>
-          {parties.map((party: any) => (
-            <li key={party.id}>{party.party_name}</li>
           ))}
         </ul>
       </Box>

@@ -5,6 +5,7 @@ import NavigationRoutes from "../../../constants/routes";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 const initialCharacterData = { name: "", race: "" };
 
@@ -174,6 +175,7 @@ const CreateCharacter = () => {
           marginTop: 5
         }}
       >
+        <Grid></Grid>
         <Box
           sx={{
             height: "auto",

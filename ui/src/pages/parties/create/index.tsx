@@ -72,7 +72,6 @@ const CreateParty = () => {
   };
 
   const handleLevelChange = (event: any) => {
-    console.log(event.target.value)
     dispatch({ type: "LEVEL", value: event.target.value });
   };
 
@@ -86,7 +85,7 @@ const CreateParty = () => {
   }, []);
 
   const CreateParty = async (party: any) => {
-    const response = await PartyService.createParty(party.party_name, party.party_level);
+    const response = await PartyService.createParty(party.party_name, parseInt(party.party_level));
     navigate(NavigationRoutes.Parties);
     return response.data;
   };
@@ -101,6 +100,7 @@ const CreateParty = () => {
   };
 
   const handleAddCharacter = () => {
+    
     return selectionModel.map((selection: any) => <h1>{selection}</h1>);
   };
 
@@ -172,7 +172,7 @@ const CreateParty = () => {
           selectionModel={selectionModel}
         />
         {selectionModel.map((selection: any) => (
-          <h1>{selection}</h1>
+          <h1>{selection.name}</h1>
         ))}
         <Button type="submit" onClick={handleAddCharacter}>
           Add

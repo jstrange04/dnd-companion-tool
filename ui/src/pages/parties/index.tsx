@@ -1,23 +1,20 @@
+import { Rowing } from "@mui/icons-material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationRoutes from "../../constants/routes";
-import { CharacterService, PartyService } from "../../services";
 
 const Parties = () => {
   const navigate = useNavigate();
   const [parties, setParties] = useState<any>([]);
-  const [characters, setCharacters] = useState<any>([]);
 
   const fetchData = async () => {
-    const [parties, characters] = await Promise.all([
-      PartyService.getParties(),
-      CharacterService.getCharacters(),
-    ]);
 
-    setParties(parties.data);
-    setCharacters(characters.data);
+    const userData = JSON.parse(localStorage.getItem("userDetails") ?? "{}");
+    const partiesRetrieved = userData.characters.flatMap( (x: any) => x.parties).flat(1);
+
+    setParties(partiesRetrieved);
   };
 
   useEffect(() => {
@@ -38,7 +35,8 @@ const Parties = () => {
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
-          marginTop: 10
+          marginTop: 10,
+          
         }}
       >
         <h1>Parties</h1>
@@ -63,9 +61,9 @@ const Parties = () => {
             {"Party Id: " +
               party.id +
               " Party Name: " +
-              party.party_name +
+              party.name +
               " Party Level: " +
-              party.party_level}
+              party.level}
           </p>
         ))}
       </Box>

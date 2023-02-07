@@ -5,6 +5,12 @@ import Box from "@mui/material/Box";
 import NavigationRoutes from "../../constants/routes";
 import { useNavigate } from "react-router-dom";
 import Plus from "../../plus.svg";
+import Card from "@mui/material/Card";
+import Paper from "@mui/material/Paper";
+
+/// WIP : Only show first x number of characters, parties, campaigns
+/// WIP : Open Character full details on click
+/// WIP : Open full party list on click
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,16 +24,19 @@ const Home = () => {
     const user = await UserService.getUser(jwt.sub);
 
     localStorage.setItem("userDetails", JSON.stringify(user.data));
-    
-    const partiesRetrieved = user.data.characters.flatMap( (x: any) => x.parties).flat(1);
-    const campaignsRetrieved = partiesRetrieved.flatMap( (x: any) => x.campaigns).flat(1);
+
+    const partiesRetrieved = user.data.characters
+      .flatMap((x: any) => x.parties)
+      .flat(1);
+    const campaignsRetrieved = partiesRetrieved
+      .flatMap((x: any) => x.campaigns)
+      .flat(1);
 
     setUser(user.data);
     setCharacters(user.data.characters);
 
     setParties(partiesRetrieved);
     setCampaigns(campaignsRetrieved);
-
   };
 
   const handleCharacterNav = () => {
@@ -54,6 +63,7 @@ const Home = () => {
     navigate(NavigationRoutes.CreateParty);
   };
 
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -67,121 +77,184 @@ const Home = () => {
           fontFamily: "monospace",
           fontWeight: 700,
           letterSpacing: ".2rem",
-          marginLeft: 10,
           marginTop: 10,
         }}
       >
         <p>{`Welcome ` + user?.username}</p>
       </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          marginLeft: 10,
-        }}
-      >
-        <h1 onClick={handleCharacterNav}>Characters</h1>
-      </Box>
-      <Box
+      <Paper
         sx={{
           height: "auto",
-          width: "90%",
-          marginLeft: 10,
+          width: "100%",
+          marginTop: 1,
           fontFamily: "monospace",
         }}
       >
-        <ul>
+        <Box
+          sx={{
+            height: 50,
+            width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            marginLeft: 1,
+          }}
+        >
+          <h1 onClick={handleCharacterNav}>Characters</h1>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            marginLeft: 1,
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
           {characters.map((character: any) => (
-            <li key={character.id}>
-              {character.name +
-                " Level: " +
-                character.level +
-                " Race: " +
-                character.race +
-                " Class: " +
-                character.class}
-            </li>
+            <Card
+              onClick={handleCharacterNav}
+              sx={{
+                height: 200,
+                fontFamily: "monospace",
+                width: 200,
+                fontWeight: 500,
+                fontSize: 14,
+                margin: 1,
+                padding: 1,
+              }}
+            >
+              <p>Name: {character.name}</p>
+              <p>Level: {character.level}</p>
+              <p>Race: {character.race}</p>
+              <p>Class: {character.class}</p>
+            </Card>
           ))}
-        </ul>
-        <img
-          height="30"
-          width="30"
-          src={Plus}
-          alt="Add Character"
-          onClick={handleCreateCharacterNav}
-        />
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          marginLeft: 10,
-          marginTop: 2,
-        }}
-      >
-        <h1 onClick={handleCampaignNav}>Campaigns</h1>
-      </Box>
-      <Box
+          <img
+            height="30"
+            width="30"
+            src={Plus}
+            alt="Add Character"
+            onClick={handleCreateCharacterNav}
+          />
+        </Box>
+      </Paper>
+      <Paper
         sx={{
           height: "auto",
-          width: "90%",
-          marginLeft: 10,
+          width: "100%",
+          marginTop: 1,
           fontFamily: "monospace",
         }}
       >
-        <ul>
+        <Box
+          sx={{
+            height: 50,
+            width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            marginLeft: 1,
+          }}
+        >
+          <h1 onClick={handleCampaignNav}>Campaigns</h1>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            marginLeft: 1,
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
           {campaigns.map((campaign: any) => (
-            <li key={campaign.id}>{campaign.name}</li>
+            <Card
+              onClick={handleCampaignNav}
+              sx={{
+                height: 200,
+                fontFamily: "monospace",
+                width: 200,
+                fontWeight: 500,
+                fontSize: 14,
+                margin: 1,
+                padding: 1,
+              }}
+            >
+              <p>Name: {campaign.name}</p>
+              <p>Synposis: {campaign.description}</p>
+            </Card>
           ))}
-        </ul>
-        <img
-          height="30"
-          width="30"
-          src={Plus}
-          alt="Add Campaign"
-          onClick={handleCreateCampaignNav}
-        />
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          marginLeft: 10,
-          marginTop: 2,
-        }}
-      >
-        <h1 onClick={handlePartyNav}>Parties</h1>
-      </Box>
-      <Box
+          <img
+            height="30"
+            width="30"
+            src={Plus}
+            alt="Add Campaign"
+            onClick={handleCreateCampaignNav}
+          />
+        </Box>
+      </Paper>
+      <Paper
         sx={{
           height: "auto",
-          width: "90%",
-          marginLeft: 10,
+          width: "100%",
+          marginTop: 1,
           fontFamily: "monospace",
         }}
       >
-        <ul>
+        <Box
+          sx={{
+            height: 50,
+            width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            marginLeft: 1,
+          }}
+        >
+          <h1 onClick={handlePartyNav}>Parties</h1>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            marginLeft: 1,
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
           {parties.map((party: any) => (
-            <li key={party.id}>{party.name}</li>
+            <Card
+              onClick={handlePartyNav}
+              sx={{
+                height: 200,
+                fontFamily: "monospace",
+                width: 200,
+                fontWeight: 500,
+                fontSize: 14,
+                margin: 1,
+                padding: 1,
+              }}
+            >
+              <p>Name: {party.name}</p>
+              <p>Level: {party.level}</p>
+            </Card>
           ))}
-        </ul>
-        <img
-          height="30"
-          width="30"
-          src={Plus}
-          alt="Add Party"
-          onClick={handleCreatePartyNav}
-        />
-      </Box>
+          <img
+            height="30"
+            width="30"
+            src={Plus}
+            alt="Add Party"
+            onClick={handleCreatePartyNav}
+          />
+        </Box>
+      </Paper>
     </div>
   );
 };

@@ -8,14 +8,6 @@ const getParties = async () => {
       });
   };
 
-/* const getUserParties = async (characterId: number) => {
-  return await instance
-        .get(`/parties/characters/${characterId}`)
-        .then((response) => {
-          return response;
-        })
-} */
-
 const getParty = async (partyId: number) => {
     return await instance
       .get(`/parties/${partyId}`)
@@ -32,11 +24,19 @@ const createParty = async (party_name: string, party_level: number) => {
       });
   };
 
+const addToParty = async (party_id: number, character_id: number) => {
+    return await instance
+      .post("/parties/add", { party_id, character_id })
+      .then((response) => {
+        return response;
+      });
+  };
+
 const PartyService = {
     getParties: getParties,
     getParty: getParty,
-    //getUserParties: getUserParties,
-    createParty: createParty
+    createParty: createParty,
+    addToParty: addToParty,
 }
 
 export default PartyService;
