@@ -19,7 +19,10 @@ INSERT INTO characters (name, race, char_class, sub_class, level, strength, dext
 
 INSERT INTO campaigns (name, description, date_created ) VALUES 
 ('Storm Kings Thunder', 'Battle the Giants', '02/07/2022 13:43:00'),
-('Menzoberranzan', null, '02/07/2022 13:43:00');
+('Menzoberranzan', null, '02/07/2022 13:43:00');,
+('Tyranny of Dragons', 'Stop the Queen of Dragons', '01/01/2023 12:01:00');,
+('Rage of Demons', null, '02/07/2022 13:43:00');,
+('Curse of Strahd', 'He is land. He is the lore', '02/07/2022 13:43:00');
 
 INSERT INTO user_characters (user_id, character_id) VALUES
 ((select min(id) from users), (select min(id) from characters)),
