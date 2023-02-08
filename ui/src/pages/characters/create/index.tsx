@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { Paper } from "@mui/material";
 
 const initialCharacterData = { name: "", race: "" };
 
@@ -154,261 +155,275 @@ const CreateCharacter = () => {
 
   return (
     <div>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          marginLeft: 10,
-          marginTop: 10,
-        }}
-      >
-        <h1>Create a Character</h1>
-      </Box>
-      <Box
-        sx={{
-          height: "auto",
-          width: "100%",
-          marginLeft: 10,
-          marginTop: 5
-        }}
-      >
-        <Grid></Grid>
+      <Paper>
         <Box
           sx={{
-            height: "auto",
+            height: 50,
             width: "100%",
-            fontFamily: "monospace",
+            fontFamily: "EnchantedLand",
             fontWeight: 700,
-          }}
-        >
-          <label> Details: </label>
-          <TextField
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
-            sx={{
-              height: 7,
-              width: 250,
-              marginLeft: 5,
-            }}
-            placeholder="Character Name"
-            value={character.name}
-            onChange={handleNameChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Race"
-            variant="outlined"
-            sx={{
-              height: 7,
-              width: 250,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Race"
-            value={character.race}
-            onChange={handleRaceChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Class"
-            variant="outlined"
-            sx={{
-              height: 7,
-              width: 250,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Class"
-            value={character.charClass}
-            onChange={handleClassChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Sub Class"
-            variant="outlined"
-            sx={{
-              height: 7,
-              width: 250,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Sub Class"
-            value={character.subClass}
-            onChange={handleSubClassChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Level"
-            variant="outlined"
-            sx={{
-              height: 7,
-              width: 250,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Level"
-            value={character.level}
-            onChange={handleLevelChange}
-          ></TextField>
-        </Box>
-        <Box
-          sx={{
-            height: "auto",
-            width: "100%",
+            fontSize: 30,
+            letterSpacing: ".3rem",
+            marginLeft: 10,
             marginTop: 10,
-            fontFamily: "monospace",
-            fontWeight: 700,
           }}
         >
-          <label> Attributes: </label>
-          <TextField
-            id="outlined-basic"
-            label="Strength"
-            variant="outlined"
-            sx={{
-              height: 20,
-              width: 120,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Strength"
-            value={character.strength}
-            onChange={handleStrengthChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Dexterity"
-            variant="outlined"
-            sx={{
-              height: 20,
-              width: 120,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Dexterity"
-            value={character.dexterity}
-            onChange={handleDexterityChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Constitution"
-            variant="outlined"
-            sx={{
-              height: 20,
-              width: 120,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Constitution"
-            value={character.constitution}
-            onChange={handleConstitutionChange}
-          ></TextField>
+          <h1>Create a Character</h1>
         </Box>
         <Box
           sx={{
             height: "auto",
             width: "100%",
+            marginLeft: 10,
             marginTop: 5,
-            marginLeft: 15,
           }}
         >
-          <TextField
-            id="outlined-basic"
-            label="Wisdom"
-            variant="outlined"
+          <Grid></Grid>
+          <Box
             sx={{
-              height: 20,
-              width: 120,
-              marginLeft: 5,
+              height: "auto",
+              width: "100%",
+              fontFamily: "EnchantedLand",
+              fontWeight: 700,
+              fontSize: 24,
             }}
-            placeholder="Enter Wisdom"
-            value={character.wisdom}
-            onChange={handleWisdomChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Intelligence"
-            variant="outlined"
+          >
+            <label> Details: </label>
+            <TextField
+              id="outlined-basic"
+              label="Name"
+              variant="outlined"
+              sx={{
+                height: 7,
+                width: 250,
+                marginLeft: 5,
+              }}
+              placeholder="Character Name"
+              value={character.name}
+              onChange={handleNameChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Race"
+              variant="outlined"
+              sx={{
+                height: 7,
+                width: 250,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Race"
+              value={character.race}
+              onChange={handleRaceChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Class"
+              variant="outlined"
+              sx={{
+                height: 7,
+                width: 250,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Class"
+              value={character.charClass}
+              onChange={handleClassChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Sub Class"
+              variant="outlined"
+              sx={{
+                height: 7,
+                width: 250,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Sub Class"
+              value={character.subClass}
+              onChange={handleSubClassChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Level"
+              variant="outlined"
+              sx={{
+                height: 7,
+                width: 250,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Level"
+              value={character.level}
+              onChange={handleLevelChange}
+            ></TextField>
+          </Box>
+          <Box
             sx={{
-              height: 20,
-              width: 120,
-              marginLeft: 5,
+              height: "auto",
+              width: "100%",
+              marginTop: 10,
+              fontFamily: "EnchantedLand",
+              fontWeight: 700,
+              fontSize: 24,
             }}
-            placeholder="Enter Intelligence"
-            value={character.intelligence}
-            onChange={handleIntelligenceChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Charisma"
-            variant="outlined"
+          >
+            <label> Attributes: </label>
+            <TextField
+              id="outlined-basic"
+              label="Strength"
+              variant="outlined"
+              sx={{
+                height: 20,
+                width: 120,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Strength"
+              value={character.strength}
+              onChange={handleStrengthChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Dexterity"
+              variant="outlined"
+              sx={{
+                height: 20,
+                width: 120,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Dexterity"
+              value={character.dexterity}
+              onChange={handleDexterityChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Constitution"
+              variant="outlined"
+              sx={{
+                height: 20,
+                width: 120,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Constitution"
+              value={character.constitution}
+              onChange={handleConstitutionChange}
+            ></TextField>
+          </Box>
+          <Box
             sx={{
-              height: 20,
-              width: 120,
-              marginLeft: 5,
+              height: "auto",
+              width: "100%",
+              marginTop: 5,
+              marginLeft: 15,
             }}
-            placeholder="Enter Charisma"
-            value={character.charisma}
-            onChange={handleCharismaChange}
-          ></TextField>
+          >
+            <TextField
+              id="outlined-basic"
+              label="Wisdom"
+              variant="outlined"
+              sx={{
+                height: 20,
+                width: 120,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Wisdom"
+              value={character.wisdom}
+              onChange={handleWisdomChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Intelligence"
+              variant="outlined"
+              sx={{
+                height: 20,
+                width: 120,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Intelligence"
+              value={character.intelligence}
+              onChange={handleIntelligenceChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Charisma"
+              variant="outlined"
+              sx={{
+                height: 20,
+                width: 120,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Charisma"
+              value={character.charisma}
+              onChange={handleCharismaChange}
+            ></TextField>
+          </Box>
+          <Box
+            sx={{
+              height: "auto",
+              width: "100%",
+              fontFamily: "EnchantedLand",
+              fontWeight: 700,
+              marginTop: 10,
+              fontSize: 24,
+            }}
+          >
+            <label> Stats: </label>
+            <TextField
+              id="outlined-basic"
+              label="Armour Class"
+              variant="outlined"
+              sx={{
+                height: 10,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Armour Class"
+              value={character.armourClass}
+              onChange={handleArmourClassChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Hit Points"
+              variant="outlined"
+              sx={{
+                height: 10,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Hit Points"
+              value={character.hitPoints}
+              onChange={handleHitPointsChange}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="Movement Speed"
+              variant="outlined"
+              sx={{
+                height: 10,
+                marginLeft: 5,
+              }}
+              placeholder="Enter Movement Speed"
+              value={character.movementSpeed}
+              onChange={handleMovementSpeedChange}
+            ></TextField>
+          </Box>
         </Box>
         <Box
           sx={{
-            height: "auto",
+            height: 50,
             width: "100%",
-            fontFamily: "monospace",
-            fontWeight: 700,
+            marginLeft: 10,
             marginTop: 10,
           }}
         >
-          <label> Stats: </label>
-          <TextField
-            id="outlined-basic"
-            label="Armour Class"
-            variant="outlined"
+          <Button
+            type="submit"
+            onClick={handleRegister}
             sx={{
-              height: 10,
-              marginLeft: 5,
+              fontFamily: "EnchantedLand",
+              color: "orange",
+              fontSize: 22
             }}
-            placeholder="Enter Armour Class"
-            value={character.armourClass}
-            onChange={handleArmourClassChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Hit Points"
-            variant="outlined"
-            sx={{
-              height: 10,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Hit Points"
-            value={character.hitPoints}
-            onChange={handleHitPointsChange}
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Movement Speed"
-            variant="outlined"
-            sx={{
-              height: 10,
-              marginLeft: 5,
-            }}
-            placeholder="Enter Movement Speed"
-            value={character.movementSpeed}
-            onChange={handleMovementSpeedChange}
-          ></TextField>
+          >
+            Create Character
+          </Button>
         </Box>
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          marginLeft: 10,
-          marginTop: 10,
-        }}
-      >
-        <Button type="submit" onClick={handleRegister}>
-          Create Character
-        </Button>
-      </Box>
+      </Paper>
     </div>
   );
 };

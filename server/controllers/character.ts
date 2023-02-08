@@ -10,16 +10,6 @@ async function getAllCharacters(req: Request, res: Response) {
   }
 }
 
-async function getCharactersByUser(req: Request, res: Response) {
-  const { user_id } = req.params;
-  const characters = await characterService.getCharactersByUser(parseInt(user_id));
-  if (characters && characters.length > 0) {
-    res.status(200).json(characters);
-  } else {
-    res.sendStatus(204);
-  }
-}
-
 async function getCharacter(req: Request, res: Response) {
   const { character_id } = req.params;
   const getCharacter = await characterService.getCharacter(parseInt(character_id));
@@ -122,7 +112,6 @@ async function removeCharacter(req: Request, res: Response) {
 
 const characterController = {
   getAllCharacters,
-  getCharactersByUser,
   createCharacter,
   updateCharacter,
   getCharacter,

@@ -6,6 +6,8 @@ import { AuthContext } from "../../contexts";
 import "./login.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -56,93 +58,124 @@ const Login = () => {
 
   return (
     <div className="box">
-      <Box
+      <Paper
         sx={{
-          height: 25,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".2rem",
+          height: "100%",
+          width: "90%",
+          fontSize: 30,
           marginLeft: 10,
           marginTop: 10,
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <p>Login</p>
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          marginLeft: 10,
-          marginTop: 5,
-          marginBottom: 2,
-        }}
-      >
-        <TextField
-          id="outlined-basic"
-          label="Email"
-          variant="outlined"
-          placeholder="Enter Email"
-          value={email}
-          onChange={handleEmailChange}
+        <Box
           sx={{
-            height: 10,
-            width: 250,
-            fontFamily: "monospace",
+            height: "100%",
+            width: "100%",
+            fontFamily: "EnchantedLand",
+            fontWeight: 700,
+            letterSpacing: ".2rem",
+            fontSize: 30,
+            marginLeft: 10,
+            marginTop: 2,
           }}
-        ></TextField>
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          marginLeft: 10,
-          marginTop: 5,
-          marginBottom: 2,
-        }}
-      >
-        <TextField
-          id="outlined-basic"
-          label="Password"
-          variant="outlined"
-          placeholder="Enter Password"
-          value={password}
-          onChange={handlePasswordChange}
+        >
+          <p>Login</p>
+        </Box>
+        <Box
           sx={{
-            height: 10,
-            width: 250,
-            fontFamily: "monospace",
+            height: 50,
+            width: "100%",
+            fontFamily: "EnchantedLand",
+            fontWeight: 700,
+            marginLeft: 10,
+            marginTop: 1,
+            marginBottom: 2,
           }}
-        ></TextField>
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          marginLeft: 10,
-          marginTop: 5,
-          marginBottom: 2,
-        }}
-      >
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          fontWeight: 300,
-          marginLeft: 10,
-        }}
-      >
-        <p onClick={handleRegister}>Register</p>
-      </Box>
+        >
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+            placeholder="Enter Email"
+            value={email}
+            onChange={handleEmailChange}
+            sx={{
+              height: 10,
+              width: 250,
+              fontFamily: "EnchantedLand",
+            }}
+          ></TextField>
+        </Box>
+        <Box
+          sx={{
+            height: 50,
+            width: "100%",
+            fontFamily: "EnchantedLand",
+            fontWeight: 700,
+            marginLeft: 10,
+            marginTop: 2,
+            marginBottom: 2,
+          }}
+        >
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            placeholder="Enter Password"
+            value={password}
+            onChange={handlePasswordChange}
+            sx={{
+              height: 10,
+              width: 250,
+              fontFamily: "EnchantedLand",
+            }}
+          ></TextField>
+        </Box>
+        <Box
+          sx={{
+            height: 50,
+            width: "100%",
+            fontFamily: "EnchantedLand",
+            fontWeight: 700,
+            marginLeft: 10,
+          }}
+        >
+          <Button
+            type="submit"
+            onClick={handleLogin}
+            sx={{
+              fontFamily: "EnchantedLand",
+              alignContent: "center",
+              color: "orange",
+            }}
+          >
+            Login
+          </Button>
+        </Box>
+        <Box
+          sx={{
+            height: 50,
+            width: "100%",
+            fontFamily: "EnchantedLand",
+            fontWeight: 700,
+            marginLeft: 10,
+          }}
+        >
+          <Button
+            type="submit"
+            onClick={handleRegister}
+            sx={{
+              fontFamily: "EnchantedLand",
+              alignContent: "center",
+              color: "orange",
+            }}
+          >
+            Register
+          </Button>
+        </Box>
+      </Paper>
     </div>
   );
 };

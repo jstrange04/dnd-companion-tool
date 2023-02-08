@@ -10,16 +10,6 @@ async function getAllParties(req: Request, res: Response) {
   }
 }
 
-async function getUserParties(req: Request, res: Response) {
-  const { party_id } = req.body;;
-  const getParty = await partyService.getUserParties(party_id);
-  if (getParty) {
-    res.status(200).json(getParty);
-  } else {
-    res.sendStatus(404);
-  }
-}
-
 async function getParty(req: Request, res: Response) {
   const { party_id } = req.params;
   const getParty = await partyService.getParty(parseInt(party_id));
@@ -30,21 +20,20 @@ async function getParty(req: Request, res: Response) {
   }
 }
 
-async function getCharactersParties(req: Request, res: Response) {
-  const { character_id } = req.params;
-  const parties = await partyService.getCharacterParties(parseInt(character_id));
-  if (parties && parties.length > 0) {
-    res.status(200).json(parties);
-  } else {
-    res.sendStatus(404);
-  }
-}
-
 async function createParty(req: Request, res: Response) {
   const { party_name, party_level } = req.body;
   await partyService.createParty(
     party_name,
     party_level
+  );
+  res.sendStatus(201);
+}
+
+async function addToParty(req: Request, res: Response) {
+  const { party_id, character_id } = req.body;
+  await partyService.addToParty(
+    party_id,
+    character_id
   );
   res.sendStatus(201);
 }
@@ -68,9 +57,9 @@ async function removeParty(req: Request, res: Response) {
 
 const partyController = {
   getAllParties,
-  getCharactersParties,
   getParty,
   createParty,
+  addToParty,
   updateParty,
   removeParty
 }

@@ -4,15 +4,6 @@ async function getAllCharacters() {
   return await prisma.characters.findMany();
 }
 
-async function getCharactersByUser(user_id: number) {
-  return await prisma.user_characters.findMany({
-    where: {
-      user_id: user_id,
-    },
-  }
-  );
-}
-
 async function getCharacter(id: number) {
   return await prisma.characters.findUnique({
     where: {
@@ -161,7 +152,6 @@ async function deleteCharacter(id: number) {
 
 const characterService = {
   getAllCharacters,
-  getCharactersByUser,
   getCharacter,
   getCharacterByName,
   createCharacter,

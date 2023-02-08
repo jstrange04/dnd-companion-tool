@@ -63,7 +63,6 @@ const Home = () => {
     navigate(NavigationRoutes.CreateParty);
   };
 
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -74,10 +73,11 @@ const Home = () => {
         sx={{
           height: 25,
           width: "100%",
-          fontFamily: "monospace",
+          fontFamily: "EnchantedLand",
           fontWeight: 700,
+          fontSize: 30,
           letterSpacing: ".2rem",
-          marginTop: 10,
+          marginTop: 7,
         }}
       >
         <p>{`Welcome ` + user?.username}</p>
@@ -86,16 +86,15 @@ const Home = () => {
         sx={{
           height: "auto",
           width: "100%",
-          marginTop: 1,
-          fontFamily: "monospace",
+          marginTop: 0.5,
         }}
       >
         <Box
           sx={{
-            height: 50,
+            height: 70,
             width: "100%",
-            fontFamily: "monospace",
-            fontWeight: 700,
+            fontFamily: "EnchantedLand",
+            fontSize: 30,
             letterSpacing: ".3rem",
             marginLeft: 1,
           }}
@@ -105,9 +104,8 @@ const Home = () => {
         <Box
           sx={{
             width: "100%",
-            fontFamily: "monospace",
+            fontFamily: "EnchantedLand",
             fontWeight: 700,
-            letterSpacing: ".3rem",
             marginLeft: 1,
             display: "flex",
             flexDirection: "row",
@@ -118,18 +116,26 @@ const Home = () => {
               onClick={handleCharacterNav}
               sx={{
                 height: 200,
-                fontFamily: "monospace",
+                fontFamily: "EnchantedLandII",
                 width: 200,
-                fontWeight: 500,
-                fontSize: 14,
+                fontWeight: 1000,
+                fontSize: 18,
                 margin: 1,
                 padding: 1,
               }}
             >
-              <p>Name: {character.name}</p>
-              <p>Level: {character.level}</p>
-              <p>Race: {character.race}</p>
-              <p>Class: {character.class}</p>
+              <p>
+                <em>Name: </em> {character.name}
+              </p>
+              <p>
+                <em>Level: </em> {character.level}
+              </p>
+              <p>
+                <em>Race: </em> {character.race}
+              </p>
+              <p>
+                <em>Class: </em> {character.class}
+              </p>
             </Card>
           ))}
           <img
@@ -146,14 +152,14 @@ const Home = () => {
           height: "auto",
           width: "100%",
           marginTop: 1,
-          fontFamily: "monospace",
         }}
       >
         <Box
           sx={{
-            height: 50,
+            height: 70,
             width: "100%",
-            fontFamily: "monospace",
+            fontFamily: "EnchantedLand",
+            fontSize: 30,
             fontWeight: 700,
             letterSpacing: ".3rem",
             marginLeft: 1,
@@ -164,9 +170,6 @@ const Home = () => {
         <Box
           sx={{
             width: "100%",
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
             marginLeft: 1,
             display: "flex",
             flexDirection: "row",
@@ -177,16 +180,18 @@ const Home = () => {
               onClick={handleCampaignNav}
               sx={{
                 height: 200,
-                fontFamily: "monospace",
+                fontFamily: "EnchantedLand",
+                letterSpacing: ".15rem",
                 width: 200,
                 fontWeight: 500,
-                fontSize: 14,
+                fontSize: 18,
                 margin: 1,
                 padding: 1,
               }}
             >
-              <p>Name: {campaign.name}</p>
-              <p>Synposis: {campaign.description}</p>
+              <p><em>Name: </em>{campaign.name}</p>
+              <p><em>Synposis: </em></p>
+              <p>{campaign.description}</p>
             </Card>
           ))}
           <img
@@ -202,15 +207,15 @@ const Home = () => {
         sx={{
           height: "auto",
           width: "100%",
-          marginTop: 1,
           fontFamily: "monospace",
         }}
       >
         <Box
           sx={{
-            height: 50,
+            height: 70,
             width: "100%",
-            fontFamily: "monospace",
+            fontFamily: "EnchantedLand",
+            fontSize: 30,
             fontWeight: 700,
             letterSpacing: ".3rem",
             marginLeft: 1,
@@ -221,9 +226,6 @@ const Home = () => {
         <Box
           sx={{
             width: "100%",
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
             marginLeft: 1,
             display: "flex",
             flexDirection: "row",
@@ -234,10 +236,10 @@ const Home = () => {
               onClick={handlePartyNav}
               sx={{
                 height: 200,
-                fontFamily: "monospace",
+                fontFamily: "EnchantedLand",
                 width: 200,
                 fontWeight: 500,
-                fontSize: 14,
+                fontSize: 18,
                 margin: 1,
                 padding: 1,
               }}

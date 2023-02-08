@@ -159,6 +159,31 @@ campaignRouter.route("/").get(campaignController.getAllCampaigns);
 /**
  * @swagger
  * /campaigns/{campaignId}:
+ *   delete:
+ *     tags: [
+ *       party_campaigns
+ *     ]
+ *     summary: Removes a party from a campaign
+ *     parameters:
+ *       - name: partyId
+ *         in: path
+ *         type: integer
+ *         description: The ID of the party.
+ *       - name: campaignId
+ *         in: path
+ *         type: integer
+ *         description: The ID of the campaign.
+ *     responses:
+ *       400:
+ *         description: Bad Request - required values are missing.
+ *       201:
+ *         description: Campaign Deleted
+ */
+campaignRouter.route("/:id").delete(campaignController.removeCampaign);
+
+/**
+ * @swagger
+ * /campaigns/{campaignId}:
  *   put:
  *     tags: [
  *       campaigns
@@ -219,7 +244,7 @@ campaignRouter.route("/").get(campaignController.getAllCampaigns);
  *       201:
  *         description: Campaign Deleted
  */
- campaignRouter.route("/:id").delete(campaignController.removeCampaign);
+ campaignRouter.route("/:id").delete(campaignController.removePartyFromCampaign);
 
 export { campaignRouter };
  

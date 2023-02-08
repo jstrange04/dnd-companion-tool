@@ -103,6 +103,10 @@ function DrawerNavBar(props: any) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleHomeNav = () => {
+    window.location.href = NavigationRoutes.Home;
+  };
   
   const handleLogout = () => {
     TokenUtils.removeUser();
@@ -112,7 +116,7 @@ function DrawerNavBar(props: any) {
   const renderMenuItem = ({ route, display }: page) => {
     return (
       <Link key={route} to={route} style={{ textDecoration: "none" }}>
-        <Button onClick={handleDrawerClose} sx={{ my: 2, color: "orange", display: "block" }}>
+        <Button onClick={handleDrawerClose} sx={{ my: 2, color: "orange", display: "block", fontFamily: "EnchantedLand", fontSize: 20 }}>
           {display}
         </Button>
       </Link>
@@ -140,16 +144,18 @@ function DrawerNavBar(props: any) {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              fontFamily: "EnchantedLand",
               fontWeight: 700,
+              fontSize: 35,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
             }}
+            onClick={handleHomeNav}
           >
             The Companion Tool
           </Typography>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, fontFamily: "EnchantedLand", fontSize: 20, alignContent:"flex-end" }}>
             <p onClick={handleLogout}>Logout</p>
           </Box>
         </Toolbar>

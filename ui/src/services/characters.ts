@@ -8,6 +8,15 @@ const getCharacters = async () => {
       });
   };
 
+const getCharacter = async (characterId: number) => {
+    return await instance
+      .get(`/characters/${characterId}`)
+      .then((response) => {
+        return response;
+      });
+  };
+
+
 const getCharactersByUser = async (user_id: number) => {
     return await instance
       .get(`/characters/${user_id}`)
@@ -27,7 +36,8 @@ const createCharacter = async (name: string, race: string, charClass: string, su
 const CharacterService = {
     getCharacters: getCharacters,
     getCharactersByUser: getCharactersByUser,
-    createCharacter: createCharacter
+    createCharacter: createCharacter,
+    getCharacter: getCharacter
 }
 
 export default CharacterService;

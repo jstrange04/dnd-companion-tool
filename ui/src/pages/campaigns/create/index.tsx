@@ -75,7 +75,7 @@ const CreateCampaign = () => {
   const CreateCampaign = async (campaign: any) => {
     const response = await CampaignService.createCampaign(
       campaign.name,
-      campaign.desc,
+      campaign.desc
     );
     navigate(NavigationRoutes.Campaigns);
     return response.data;
@@ -90,13 +90,22 @@ const CreateCampaign = () => {
     }
   };
 
+  const handleAddParty = () => {
+    try {
+      console.log(campaign.id + " " + campaign.desc);
+      //AddParty();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <Box
         sx={{
           height: 50,
           width: "100%",
-          fontFamily: "monospace",
+          fontFamily: "EnchantedLand",
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
@@ -109,12 +118,12 @@ const CreateCampaign = () => {
         sx={{
           height: 60,
           width: "100%",
-          fontFamily: "monospace",
+          fontFamily: "EnchantedLand",
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
           marginTop: 2,
-          marginBottom: 2
+          marginBottom: 2,
         }}
       >
         <TextField
@@ -127,7 +136,7 @@ const CreateCampaign = () => {
           sx={{
             height: 10,
             width: 250,
-            fontFamily: "monospace",
+            fontFamily: "EnchantedLand",
           }}
         ></TextField>
         <TextField
@@ -140,13 +149,12 @@ const CreateCampaign = () => {
           sx={{
             height: 10,
             width: 450,
-            fontFamily: "monospace",
-            marginLeft: 2 
+            fontFamily: "EnchantedLand",
+            marginLeft: 2,
           }}
         ></TextField>
       </Box>
-      <Box sx={{ height: 400, width: "90%", marginLeft: 10,
-          marginBottom: 2}}>
+      <Box sx={{ height: 400, width: "90%", marginLeft: 10, marginBottom: 2 }}>
         <DataGrid
           rows={parties}
           columns={columns}
@@ -159,25 +167,58 @@ const CreateCampaign = () => {
             setSelectionModel(newSelection);
           }}
           selectionModel={selectionModel}
+          sx={{ fontFamily: "EnchantedLand", fontSize: 20 }}
         />
         {selectionModel.map((selection: any) => (
-          <h1>{selection.name}</h1>
+          <h1>{selection}</h1>
         ))}
+        {
+          <Box
+            sx={{
+              height: 50,
+              width: "100%",
+              fontFamily: "EnchantedLand",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+            }}
+          >
+            <Button
+              type="submit"
+              onClick={handleCreateCampaign}
+              sx={{
+                fontFamily: "EnchantedLand",
+                color: "orange",
+                fontSize: 20
+              }}
+            >
+              Add Party
+            </Button>
+          </Box>
+        }
         {/* <Button type="submit" onClick={handleAddCharacter}>
           Add
         </Button> */}
       </Box>
       <Box
         sx={{
-          height: 50,
+          height: 75,
           width: "100%",
-          fontFamily: "monospace",
+          fontFamily: "EnchantedLand",
           fontWeight: 700,
           letterSpacing: ".3rem",
           marginLeft: 10,
+          marginTop: 6
         }}
       >
-        <Button type="submit" onClick={handleCreateCampaign}>
+        <Button
+          type="submit"
+          onClick={handleCreateCampaign}
+          sx={{
+            fontFamily: "EnchantedLand",
+            color: "orange",
+            fontSize: 20
+          }}
+        >
           Create Campaign
         </Button>
       </Box>

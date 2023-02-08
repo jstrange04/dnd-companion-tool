@@ -1,13 +1,13 @@
-import { prisma } from '../utils'
-import { authService } from './auth';
-import bcrypt from 'bcrypt';
+import { prisma } from "../utils";
+import { authService } from "./auth";
+import bcrypt from "bcrypt";
 
 async function getAllUsers() {
   return await prisma.users.findMany();
 }
 
 async function getUser(id: number) {
-  return await prisma.users.findUnique({
+  var user = await prisma.users.findUnique({
     where: {
       id: id,
     },
@@ -31,27 +31,65 @@ async function getUser(id: number) {
                     select: {
                       id: true,
                       party_name: true,
+                      party_level: true,
                       campaign_parties: {
                         select: {
                           campaigns: {
                             select: {
                               id: true,
-                              name: true
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+                              name: true,
+                              description: true
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
-
     },
   });
+  if (!user) return;
+
+  return {
+    id: user.id,
+    email: user.email,
+    username: user.username,
+    characters: user.user_characters
+      .flatMap((x) => x.characters)
+      .map((x) => {
+        return {
+          id: x.id,
+          name: x.name,
+          level: x.level,
+          race: x.race,
+          class: x.char_class,
+          subClass: x.sub_class,
+          parties: x.party_characters
+            .flatMap((y) => y.parties)
+            .map((y) => {
+              return {
+                id: y.id,
+                name: y.party_name,
+                level: y.party_level,
+                campaigns: y.campaign_parties
+                  .flatMap((z) => z.campaigns)
+                  .map((z) => {
+                    return {
+                      id: z.id,
+                      name: z.name,
+                      description: z.description
+                    };
+                  }),
+              };
+            }),
+        };
+      }),
+  };
 }
 
 async function getUserByEmail(email: string, includePassword: boolean = false) {
@@ -73,10 +111,10 @@ async function getUserByEmail(email: string, includePassword: boolean = false) {
               char_class: true,
               sub_class: true,
               level: true,
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     },
   });
 
@@ -95,9 +133,14 @@ async function createUser(email: string, username: string, password: string) {
   return authService.generateTokens(user);
 }
 
-async function updateUser(id: number, email: string, username: string, password: string ) {
+async function updateUser(
+  id: number,
+  email: string,
+  username: string,
+  password: string
+) {
   const hashedPassword = await bcrypt.hash(password, 10);
-   await prisma.users.update({
+  await prisma.users.update({
     where: {
       id: id,
     },
@@ -110,7 +153,7 @@ async function updateUser(id: number, email: string, username: string, password:
 }
 
 async function deleteUser(id: number) {
- await prisma.users.delete({
+  await prisma.users.delete({
     where: {
       id: id,
     },
@@ -123,7 +166,7 @@ const userService = {
   getUserByEmail,
   createUser,
   updateUser,
-  deleteUser
-}
+  deleteUser,
+};
 
 export { userService };

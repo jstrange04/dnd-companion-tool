@@ -65,6 +65,15 @@ async function removeCampaign(req: Request, res: Response) {
   res.sendStatus(204);
 }
 
+async function removePartyFromCampaign(req: Request, res: Response) {
+  const { campaign_id, party_id } = req.body;
+  await campaignService.addPartyToCampaign(
+    campaign_id,
+    party_id, 
+  );
+  res.sendStatus(201);
+}
+
 const campaignController = {
   getAllCampaigns,
   getCampaign,
@@ -72,7 +81,8 @@ const campaignController = {
   addPartyToCampaign,
   createCampaign,
   updateCampaign,
-  removeCampaign
+  removeCampaign,
+  removePartyFromCampaign
 }
 
 export { campaignController };

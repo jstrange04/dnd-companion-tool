@@ -6,13 +6,10 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NavigationRoutes from "../constants/routes";
 import { Link } from "react-router-dom";
-import TokenUtils from "../utils/token";
 
 interface page {
   display: string;
@@ -64,7 +61,7 @@ function NavBar() {
   const renderMenuItem = ({ route, display }: page) => {
     return (
       <Link key={route} to={route} style={{ textDecoration: "none" }}>
-        <Button sx={{ my: 2, color: "white", display: "block" }}>
+        <Button sx={{ my: 2, color: "white", display: "block", fontFamily: "EnchantedLand" }}>
           {display}
         </Button>
       </Link>
@@ -93,7 +90,7 @@ function NavBar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              fontFamily: "EnchantedLand",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -102,7 +99,7 @@ function NavBar() {
           >
             Companion Tool
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, fontFamily: "EnchantedLand", }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -127,6 +124,7 @@ function NavBar() {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
+                fontFamily: "EnchantedLand",
               }}
             >
               {pages.map((page) => renderMenuItem(page))}
@@ -141,7 +139,7 @@ function NavBar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: "EnchantedLand",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -150,7 +148,7 @@ function NavBar() {
           >
             Companion Tool
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, fontFamily: "EnchantedLand", }}>
             {pages.map((page) => renderMenuItem(page))}
           </Box>
         </Toolbar>

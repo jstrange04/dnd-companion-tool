@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { validation } from '../utils';
-import { check } from 'express-validator';
-import { partyController } from '../controllers/party';
+import { Router } from "express";
+import { validation } from "../utils";
+import { check } from "express-validator";
+import { partyController } from "../controllers/party";
 
 const partyRouter = Router();
 
@@ -26,30 +26,7 @@ const partyRouter = Router();
  *       204:
  *         description: No content
  */
- partyRouter.route("/").get(partyController.getAllParties);
-
-//  /**
-//  * @swagger
-//  * /parties:
-//  *   get:
-//  *     tags: [
-//  *       parties
-//  *     ]
-//  *     summary: Returns an array of party items
-//  *     responses:
-//  *       200:
-//  *         description: OK
-//  *         content:
-//  *           application/json:
-//  *             examples:
-//  *               jsonObject:
-//  *                 summary: An example JSON response
-//  *                 value: '[{ "id": 1, "name": "Party One", "party_level": "3", "date_created": "00/00/00 00:00:00"},
-//  *                         {"id": 2, "name": "Party Two", "party_level": "5", "date_created": "00/00/00 00:00:00"}]'
-//  *       204:
-//  *         description: No content
-//  */
-//  partyRouter.route("/").get(partyController.getUserParties);
+partyRouter.route("/").get(partyController.getAllParties);
 
 /**
  * @swagger
@@ -76,34 +53,7 @@ const partyRouter = Router();
  *       204:
  *         description: No content
  */
- partyRouter.route("/:party_id(\\d+)").get(partyController.getParty);
-
- /**
- * @swagger
- * /parties/{characterId}:
- *   get:
- *     tags: [
- *       parties
- *     ]
- *     summary: Returns an array of parties
- *     parameters:
- *       - name: partyId
- *         in: path
- *         type: integer
- *         description: The ID of the requested party.
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             examples:
- *               jsonObject:
- *                 summary: An example JSON response
- *                 value: '{ "id": 1, "name": "Party One", "party_level": "3", "date_created": "00/00/00 00:00:00"}'
- *       204:
- *         description: No content
- */
- partyRouter.route("/characters/:character_id(\\d+)").get(partyController.getCharactersParties);
+partyRouter.route("/:party_id(\\d+)").get(partyController.getParty);
 
 /**
  * @swagger
@@ -133,7 +83,7 @@ const partyRouter = Router();
  *       201:
  *         description: Party Created
  */
- partyRouter
+partyRouter
   .route("/")
   .post(
     [
@@ -143,10 +93,54 @@ const partyRouter = Router();
         .trim(),
       check("party_level")
         .isNumeric()
-        .withMessage("the parties level must be a number")
+        .withMessage("the parties level must be a number"),
     ],
     validation.validate,
     partyController.createParty
+  );
+
+/**
+ * @swagger
+ * /parties/add:
+ *   post:
+ *     tags: [
+ *       parties
+ *     ]
+ *     summary: Adds a character to a party
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                 party_id:
+ *                  type: number
+ *                  required: true
+ *                  description: The id for the party
+ *                character_id:
+ *                 type: int
+ *                 required: true
+ *                 description: The level of the party
+ *     responses:
+ *       400:
+ *         description: Bad Request - required values are missing.
+ *       201:
+ *         description: Party Created
+ */
+partyRouter
+  .route("/add/")
+  .post(
+    [
+      check("party_id")
+         .isNumeric()
+        .withMessage("the party id has not been found")
+        .trim(),
+      check("character_id")
+        .isNumeric()
+        .withMessage("the character id has not been found"),
+    ],
+    validation.validate,
+    partyController.addToParty
   );
 
 /**
@@ -182,7 +176,7 @@ const partyRouter = Router();
  *       204:
  *         description: Party Updated
  */
- partyRouter
+partyRouter
   .route("/:party_id(\\d+)")
   .put(
     [
@@ -217,6 +211,6 @@ const partyRouter = Router();
  *       201:
  *         description: Party Deleted
  */
- partyRouter.route("/:id").delete(partyController.removeParty);
+partyRouter.route("/:id").delete(partyController.removeParty);
 
 export { partyRouter };

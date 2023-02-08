@@ -1,4 +1,5 @@
 import { Rowing } from "@mui/icons-material";
+import { Card, Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
@@ -27,46 +28,88 @@ const Parties = () => {
 
   return (
     <div>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          marginLeft: 10,
-          marginTop: 10,
-          
-        }}
+            <Paper
+      sx={{
+        height: "100%",
+        width: "100%",
+        marginTop: 7,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignContent: 'start',
+        padding: 1
+      }}
       >
-        <h1>Parties</h1>
-      </Box>
-      <Box
-        sx={{
-          height: 50,
-          width: "100%",
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          marginLeft: 10,
-        }}
-      >
-        <Button type="submit" onClick={handleCreateParty}>
-          Create a Party
-        </Button>
-      </Box>
-      <Box sx={{ height: 400, width: "90%", marginLeft: 10 }}>
-        {parties.map((party: any) => (
-          <p>
-            {"Party Id: " +
-              party.id +
-              " Party Name: " +
-              party.name +
-              " Party Level: " +
-              party.level}
-          </p>
-        ))}
-      </Box>
+        <Box
+          sx={{
+            height: 70,
+            width: "100%",
+            fontFamily: "EnchantedLand",
+            fontSize: 30,
+            letterSpacing: ".3rem",
+            marginLeft: 1,
+            alignContent: 'start',
+          }}
+        >
+          <h1>Parties</h1>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            fontFamily: "EnchantedLand",
+            fontWeight: 700,
+            marginTop: 7,
+            marginLeft: 1,
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <Box
+            sx={{
+              fontFamily: "EnchantedLand",
+              fontSize: 26,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            {parties.map((party: any) => (
+              <Card
+                sx={{
+                  height: 300,
+                  fontFamily: "EnchantedLand",
+                  width: 300,
+                  fontWeight: 500,
+                  justifyContent: "left",
+                  alignContent: "left",
+                  fontSize: 22,
+                  margin: 1,
+                  padding: 1,
+                }}
+              >
+                <em>Name: </em>
+                {party.name}
+                <br />
+                <em>Party Level:  </em>
+                {party.level}
+              </Card>
+            ))}
+          </Box>
+          <Button
+            type="submit"
+            onClick={handleCreateParty}
+            sx={{
+              height: 60,
+              fontFamily: "EnchantedLand",
+              fontWeight: 500,
+              fontSize: 20,
+              color: 'orange'
+            }}
+          >
+            Create a Party
+          </Button>
+        </Box>
+      </Paper>
     </div>
   );
 };

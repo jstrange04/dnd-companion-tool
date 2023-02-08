@@ -1,8 +1,6 @@
 .box {
     display: flex;
     flex-direction: column;
-    height: 80%;
-    width: 80%;
     justify-content: center;
     align-content: center;
     column-gap: 20px;
