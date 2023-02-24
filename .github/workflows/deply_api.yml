@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'server/**'
+      ##- 'server/**'
 
 defaults:
  run:
@@ -37,4 +37,4 @@ jobs:
       run: |
           aws lightsail get-container-images --service-name dnd-companion-tool-api | jq --raw-output ".containerImages[0].image" > image.txt
           jq --arg image $(cat image.txt) '.containers.app.image = $image' container.template.json > container.json
-          aws lightsail create-container-service-deployment --service-name dnd-companion-tool-1 --cli-input-json file://$(pwd)/container.json
+          aws lightsail create-container-service-deployment --service-name dnd-companion-tool-api --cli-input-json file://$(pwd)/container.json
