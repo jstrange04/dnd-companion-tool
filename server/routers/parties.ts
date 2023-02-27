@@ -132,7 +132,7 @@ partyRouter
   .post(
     [
       check("party_id")
-         .isNumeric()
+        .isNumeric()
         .withMessage("the party id has not been found")
         .trim(),
       check("character_id")

@@ -59,6 +59,16 @@ app.use("/swagger.json", (req: Request, res: Response) =>
   res.json(openapiSpecification).status(200)
 );
 
+app.get('/health', (req, res) => {
+  const data = {
+    uptime: process.uptime(),
+    message: 'Ok',
+    date: new Date()
+  }
+
+  res.status(200).send(data);
+});
+
 app.all("*", verifyToken);
 // // Use middleware to set the default Content-Type
 app.use(function (req, res, next) {

@@ -13,6 +13,7 @@ const handleTest = (res: Response, next: NextFunction) => {
 const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   if (process.env.NODE_ENV === "test") return handleTest(res, next);
 
+  
   if ((req.path === "/auth" || req.path === "/user") && req.method == "POST")
   return next();
 
@@ -39,10 +40,10 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
         error: "Access Denied",
       });
     }
-    res.status(401).json({
-      error: "Access Denied",
-    });
   }
+  res.status(401).json({
+    error: "Access Denied",
+  });
 };
 
 const checkTokenValidity = (token: string, secret: string): string | jwt.JwtPayload => {
