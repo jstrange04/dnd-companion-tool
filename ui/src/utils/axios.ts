@@ -3,7 +3,7 @@ import TokenUtils from "../utils/token";
 import NavigationRoutes from "../constants/routes";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3001/",
+  baseURL: process.env.REACT_APP_API_URL ?? "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

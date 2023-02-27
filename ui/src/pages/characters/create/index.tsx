@@ -130,7 +130,7 @@ const CreateCharacter = () => {
     return response.data;
   };
 
-  const handleRegister = () => {
+  const handleCreate = () => {
     try {
       console.log(
         character.name +
@@ -413,14 +413,14 @@ const CreateCharacter = () => {
         >
           <Button
             type="submit"
-            onClick={handleRegister}
+            onClick={handleCreate}
             sx={{
               fontFamily: "EnchantedLand",
               color: "orange",
               fontSize: 22
             }}
           >
-            Create Character
+            Create
           </Button>
         </Box>
       </Paper>
